@@ -6,21 +6,21 @@ import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SinglyLinkedListTest {
+class DoublyLinkedListTest {
 
     @Test
     void search() {
-        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+        DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
 
         list.insertAtTheBeginning(10);
-        list.insertInTheMiddle(0, 9);
+        list.insert(0, 9);
         list.insertAtTheEnd(12);
-        list.insertInTheMiddle(1, 14);
+        list.insert(1, 14);
         list.insertAtTheBeginning(1);
         list.insertAtTheEnd(20);
-        list.insertInTheMiddle(1, 2);
-        list.insertInTheMiddle(2, 3);
-        list.insertInTheMiddle(3, 4);
+        list.insert(1, 2);
+        list.insert(2, 3);
+        list.insert(3, 4);
 
         list.printList();
 
@@ -48,214 +48,178 @@ class SinglyLinkedListTest {
 
     @Test
     void insertAtTheBeginning() throws NoSuchFieldException, IllegalAccessException {
-        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+        DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
 
-        SinglyLinkedList.Node<Integer> tail;
-        SinglyLinkedList.Node<Integer> head;
+        DoublyLinkedList.Node<Integer> tail;
+        DoublyLinkedList.Node<Integer> head;
 
         list.insertAtTheBeginning(10);
         assertEquals(1, list.size());
         head = getHead(list);
-        assertEquals(10, head.getValue());
         assertNull(head.getNext());
         tail = getTail(list);
         assertEquals(head, tail);
+        assertEquals("10", list.toString());
 
         list.insertAtTheBeginning(9);
         assertEquals(2, list.size());
         head = getHead(list);
-        assertEquals(9, head.getValue());
         assertNotNull(head.getNext());
-        assertEquals(10, head.getNext().getValue());
         assertNull(head.getNext().getNext());
+        assertEquals("9 --> 10", list.toString());
 
         list.insertAtTheBeginning(8);
         assertEquals(3, list.size());
         head = getHead(list);
-        assertEquals(8, head.getValue());
         assertNotNull(head.getNext());
-        assertEquals(9, head.getNext().getValue());
         assertNotNull(head.getNext().getNext());
-        assertEquals(10, head.getNext().getNext().getValue());
         assertNull(head.getNext().getNext().getNext());
-
-        list.printList();
+        assertEquals("8 --> 9 --> 10", list.toString());
     }
 
     @Test
     void insertAtTheEnd() throws NoSuchFieldException, IllegalAccessException {
-        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+        DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
 
-        SinglyLinkedList.Node<Integer> tail;
-        SinglyLinkedList.Node<Integer> head;
+        DoublyLinkedList.Node<Integer> tail;
+        DoublyLinkedList.Node<Integer> head;
 
         list.insertAtTheEnd(10);
         assertEquals(1, list.size());
         head = getHead(list);
         tail = getTail(list);
         assertEquals(head, tail);
-        assertEquals(10, head.getValue());
         assertNull(head.getNext());
+        assertEquals("10", list.toString());
 
         list.insertAtTheEnd(9);
         assertEquals(2, list.size());
         head = getHead(list);
         tail = getTail(list);
-        assertEquals(10, head.getValue());
         assertNotNull(head.getNext());
-        assertEquals(9, head.getNext().getValue());
         assertNull(head.getNext().getNext());
         assertEquals(tail, head.getNext());
+        assertEquals("10 --> 9", list.toString());
 
         list.insertAtTheEnd(8);
         assertEquals(3, list.size());
         head = getHead(list);
         tail = getTail(list);
-        assertEquals(10, head.getValue());
         assertNotNull(head.getNext());
-        assertEquals(9, head.getNext().getValue());
         assertNotNull(head.getNext().getNext());
-        assertEquals(8, head.getNext().getNext().getValue());
         assertNull(head.getNext().getNext().getNext());
         assertEquals(tail, head.getNext().getNext());
+        assertEquals("10 --> 9 --> 8", list.toString());
 
         list.insertAtTheEnd(7);
         assertEquals(4, list.size());
         head = getHead(list);
         tail = getTail(list);
-        assertEquals(10, head.getValue());
         assertNotNull(head.getNext());
-        assertEquals(9, head.getNext().getValue());
         assertNotNull(head.getNext().getNext());
-        assertEquals(8, head.getNext().getNext().getValue());
         assertNotNull(head.getNext().getNext().getNext());
-        assertEquals(7, head.getNext().getNext().getNext().getValue());
         assertNull(head.getNext().getNext().getNext().getNext());
         assertEquals(tail, head.getNext().getNext().getNext());
-
-        list.printList();
+        assertEquals("10 --> 9 --> 8 --> 7", list.toString());
     }
 
     @Test
-    void insertInTheMiddle() throws NoSuchFieldException, IllegalAccessException {
-        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+    void insert() throws NoSuchFieldException, IllegalAccessException {
+        DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
 
-        SinglyLinkedList.Node<Integer> tail;
-        SinglyLinkedList.Node<Integer> head;
+        DoublyLinkedList.Node<Integer> tail;
+        DoublyLinkedList.Node<Integer> head;
 
-        assertThrows(IllegalArgumentException.class, () -> list.insertInTheMiddle(0, 1));
+        assertThrows(IllegalArgumentException.class, () -> list.insert(0, 1));
 
         list.insertAtTheBeginning(10);
 
-        list.insertInTheMiddle(0, 9);
+        list.insert(0, 9);
         assertEquals(2, list.size());
         head = getHead(list);
         tail = getTail(list);
-        assertEquals(9, head.getValue());
         assertNotNull(head.getNext());
-        assertEquals(10, head.getNext().getValue());
         assertNull(head.getNext().getNext());
         assertEquals(tail, head.getNext());
+        assertEquals("9 --> 10", list.toString());
 
-        list.insertInTheMiddle(0, 8);
+        list.insert(0, 8);
         assertEquals(3, list.size());
         head = getHead(list);
         tail = getTail(list);
-        assertEquals(8, head.getValue());
         assertNotNull(head.getNext());
-        assertEquals(9, head.getNext().getValue());
         assertNotNull(head.getNext().getNext());
-        assertEquals(10, head.getNext().getNext().getValue());
         assertNull(head.getNext().getNext().getNext());
         assertEquals(tail, head.getNext().getNext());
+        assertEquals("8 --> 9 --> 10", list.toString());
 
-        list.insertInTheMiddle(0, 7);
+        list.insert(0, 7);
         assertEquals(4, list.size());
         head = getHead(list);
         tail = getTail(list);
-        assertEquals(7, head.getValue());
         assertNotNull(head.getNext());
-        assertEquals(8, head.getNext().getValue());
         assertNotNull(head.getNext().getNext());
-        assertEquals(9, head.getNext().getNext().getValue());
         assertNotNull(head.getNext().getNext().getNext());
-        assertEquals(10, head.getNext().getNext().getNext().getValue());
         assertNull(head.getNext().getNext().getNext().getNext());
         assertEquals(tail, head.getNext().getNext().getNext());
+        assertEquals("7 --> 8 --> 9 --> 10", list.toString());
 
-        list.insertInTheMiddle(1, 6);
+        list.insert(1, 6);
         assertEquals(5, list.size());
         head = getHead(list);
         tail = getTail(list);
-        assertEquals(7, head.getValue());
         assertNotNull(head.getNext());
-        assertEquals(6, head.getNext().getValue());
         assertNotNull(head.getNext().getNext());
-        assertEquals(8, head.getNext().getNext().getValue());
         assertNotNull(head.getNext().getNext().getNext());
-        assertEquals(9, head.getNext().getNext().getNext().getValue());
         assertNotNull(head.getNext().getNext().getNext().getNext());
-        assertEquals(10, head.getNext().getNext().getNext().getNext().getValue());
         assertNull(head.getNext().getNext().getNext().getNext().getNext());
         assertEquals(tail, head.getNext().getNext().getNext().getNext());
+        assertEquals("7 --> 6 --> 8 --> 9 --> 10", list.toString());
 
-        list.insertInTheMiddle(4, 11);
+        list.insert(4, 11);
         assertEquals(6, list.size());
         head = getHead(list);
         tail = getTail(list);
-        assertEquals(7, head.getValue());
         assertNotNull(head.getNext());
-        assertEquals(6, head.getNext().getValue());
         assertNotNull(head.getNext().getNext());
-        assertEquals(8, head.getNext().getNext().getValue());
         assertNotNull(head.getNext().getNext().getNext());
-        assertEquals(9, head.getNext().getNext().getNext().getValue());
         assertNotNull(head.getNext().getNext().getNext().getNext());
-        assertEquals(10, head.getNext().getNext().getNext().getNext().getValue());
         assertNotNull(head.getNext().getNext().getNext().getNext().getNext());
-        assertEquals(11, head.getNext().getNext().getNext().getNext().getNext().getValue());
         assertNull(head.getNext().getNext().getNext().getNext().getNext().getNext());
         assertEquals(tail, head.getNext().getNext().getNext().getNext().getNext());
+        assertEquals("7 --> 6 --> 8 --> 9 --> 10 --> 11", list.toString());
 
-        list.insertInTheMiddle(1, 2);
+        list.insert(1, 2);
         assertEquals(7, list.size());
         head = getHead(list);
         tail = getTail(list);
-        assertEquals(7, head.getValue());
         assertNotNull(head.getNext());
-        assertEquals(2, head.getNext().getValue());
         assertNotNull(head.getNext().getNext());
-        assertEquals(6, head.getNext().getNext().getValue());
         assertNotNull(head.getNext().getNext().getNext());
-        assertEquals(8, head.getNext().getNext().getNext().getValue());
         assertNotNull(head.getNext().getNext().getNext().getNext());
-        assertEquals(9, head.getNext().getNext().getNext().getNext().getValue());
         assertNotNull(head.getNext().getNext().getNext().getNext().getNext());
-        assertEquals(10, head.getNext().getNext().getNext().getNext().getNext().getValue());
         assertNotNull(head.getNext().getNext().getNext().getNext().getNext().getNext());
-        assertEquals(11, head.getNext().getNext().getNext().getNext().getNext().getNext().getValue());
         assertNull(head.getNext().getNext().getNext().getNext().getNext().getNext().getNext());
         assertEquals(tail, head.getNext().getNext().getNext().getNext().getNext().getNext());
-
-        list.printList();
+        assertEquals("7 --> 2 --> 6 --> 8 --> 9 --> 10 --> 11", list.toString());
     }
 
     @Test
     void removeHead() throws NoSuchFieldException, IllegalAccessException {
-        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+        DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
 
         list.insertAtTheBeginning(10);
-        list.insertInTheMiddle(0, 9);
+        list.insert(0, 9);
         list.insertAtTheEnd(12);
-        list.insertInTheMiddle(1, 14);
+        list.insert(1, 14);
         list.insertAtTheBeginning(1);
         list.insertAtTheEnd(20);
-        list.insertInTheMiddle(1, 2);
-        list.insertInTheMiddle(2, 3);
-        list.insertInTheMiddle(3, 4);
+        list.insert(1, 2);
+        list.insert(2, 3);
+        list.insert(3, 4);
 
-        SinglyLinkedList.Node<Integer> tail;
-        SinglyLinkedList.Node<Integer> head;
+        DoublyLinkedList.Node<Integer> tail;
+        DoublyLinkedList.Node<Integer> head;
 
         head = getHead(list);
         tail = getTail(list);
@@ -303,26 +267,24 @@ class SinglyLinkedListTest {
         assertEquals(0, list.size());
 
         assertThrows(IllegalArgumentException.class, list::removeHead);
-
-        list.printList();
     }
 
     @Test
     void removeTail() throws NoSuchFieldException, IllegalAccessException {
-        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+        DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
 
         list.insertAtTheBeginning(10);
-        list.insertInTheMiddle(0, 9);
+        list.insert(0, 9);
         list.insertAtTheEnd(12);
-        list.insertInTheMiddle(1, 14);
+        list.insert(1, 14);
         list.insertAtTheBeginning(1);
         list.insertAtTheEnd(20);
-        list.insertInTheMiddle(1, 2);
-        list.insertInTheMiddle(2, 3);
-        list.insertInTheMiddle(3, 4);
+        list.insert(1, 2);
+        list.insert(2, 3);
+        list.insert(3, 4);
 
-        SinglyLinkedList.Node<Integer> tail;
-        SinglyLinkedList.Node<Integer> head;
+        DoublyLinkedList.Node<Integer> tail;
+        DoublyLinkedList.Node<Integer> head;
 
         head = getHead(list);
         tail = getTail(list);
@@ -370,26 +332,24 @@ class SinglyLinkedListTest {
         assertEquals(0, list.size());
 
         assertThrows(IllegalArgumentException.class, list::removeTail);
-
-        list.printList();
     }
 
     @Test
     void removeAt() throws NoSuchFieldException, IllegalAccessException {
-        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+        DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
 
         list.insertAtTheBeginning(10);
-        list.insertInTheMiddle(0, 9);
+        list.insert(0, 9);
         list.insertAtTheEnd(12);
-        list.insertInTheMiddle(1, 14);
+        list.insert(1, 14);
         list.insertAtTheBeginning(1);
         list.insertAtTheEnd(20);
-        list.insertInTheMiddle(1, 2);
-        list.insertInTheMiddle(2, 3);
-        list.insertInTheMiddle(3, 4);
+        list.insert(1, 2);
+        list.insert(2, 3);
+        list.insert(3, 4);
 
-        SinglyLinkedList.Node<Integer> tail;
-        SinglyLinkedList.Node<Integer> head;
+        DoublyLinkedList.Node<Integer> tail;
+        DoublyLinkedList.Node<Integer> head;
 
         head = getHead(list);
         tail = getTail(list);
@@ -493,17 +453,17 @@ class SinglyLinkedListTest {
 
     @Test
     void get() {
-        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+        DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
 
         list.insertAtTheBeginning(10);
-        list.insertInTheMiddle(0, 9);
+        list.insert(0, 9);
         list.insertAtTheEnd(12);
-        list.insertInTheMiddle(1, 14);
+        list.insert(1, 14);
         list.insertAtTheBeginning(1);
         list.insertAtTheEnd(20);
-        list.insertInTheMiddle(1, 2);
-        list.insertInTheMiddle(2, 3);
-        list.insertInTheMiddle(3, 4);
+        list.insert(1, 2);
+        list.insert(2, 3);
+        list.insert(3, 4);
 
         /*
         1
@@ -530,15 +490,19 @@ class SinglyLinkedListTest {
         list.printList();
     }
 
-    private static <E> SinglyLinkedList.Node<E> getHead(SinglyLinkedList<E> numbers) throws NoSuchFieldException, IllegalAccessException {
-        Field elementsField = numbers.getClass().getDeclaredField("head");
-        elementsField.setAccessible(true);
-        return (SinglyLinkedList.Node<E>) elementsField.get(numbers);
+    @Test
+    void size() {
     }
 
-    private static <E> SinglyLinkedList.Node<E> getTail(SinglyLinkedList<E> numbers) throws NoSuchFieldException, IllegalAccessException {
+    private static <E> DoublyLinkedList.Node<E> getHead(DoublyLinkedList<E> numbers) throws NoSuchFieldException, IllegalAccessException {
+        Field elementsField = numbers.getClass().getDeclaredField("head");
+        elementsField.setAccessible(true);
+        return (DoublyLinkedList.Node<E>) elementsField.get(numbers);
+    }
+
+    private static <E> DoublyLinkedList.Node<E> getTail(DoublyLinkedList<E> numbers) throws NoSuchFieldException, IllegalAccessException {
         Field elementsField = numbers.getClass().getDeclaredField("tail");
         elementsField.setAccessible(true);
-        return (SinglyLinkedList.Node<E>) elementsField.get(numbers);
+        return (DoublyLinkedList.Node<E>) elementsField.get(numbers);
     }
 }

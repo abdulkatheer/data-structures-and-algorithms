@@ -1,5 +1,10 @@
 package io.abdul;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.stream.Collectors.joining;
+
 public class SinglyLinkedList<E> {
     private Node<E> head;
     private Node<E> tail;
@@ -38,28 +43,11 @@ public class SinglyLinkedList<E> {
             head = newTail;
             tail = newTail;
             size++;
-            return;
-        }
-
-        if (size == 1) { // only 1 element, head and tail are same
-            head.next = newTail;
+        } else { // At least 1 element exists
+            tail.next = newTail;
             tail = newTail;
             size++;
-            return;
         }
-
-        Node<E> e = head;
-        int i = 0;
-        while (i < size) {
-            if (i == size - 1) { // last element
-                e.next = newTail;
-                tail = newTail;
-                break;
-            }
-            e = e.next;
-            i++;
-        }
-        size++;
     }
 
     public void insertInTheMiddle(int position, E element) {
@@ -93,6 +81,13 @@ public class SinglyLinkedList<E> {
         if (size == 0) {
             throw new IllegalArgumentException("Collection is empty");
         }
+        if (size == 1) {
+            E e = head.value;
+            head = null;
+            tail = null;
+            size--;
+            return e;
+        }
         E e = head.value;
         head = head.next;
         size--;
@@ -107,13 +102,6 @@ public class SinglyLinkedList<E> {
             E e = tail.value;
             head = null;
             tail = null;
-            size--;
-            return e;
-        }
-        if (size == 2) { // only 2 elements, after removing, head and tail will be same
-            E e = tail.value;
-            head.next = null;
-            tail = head;
             size--;
             return e;
         }
@@ -175,6 +163,23 @@ public class SinglyLinkedList<E> {
 
     public int size() {
         return size;
+    }
+
+    public void printList() {
+        System.out.println(this);
+    }
+
+    @Override
+    public String toString() {
+        List<E> l = new ArrayList<>();
+        Node<E> e = head;
+        while (e != null) {
+            l.add(e.value);
+            e = e.next;
+        }
+        return l.stream()
+                .map(E::toString)
+                .collect(joining(" --> "));
     }
 
     private void validatePosition(int position) {
