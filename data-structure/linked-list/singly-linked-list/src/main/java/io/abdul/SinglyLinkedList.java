@@ -161,6 +161,52 @@ public class SinglyLinkedList<E> {
         throw new IllegalArgumentException("Index our of bounds");
     }
 
+    public void reverse() {
+        /*
+        a --> b --> c --> d --> e --> f --> null
+        f --> e --> d --> c --> b --> a --> null
+
+        f.next --> e        | f.next --> null
+        e.next --> d        | e.next --> f
+        d.next --> c        | d.next --> e
+        c.next --> b        | c.next --> d
+        b.next --> a        | b.next --> c
+        a.next --> null     | a.next --> b
+
+        c = a
+        p = null
+
+        c = c.next
+        c.next = p
+        p = c
+         */
+
+        Node<E> prevHead = head;
+        head = tail;
+        tail = prevHead;
+
+        Node<E> current = prevHead;
+        Node<E> previous = null;
+        while (current != null) {
+            Node<E> t = current.next;
+            current.next = previous;
+
+            previous = current;
+            current = t;
+        }
+        /*
+        Itr 1: current a, previous null START
+        Itr 2: current b (a.next), previous a
+        Itr 3: current c (b.next), previous b
+        Itr 4: current d (c.next), previous c
+        Itr 5: current e (d.next), previous c
+        Itr 6: current f (e.next), previous e
+        Itr 7: current null (f.next) STOP
+         */
+
+
+    }
+
     public int size() {
         return size;
     }

@@ -530,6 +530,52 @@ class SinglyLinkedListTest {
         list.printList();
     }
 
+
+    @Test
+    void reverse() throws NoSuchFieldException, IllegalAccessException {
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+
+        list.insertAtTheBeginning(10);
+        list.insertInTheMiddle(0, 9);
+        list.insertAtTheEnd(12);
+        list.insertInTheMiddle(1, 14);
+        list.insertAtTheBeginning(1);
+        list.insertAtTheEnd(20);
+        list.insertInTheMiddle(1, 2);
+        list.insertInTheMiddle(2, 3);
+        list.insertInTheMiddle(3, 4);
+
+        assertEquals("1 --> 2 --> 3 --> 4 --> 9 --> 14 --> 10 --> 12 --> 20", list.toString());
+        list.reverse();
+        assertEquals("20 --> 12 --> 10 --> 14 --> 9 --> 4 --> 3 --> 2 --> 1", list.toString());
+
+        list = new SinglyLinkedList<>();
+        assertEquals("", list.toString());
+        list.reverse();
+        assertEquals("", list.toString());
+
+        list = new SinglyLinkedList<>();
+        list.insertAtTheBeginning(10);
+        assertEquals("10", list.toString());
+        list.reverse();
+        assertEquals("10", list.toString());
+
+        list = new SinglyLinkedList<>();
+        list.insertAtTheBeginning(10);
+        list.insertAtTheBeginning(9);
+        assertEquals("9 --> 10", list.toString());
+        list.reverse();
+        assertEquals("10 --> 9", list.toString());
+
+        list = new SinglyLinkedList<>();
+        list.insertAtTheBeginning(10);
+        list.insertAtTheBeginning(9);
+        list.insertAtTheBeginning(8);
+        assertEquals("8 --> 9 --> 10", list.toString());
+        list.reverse();
+        assertEquals("10 --> 9 --> 8", list.toString());
+    }
+
     private static <E> SinglyLinkedList.Node<E> getHead(SinglyLinkedList<E> numbers) throws NoSuchFieldException, IllegalAccessException {
         Field elementsField = numbers.getClass().getDeclaredField("head");
         elementsField.setAccessible(true);

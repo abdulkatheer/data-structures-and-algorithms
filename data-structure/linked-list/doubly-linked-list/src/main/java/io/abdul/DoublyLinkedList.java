@@ -129,6 +129,10 @@ public class DoublyLinkedList<E> {
         throw new IllegalArgumentException("Index our of bounds");
     }
 
+    public void reverse() {
+        // TODO implement
+    }
+
     public int size() {
         return size;
     }
