@@ -17,6 +17,8 @@
         <module>array/dynamic-array</module>
         <module>hashtable</module>
         <module>linked-list</module>
+        <module>api</module>
+        <module>stack</module>
     </modules>
 
     <properties>
@@ -24,5 +26,15 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.abdul</groupId>
+                <artifactId>api</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>

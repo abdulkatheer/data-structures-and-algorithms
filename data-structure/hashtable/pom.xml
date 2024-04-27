@@ -17,4 +17,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>io.abdul</groupId>
+            <artifactId>api</artifactId>
+        </dependency>
+    </dependencies>
 </project>

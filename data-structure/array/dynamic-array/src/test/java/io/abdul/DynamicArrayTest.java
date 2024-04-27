@@ -212,8 +212,8 @@ class DynamicArrayTest {
         DynamicArray<Integer> numbers = new DynamicArray<>(10);
 
         numbers.add(1);
-        assertEquals(1, numbers.find(0));
-        assertThrows(IllegalArgumentException.class, () -> numbers.find(1));
+        assertEquals(1, numbers.get(0));
+        assertThrows(IllegalArgumentException.class, () -> numbers.get(1));
     }
 
     private static Object[] getElements(DynamicArray<Integer> numbers) throws NoSuchFieldException, IllegalAccessException {

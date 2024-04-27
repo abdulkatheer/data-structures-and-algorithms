@@ -1,8 +1,13 @@
 package io.abdul;
 
-import java.util.Arrays;
+import io.abdul.api.Array;
+import io.abdul.api.exception.NotImplemented;
 
-public class DynamicArray<E> {
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Optional;
+
+public class DynamicArray<E> implements Array<E> {
     private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
     public static final int SOFT_MAX_ARRAY_LENGTH = Integer.MAX_VALUE - 8;
     private static final int DEFAULT_CAPACITY = 10;
@@ -19,6 +24,7 @@ public class DynamicArray<E> {
     }
 
     // O(n)
+    @Override
     public int add(E element) {
         lastUsedIndex++;
         if (lastUsedIndex >= elements.length) {
@@ -29,25 +35,27 @@ public class DynamicArray<E> {
     }
 
     // O(1)
-    public E set(int index, E element) {
-        validateIndex(index);
-        Object preElement = elements[index];
-        elements[index] = element;
+    @Override
+    public E set(int position, E element) {
+        validateIndex(position);
+        Object preElement = elements[position];
+        elements[position] = element;
         return (E) preElement;
     }
 
     // O(n)
-    public void insert(int index, E element) {
-        validateIndex(index);
+    @Override
+    public void insert(int position, E element) {
+        validateIndex(position);
 
-        Object temp = elements[index];
-        elements[index] = element;
+        Object temp = elements[position];
+        elements[position] = element;
 
         lastUsedIndex++;
         if (lastUsedIndex >= elements.length) {
             grow(lastUsedIndex + 1);
         }
-        for (int i = index + 1; i < lastUsedIndex; i++) {
+        for (int i = position + 1; i < lastUsedIndex; i++) {
             Object t = elements[i];
             elements[i] = temp;
             temp = t;
@@ -55,12 +63,13 @@ public class DynamicArray<E> {
     }
 
     // O(n)
-    public E remove(int index) {
-        validateIndex(index);
-        E element = (E) elements[index];
-        elements[index] = null;
+    @Override
+    public E remove(int position) {
+        validateIndex(position);
+        E element = (E) elements[position];
+        elements[position] = null;
 
-        for (int i = index; i < lastUsedIndex; i++) {
+        for (int i = position; i < lastUsedIndex; i++) {
             elements[i] = elements[i + 1];
         }
 
@@ -69,10 +78,21 @@ public class DynamicArray<E> {
         return element;
     }
 
+    @Override
+    public Optional<Integer> lookup(E element) {
+        throw new NotImplemented("lookup not implemented in Dynamic Array");
+    }
+
     // O(1)
-    public E find(int index) {
+    @Override
+    public E get(int index) {
         validateIndex(index);
         return (E) elements[index];
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        throw new NotImplemented("iterator not implemented in Dynamic Array");
     }
 
     private void validateIndex(int index) {

@@ -1,6 +1,13 @@
 package io.abdul;
 
-public class StaticArray<E> {
+import io.abdul.api.Array;
+import io.abdul.api.exception.IndexOutOfBounds;
+import io.abdul.api.exception.NotImplemented;
+
+import java.util.Iterator;
+import java.util.Optional;
+
+public class StaticArray<E> implements Array<E> {
     private final Object[] elements;
 
     public StaticArray(int size) {
@@ -8,7 +15,8 @@ public class StaticArray<E> {
     }
 
     // O(1)
-    public E addAtPosition(int index, E element) {
+    @Override
+    public E set(int index, E element) {
         validateIndex(index);
         Object preElement = elements[index];
         elements[index] = element;
@@ -16,20 +24,14 @@ public class StaticArray<E> {
     }
 
     // O(n)
-    public void insertAtPosition(int index, E element) {
-        validateIndex(index);
+    @Override
+    public void insert(int index, E element) {
 
-        Object temp = elements[index];
-        elements[index] = element;
-        for (int i = index + 1; i < elements.length; i++) {
-            Object t = elements[i];
-            elements[i] = temp;
-            temp = t;
-        }
     }
 
     // O(n)
-    public E removeAtPosition(int index) {
+    @Override
+    public E remove(int index) {
         validateIndex(index);
         E element = (E) elements[index];
         elements[index] = null;
@@ -43,26 +45,36 @@ public class StaticArray<E> {
     }
 
     // O(1)
-    public E findAtIndex(int index) {
+    @Override
+    public E get(int index) {
         validateIndex(index);
         return (E) elements[index];
     }
 
     // O(n)
-    public int search(E element) {
+    @Override
+    public Optional<Integer> lookup(E element) {
         for (int i = 0; i < elements.length; i++) {
             if (elements[i] != null && elements[i].equals(element)) {
-                return i;
+                return Optional.of(i);
             }
         }
-        return -1;
+        return Optional.empty();
     }
 
+    @Override
+    public int add(E element) throws IndexOutOfBounds {
+        throw new NotImplemented("add not implemented in Static Array");
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        throw new NotImplemented("iterator not implemented in Static Array");
+    }
 
     private void validateIndex(int index) {
         if (index < 0 || index >= elements.length) {
             throw new IllegalArgumentException("Invalid index");
         }
     }
-
 }
