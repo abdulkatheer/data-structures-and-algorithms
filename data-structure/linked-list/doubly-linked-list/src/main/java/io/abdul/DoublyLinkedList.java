@@ -130,7 +130,30 @@ public class DoublyLinkedList<E> {
     }
 
     public void reverse() {
-        // TODO implement
+        /*
+        null <-- n0 <--> n1 <--> n2 <--> n3 --> null
+        null <-- n3 <--> n2 <--> n1 <--> n0 --> null
+
+        null    <-- n0 --> n1       | n1    <-- n0 --> null
+        n0      <-- n1 --> n2       | n2    <-- n1 --> n0
+        n1      <-- n2 --> n3       | n3    <-- n2 --> n1
+        n2      <-- n3 --> null     | null  <-- n3 --> n2
+
+        Just swap prev and next link in each element
+
+         */
+        Node<E> prevHead = head;
+        head = tail;
+        tail = prevHead;
+
+        Node<E> current = prevHead;
+        while (current != null) {
+            Node<E> currentNext = current.next;
+            Node<E> currentPrev = current.prev;
+            current.next = currentPrev;
+            current.prev = currentNext;
+            current = currentNext;
+        }
     }
 
     public int size() {
