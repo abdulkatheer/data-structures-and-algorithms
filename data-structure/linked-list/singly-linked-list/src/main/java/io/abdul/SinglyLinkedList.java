@@ -1,11 +1,13 @@
 package io.abdul;
 
 import io.abdul.api.LinkedList;
+import io.abdul.api.exception.IndexOutOfBounds;
 import io.abdul.api.exception.NotImplemented;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.joining;
 
@@ -15,21 +17,21 @@ public class SinglyLinkedList<E> implements LinkedList<E> {
     private int size = 0;
 
     @Override
-    public int lookup(E element) {
+    public Optional<Integer> lookup(E element) {
         if (head == null) {
-            return -1;
+            return Optional.empty();
         }
 
         Node<E> e = head;
         int i = 0;
         while (e != null) {
             if (e.value == element || e.value.equals(element)) {
-                return i;
+                return Optional.of(i);
             }
             e = e.next;
             i++;
         }
-        return -1;
+        return Optional.empty();
     }
 
     @Override
@@ -92,7 +94,7 @@ public class SinglyLinkedList<E> implements LinkedList<E> {
     @Override
     public E removeFirstElement() {
         if (size == 0) {
-            throw new IllegalArgumentException("Collection is empty");
+            throw new IndexOutOfBounds("List is empty");
         }
         if (size == 1) {
             E e = head.value;
@@ -110,7 +112,7 @@ public class SinglyLinkedList<E> implements LinkedList<E> {
     @Override
     public E removeLastElement() {
         if (size == 0) {
-            throw new IllegalArgumentException("Collection is empty");
+            throw new IndexOutOfBounds("List is empty");
         }
         if (size == 1) {  // only 1 element, head and tail are same, after removing both head and tail will be null
             E e = tail.value;
@@ -133,6 +135,22 @@ public class SinglyLinkedList<E> implements LinkedList<E> {
             i++;
         }
         throw new IllegalArgumentException("Unable to find");
+    }
+
+    @Override
+    public E getFirstElement() {
+        if (size == 0) {
+            throw new IndexOutOfBounds("List is empty");
+        }
+        return head.value;
+    }
+
+    @Override
+    public E getLastElement() {
+        if (size == 0) {
+            throw new IndexOutOfBounds("List is empty");
+        }
+        return tail.value;
     }
 
     @Override
@@ -222,6 +240,7 @@ public class SinglyLinkedList<E> implements LinkedList<E> {
 
     }
 
+    @Override
     public int size() {
         return size;
     }

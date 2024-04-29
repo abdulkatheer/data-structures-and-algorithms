@@ -13,7 +13,7 @@ public class DynamicArray<E> implements Array<E> {
     private static final int DEFAULT_CAPACITY = 10;
 
     private Object[] elements;
-    int lastUsedIndex = -1;
+    private int size = 0;
 
     public DynamicArray(int initialCapacity) {
         elements = new Object[initialCapacity];
@@ -26,12 +26,12 @@ public class DynamicArray<E> implements Array<E> {
     // O(n)
     @Override
     public int add(E element) {
-        lastUsedIndex++;
-        if (lastUsedIndex >= elements.length) {
-            grow(lastUsedIndex + 1);
+        if (size + 1 >= elements.length) {
+            grow(size + 1);
         }
-        elements[lastUsedIndex] = element;
-        return lastUsedIndex;
+        elements[size] = element;
+        size++;
+        return size - 1;
     }
 
     // O(1)
@@ -51,15 +51,15 @@ public class DynamicArray<E> implements Array<E> {
         Object temp = elements[position];
         elements[position] = element;
 
-        lastUsedIndex++;
-        if (lastUsedIndex >= elements.length) {
-            grow(lastUsedIndex + 1);
+        if (size + 1 >= elements.length) {
+            grow(size + 1);
         }
-        for (int i = position + 1; i < lastUsedIndex; i++) {
+        for (int i = position + 1; i <= size; i++) {
             Object t = elements[i];
             elements[i] = temp;
             temp = t;
         }
+        size++;
     }
 
     // O(n)
@@ -69,18 +69,23 @@ public class DynamicArray<E> implements Array<E> {
         E element = (E) elements[position];
         elements[position] = null;
 
-        for (int i = position; i < lastUsedIndex; i++) {
+        for (int i = position; i < size - 1; i++) {
             elements[i] = elements[i + 1];
         }
 
-        elements[lastUsedIndex] = null;
-        lastUsedIndex--;
+        elements[size - 1] = null;
+        size--;
         return element;
     }
 
     @Override
     public Optional<Integer> lookup(E element) {
-        throw new NotImplemented("lookup not implemented in Dynamic Array");
+        for (int i = 0; i < size; i++) {
+            if (elements[i] != null && elements[i].equals(element)) {
+                return Optional.of(i);
+            }
+        }
+        return Optional.empty();
     }
 
     // O(1)
@@ -92,7 +97,7 @@ public class DynamicArray<E> implements Array<E> {
 
     @Override
     public int size() {
-        throw new NotImplemented("size not implemented in DynamicArray");
+        return size;
     }
 
     @Override
@@ -101,7 +106,7 @@ public class DynamicArray<E> implements Array<E> {
     }
 
     private void validateIndex(int index) {
-        if (index > lastUsedIndex) {
+        if (index < 0 || index >= size) {
             throw new IllegalArgumentException("Invalid index");
         }
     }

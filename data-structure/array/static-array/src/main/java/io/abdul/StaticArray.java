@@ -72,7 +72,7 @@ public class StaticArray<E> implements Array<E> {
     // O(n)
     @Override
     public Optional<Integer> lookup(E element) {
-        for (int i = 0; i < elements.length; i++) {
+        for (int i = 0; i < size; i++) {
             if (elements[i] != null && elements[i].equals(element)) {
                 return Optional.of(i);
             }

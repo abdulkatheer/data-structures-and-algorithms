@@ -1,6 +1,7 @@
 package io.abdul.api;
 
 import java.util.Iterator;
+import java.util.Optional;
 
 public interface LinkedList<E> {
     void insert(int position, E element);
@@ -15,7 +16,13 @@ public interface LinkedList<E> {
 
     E removeLastElement();
 
-    int lookup(E element);
+    E getFirstElement();
+
+    E getLastElement();
+
+    Optional<Integer> lookup(E element);
+
+    int size();
 
     Iterator<E> iterator();
 }

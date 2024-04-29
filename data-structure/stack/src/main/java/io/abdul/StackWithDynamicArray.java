@@ -1,8 +1,8 @@
 package io.abdul;
 
+import io.abdul.api.Array;
 import io.abdul.api.Stack;
 import io.abdul.api.exception.OperationNotSupported;
-import io.abdul.api.exception.StackOverflow;
 import io.abdul.api.exception.StackUnderflow;
 
 import java.util.Iterator;
@@ -14,39 +14,55 @@ import java.util.Optional;
  * @param <E>
  */
 public class StackWithDynamicArray<E> implements Stack<E> {
-    @Override
-    public void push(E element) throws StackOverflow {
+    private final Array<E> stack;
 
+    public StackWithDynamicArray() {
+        this.stack = new DynamicArray<>();
+    }
+
+    @Override
+    public void push(E element) {
+        if (stack.size() == 0) {
+            stack.add(element);
+        } else {
+            stack.insert(0, element);
+        }
     }
 
     @Override
     public E pop() throws StackUnderflow {
-        return null;
+        if (stack.size() == 0) {
+            throw new StackUnderflow("Stack is empty");
+        }
+        return stack.remove(0);
     }
 
     @Override
     public E peek() throws StackUnderflow {
-        return null;
+        if (stack.size() == 0) {
+            throw new StackUnderflow("Stack is empty");
+        }
+        return stack.get(0);
     }
 
     @Override
     public Optional<Integer> lookup(E element) {
-        return Optional.empty();
+        return stack.lookup(element);
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return stack.size() == 0;
     }
 
     @Override
     public boolean isFull() throws OperationNotSupported {
-        return false;
+        throw new OperationNotSupported("isFull is not supported in StackWithDynamicArray");
     }
 
     @Override
     public int size() {
-        return 0;
+        return stack.size();
     }
 
     @Override

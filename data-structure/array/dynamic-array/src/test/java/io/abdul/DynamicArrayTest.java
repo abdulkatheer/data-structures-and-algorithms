@@ -13,37 +13,31 @@ class DynamicArrayTest {
         DynamicArray<Integer> numbers = new DynamicArray<>(1);
 
         Object[] elements;
-        int lastUsedIndex;
 
         assertEquals(0, numbers.add(1));
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(1, elements[0]);
-        assertEquals(0, lastUsedIndex);
+        assertEquals(1, numbers.size());
 
         assertEquals(1, numbers.add(2));
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(2, elements[1]);
-        assertEquals(1, lastUsedIndex);
+        assertEquals(2, numbers.size());
 
         assertEquals(2, numbers.add(3));
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(3, elements[2]);
-        assertEquals(2, lastUsedIndex);
+        assertEquals(3, numbers.size());
 
         assertEquals(3, numbers.add(4));
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(4, elements[3]);
-        assertEquals(3, lastUsedIndex);
+        assertEquals(4, numbers.size());
 
         assertEquals(4, numbers.add(5));
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(5, elements[4]);
-        assertEquals(4, lastUsedIndex);
+        assertEquals(5, numbers.size());
     }
 
     @Test
@@ -65,67 +59,56 @@ class DynamicArrayTest {
         DynamicArray<Integer> numbers = new DynamicArray<>(1);
 
         Object[] elements;
-        int lastUsedIndex;
 
         numbers.add(10);
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(10, elements[0]);
-        assertEquals(0, lastUsedIndex);
+        assertEquals(1, numbers.size());
 
         numbers.insert(0, 9);
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(9, elements[0]);
-        assertEquals(1, lastUsedIndex);
+        assertEquals(2, numbers.size());
 
         numbers.insert(0, 8);
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(8, elements[0]);
-        assertEquals(2, lastUsedIndex);
+        assertEquals(3, numbers.size());
 
         numbers.insert(0, 7);
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(7, elements[0]);
-        assertEquals(3, lastUsedIndex);
+        assertEquals(4, numbers.size());
 
         numbers.insert(0, 6);
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(6, elements[0]);
-        assertEquals(4, lastUsedIndex);
+        assertEquals(5, numbers.size());
 
         numbers.insert(0, 5);
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(5, elements[0]);
-        assertEquals(5, lastUsedIndex);
+        assertEquals(6, numbers.size());
 
         numbers.insert(0, 4);
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(4, elements[0]);
-        assertEquals(6, lastUsedIndex);
+        assertEquals(7, numbers.size());
 
         numbers.insert(0, 3);
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(3, elements[0]);
-        assertEquals(7, lastUsedIndex);
+        assertEquals(8, numbers.size());
 
         numbers.insert(0, 2);
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(2, elements[0]);
-        assertEquals(8, lastUsedIndex);
+        assertEquals(9, numbers.size());
 
         numbers.insert(0, 1);
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(1, elements[0]);
-        assertEquals(9, lastUsedIndex);
+        assertEquals(10, numbers.size());
     }
 
     @Test
@@ -133,7 +116,6 @@ class DynamicArrayTest {
         DynamicArray<Integer> numbers = new DynamicArray<>(1);
 
         Object[] elements;
-        int lastUsedIndex;
 
         numbers.add(1);
         numbers.add(2);
@@ -148,63 +130,53 @@ class DynamicArrayTest {
 
         assertEquals(1, numbers.remove(0));
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(2, elements[0]);
-        assertEquals(8, lastUsedIndex);
+        assertEquals(9, numbers.size());
 
         assertEquals(2, numbers.remove(0));
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(3, elements[0]);
-        assertEquals(7, lastUsedIndex);
+        assertEquals(8, numbers.size());
 
         assertEquals(3, numbers.remove(0));
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(4, elements[0]);
-        assertEquals(6, lastUsedIndex);
+        assertEquals(7, numbers.size());
 
         assertEquals(4, numbers.remove(0));
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(5, elements[0]);
-        assertEquals(5, lastUsedIndex);
+        assertEquals(6, numbers.size());
 
         assertEquals(5, numbers.remove(0));
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(6, elements[0]);
-        assertEquals(4, lastUsedIndex);
+        assertEquals(5, numbers.size());
 
         assertEquals(6, numbers.remove(0));
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(7, elements[0]);
-        assertEquals(3, lastUsedIndex);
+        assertEquals(4, numbers.size());
 
         assertEquals(7, numbers.remove(0));
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(8, elements[0]);
-        assertEquals(2, lastUsedIndex);
+        assertEquals(3, numbers.size());
 
         assertEquals(8, numbers.remove(0));
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(9, elements[0]);
-        assertEquals(1, lastUsedIndex);
+        assertEquals(2, numbers.size());
 
         assertEquals(9, numbers.remove(0));
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertEquals(10, elements[0]);
-        assertEquals(0, lastUsedIndex);
+        assertEquals(1, numbers.size());
 
         assertEquals(10, numbers.remove(0));
         elements = getElements(numbers);
-        lastUsedIndex = getLastUsedIndex(numbers);
         assertNull(elements[0]);
-        assertEquals(-1, lastUsedIndex);
+        assertEquals(0, numbers.size());
     }
 
     @Test
@@ -222,8 +194,8 @@ class DynamicArrayTest {
         return (Object[]) elementsField.get(numbers);
     }
 
-    private int getLastUsedIndex(DynamicArray<Integer> numbers) throws NoSuchFieldException, IllegalAccessException {
-        Field elementsField = numbers.getClass().getDeclaredField("lastUsedIndex");
+    private int getSize(DynamicArray<Integer> numbers) throws NoSuchFieldException, IllegalAccessException {
+        Field elementsField = numbers.getClass().getDeclaredField("size");
         elementsField.setAccessible(true);
         return elementsField.getInt(numbers);
     }

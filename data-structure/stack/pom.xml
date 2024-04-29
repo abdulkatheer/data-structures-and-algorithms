@@ -26,5 +26,13 @@
             <groupId>io.abdul</groupId>
             <artifactId>static-array</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.abdul</groupId>
+            <artifactId>dynamic-array</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.abdul</groupId>
+            <artifactId>singly-linked-list</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -1,6 +1,8 @@
 package io.abdul;
 
+import io.abdul.api.LinkedList;
 import io.abdul.api.Stack;
+import io.abdul.api.exception.IndexOutOfBounds;
 import io.abdul.api.exception.OperationNotSupported;
 import io.abdul.api.exception.StackOverflow;
 import io.abdul.api.exception.StackUnderflow;
@@ -14,39 +16,53 @@ import java.util.Optional;
  * @param <E>
  */
 public class StackWithLinkedList<E> implements Stack<E> {
-    @Override
-    public void push(E element) throws StackOverflow {
+    private final LinkedList<E> stack;
 
+    public StackWithLinkedList() {
+        stack = new SinglyLinkedList<>();
+    }
+
+    @Override
+    public void push(E element) {
+        stack.insertAtTheBeginning(element);
     }
 
     @Override
     public E pop() throws StackUnderflow {
-        return null;
+        try {
+            return stack.removeFirstElement();
+        } catch (IndexOutOfBounds e) {
+            throw new StackUnderflow("Stack is empty");
+        }
     }
 
     @Override
     public E peek() throws StackUnderflow {
-        return null;
+        try {
+            return stack.getFirstElement();
+        } catch (IndexOutOfBounds e) {
+            throw new StackUnderflow("Stack is empty");
+        }
     }
 
     @Override
     public Optional<Integer> lookup(E element) {
-        return Optional.empty();
+        return stack.lookup(element);
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return stack.size() == 0;
     }
 
     @Override
     public boolean isFull() throws OperationNotSupported {
-        return false;
+        throw new OperationNotSupported("isFull is not supported in StackWithLinkedList");
     }
 
     @Override
     public int size() {
-        return 0;
+        return stack.size();
     }
 
     @Override
