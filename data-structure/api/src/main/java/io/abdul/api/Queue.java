@@ -14,9 +14,9 @@ public interface Queue<E> {
 
     E peek() throws QueueUnderflow;
 
-    Optional<E> lookup(E element);
+    Optional<Integer> lookup(E element);
 
-    int isEmpty();
+    boolean isEmpty();
 
     /**
      * Checks whether a Queue is full. Applicable only for a fixed size Queue

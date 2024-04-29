@@ -122,16 +122,16 @@ public class SinglyLinkedList<E> implements LinkedList<E> {
             return e;
         }
         int i = 0;
-        Node<E> e = head;
+        Node<E> current = head;
         while (i < size) {
             if (i == size - 2) { // Last to last element
-                E v = e.next.value;
-                e.next = null;
-                tail = e;
+                E v = current.next.value;
+                current.next = null;
+                tail = current;
                 size--;
                 return v;
             }
-            e = e.next;
+            current = current.next;
             i++;
         }
         throw new IllegalArgumentException("Unable to find");

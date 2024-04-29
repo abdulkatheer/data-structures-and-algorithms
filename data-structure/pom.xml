@@ -19,6 +19,7 @@
         <module>linked-list</module>
         <module>api</module>
         <module>stack</module>
+        <module>queue</module>
     </modules>
 
     <properties>
