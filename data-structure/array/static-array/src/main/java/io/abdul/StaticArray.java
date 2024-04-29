@@ -10,6 +10,8 @@ import java.util.Optional;
 public class StaticArray<E> implements Array<E> {
     private final Object[] elements;
 
+    private int size = 0;
+
     public StaticArray(int size) {
         this.elements = new Object[size];
     }
@@ -26,7 +28,17 @@ public class StaticArray<E> implements Array<E> {
     // O(n)
     @Override
     public void insert(int index, E element) {
+        validateIndex(index);
+        validateSize(size + 1); //
 
+        Object temp = elements[index];
+        elements[index] = element;
+        for (int i = index + 1; i <= size; i++) {
+            Object t = elements[i];
+            elements[i] = temp;
+            temp = t;
+        }
+        size++;
     }
 
     // O(n)
@@ -36,11 +48,12 @@ public class StaticArray<E> implements Array<E> {
         E element = (E) elements[index];
         elements[index] = null;
 
-        for (int i = index; i < elements.length - 1; i++) {
+        for (int i = index; i < size - 1; i++) {
             elements[i] = elements[i + 1];
         }
 
-        elements[elements.length - 1] = null;
+        elements[size - 1] = null;
+        size--;
         return element;
     }
 
@@ -49,6 +62,11 @@ public class StaticArray<E> implements Array<E> {
     public E get(int index) {
         validateIndex(index);
         return (E) elements[index];
+    }
+
+    @Override
+    public int size() {
+        return size;
     }
 
     // O(n)
@@ -64,7 +82,10 @@ public class StaticArray<E> implements Array<E> {
 
     @Override
     public int add(E element) throws IndexOutOfBounds {
-        throw new NotImplemented("add not implemented in Static Array");
+        validateSize(size + 1);
+        elements[size] = element;
+        size++;
+        return size - 1;
     }
 
     @Override
@@ -73,8 +94,14 @@ public class StaticArray<E> implements Array<E> {
     }
 
     private void validateIndex(int index) {
-        if (index < 0 || index >= elements.length) {
-            throw new IllegalArgumentException("Invalid index");
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBounds("Invalid index");
+        }
+    }
+
+    private void validateSize(int newSize) {
+        if (newSize > elements.length) {
+            throw new IndexOutOfBounds("Array is full");
         }
     }
 }

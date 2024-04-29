@@ -52,5 +52,7 @@ public interface Array<E> {
      */
     E get(int position) throws IndexOutOfBounds;
 
+    int size();
+
     Iterator<E> iterator();
 }

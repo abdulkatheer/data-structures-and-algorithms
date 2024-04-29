@@ -91,6 +91,11 @@ public class DynamicArray<E> implements Array<E> {
     }
 
     @Override
+    public int size() {
+        throw new NotImplemented("size not implemented in DynamicArray");
+    }
+
+    @Override
     public Iterator<E> iterator() {
         throw new NotImplemented("iterator not implemented in Dynamic Array");
     }

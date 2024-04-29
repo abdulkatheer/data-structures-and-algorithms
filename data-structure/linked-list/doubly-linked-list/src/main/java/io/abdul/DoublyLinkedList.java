@@ -1,16 +1,21 @@
 package io.abdul;
 
+import io.abdul.api.LinkedList;
+import io.abdul.api.exception.NotImplemented;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static java.util.stream.Collectors.joining;
 
-public class DoublyLinkedList<E> {
+public class DoublyLinkedList<E> implements LinkedList<E> {
     private Node<E> head;
     private Node<E> tail;
     private int size = 0;
 
-    public int search(E element) {
+    @Override
+    public int lookup(E element) {
         if (head == null) {
             return -1;
         }
@@ -27,6 +32,12 @@ public class DoublyLinkedList<E> {
         return -1;
     }
 
+    @Override
+    public Iterator<E> iterator() {
+        throw new NotImplemented("iterator not implemented in DoublyLinkedList");
+    }
+
+    @Override
     public void insertAtTheBeginning(E element) {
         Node<E> newHead = new Node<>(element);
         if (head == null) { // empty list
@@ -40,6 +51,7 @@ public class DoublyLinkedList<E> {
         size++;
     }
 
+    @Override
     public void insertAtTheEnd(E element) {
         Node<E> newTail = new Node<>(element);
         if (size == 0) { // empty list
@@ -53,6 +65,7 @@ public class DoublyLinkedList<E> {
         size++;
     }
 
+    @Override
     public void insert(int position, E element) {
         validatePosition(position);
 
@@ -65,7 +78,8 @@ public class DoublyLinkedList<E> {
         }
     }
 
-    public E removeHead() {
+    @Override
+    public E removeFirstElement() {
         if (size == 0) {
             throw new IllegalArgumentException("Collection is empty");
         }
@@ -84,7 +98,8 @@ public class DoublyLinkedList<E> {
         return value;
     }
 
-    public E removeTail() {
+    @Override
+    public E removeLastElement() {
         if (size == 0) {
             throw new IllegalArgumentException("Collection is empty");
         }
@@ -101,14 +116,15 @@ public class DoublyLinkedList<E> {
         return value;
     }
 
-    public E removeAt(int position) {
+    @Override
+    public E remove(int position) {
         validatePosition(position);
 
         if (position == 0) { // only 1 element, head and tail are same, after removing both head and tail will be null
-            return removeHead();
+            return removeFirstElement();
         }
         if (position == size - 1) {
-            return removeTail();
+            return removeLastElement();
         }
 
         return removeAtTheMiddle(position);

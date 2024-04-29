@@ -30,9 +30,9 @@ public interface Stack<E> {
      */
     E peek() throws StackUnderflow;
 
-    Optional<E> lookup(E element);
+    Optional<Integer> lookup(E element);
 
-    int isEmpty();
+    boolean isEmpty();
 
     /**
      * Checks whether a stack is full. Applicable only for a fixed size stack

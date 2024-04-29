@@ -1,16 +1,21 @@
 package io.abdul;
 
+import io.abdul.api.LinkedList;
+import io.abdul.api.exception.NotImplemented;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static java.util.stream.Collectors.joining;
 
-public class SinglyLinkedList<E> {
+public class SinglyLinkedList<E> implements LinkedList<E> {
     private Node<E> head;
     private Node<E> tail;
     private int size = 0;
 
-    public int search(E element) {
+    @Override
+    public int lookup(E element) {
         if (head == null) {
             return -1;
         }
@@ -27,6 +32,12 @@ public class SinglyLinkedList<E> {
         return -1;
     }
 
+    @Override
+    public Iterator<E> iterator() {
+        throw new NotImplemented("iterator not implemented in SinglyLinkedList");
+    }
+
+    @Override
     public void insertAtTheBeginning(E element) {
         if (head == null) { // empty list
             head = new Node<>(element, null);
@@ -37,6 +48,7 @@ public class SinglyLinkedList<E> {
         size++;
     }
 
+    @Override
     public void insertAtTheEnd(E element) {
         Node<E> newTail = new Node<>(element, null);
         if (size == 0) { // empty list
@@ -50,7 +62,8 @@ public class SinglyLinkedList<E> {
         }
     }
 
-    public void insertInTheMiddle(int position, E element) {
+    @Override
+    public void insert(int position, E element) {
         validatePosition(position);
 
         if (position == 0) {
@@ -76,8 +89,8 @@ public class SinglyLinkedList<E> {
         size++;
     }
 
-
-    public E removeHead() {
+    @Override
+    public E removeFirstElement() {
         if (size == 0) {
             throw new IllegalArgumentException("Collection is empty");
         }
@@ -94,7 +107,8 @@ public class SinglyLinkedList<E> {
         return e;
     }
 
-    public E removeTail() {
+    @Override
+    public E removeLastElement() {
         if (size == 0) {
             throw new IllegalArgumentException("Collection is empty");
         }
@@ -121,14 +135,15 @@ public class SinglyLinkedList<E> {
         throw new IllegalArgumentException("Unable to find");
     }
 
-    public E removeAt(int position) {
+    @Override
+    public E remove(int position) {
         validatePosition(position);
 
         if (position == 0) { // only 1 element, head and tail are same, after removing both head and tail will be null
-            return removeHead();
+            return removeFirstElement();
         }
         if (position == size - 1) {
-            return removeTail();
+            return removeLastElement();
         }
 
         Node<E> e = head;

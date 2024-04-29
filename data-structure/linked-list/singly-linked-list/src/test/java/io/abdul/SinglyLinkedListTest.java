@@ -9,18 +9,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class SinglyLinkedListTest {
 
     @Test
-    void search() {
+    void lookup() {
         SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
 
         list.insertAtTheBeginning(10);
-        list.insertInTheMiddle(0, 9);
+        list.insert(0, 9);
         list.insertAtTheEnd(12);
-        list.insertInTheMiddle(1, 14);
+        list.insert(1, 14);
         list.insertAtTheBeginning(1);
         list.insertAtTheEnd(20);
-        list.insertInTheMiddle(1, 2);
-        list.insertInTheMiddle(2, 3);
-        list.insertInTheMiddle(3, 4);
+        list.insert(1, 2);
+        list.insert(2, 3);
+        list.insert(3, 4);
 
         list.printList();
 
@@ -35,15 +35,15 @@ class SinglyLinkedListTest {
         12
         20
          */
-        assertEquals(0, list.search(1));
-        assertEquals(1, list.search(2));
-        assertEquals(2, list.search(3));
-        assertEquals(3, list.search(4));
-        assertEquals(4, list.search(9));
-        assertEquals(5, list.search(14));
-        assertEquals(6, list.search(10));
-        assertEquals(7, list.search(12));
-        assertEquals(8, list.search(20));
+        assertEquals(0, list.lookup(1));
+        assertEquals(1, list.lookup(2));
+        assertEquals(2, list.lookup(3));
+        assertEquals(3, list.lookup(4));
+        assertEquals(4, list.lookup(9));
+        assertEquals(5, list.lookup(14));
+        assertEquals(6, list.lookup(10));
+        assertEquals(7, list.lookup(12));
+        assertEquals(8, list.lookup(20));
     }
 
     @Test
@@ -137,17 +137,17 @@ class SinglyLinkedListTest {
     }
 
     @Test
-    void insertInTheMiddle() throws NoSuchFieldException, IllegalAccessException {
+    void insert() throws NoSuchFieldException, IllegalAccessException {
         SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
 
         SinglyLinkedList.Node<Integer> tail;
         SinglyLinkedList.Node<Integer> head;
 
-        assertThrows(IllegalArgumentException.class, () -> list.insertInTheMiddle(0, 1));
+        assertThrows(IllegalArgumentException.class, () -> list.insert(0, 1));
 
         list.insertAtTheBeginning(10);
 
-        list.insertInTheMiddle(0, 9);
+        list.insert(0, 9);
         assertEquals(2, list.size());
         head = getHead(list);
         tail = getTail(list);
@@ -157,7 +157,7 @@ class SinglyLinkedListTest {
         assertNull(head.getNext().getNext());
         assertEquals(tail, head.getNext());
 
-        list.insertInTheMiddle(0, 8);
+        list.insert(0, 8);
         assertEquals(3, list.size());
         head = getHead(list);
         tail = getTail(list);
@@ -169,7 +169,7 @@ class SinglyLinkedListTest {
         assertNull(head.getNext().getNext().getNext());
         assertEquals(tail, head.getNext().getNext());
 
-        list.insertInTheMiddle(0, 7);
+        list.insert(0, 7);
         assertEquals(4, list.size());
         head = getHead(list);
         tail = getTail(list);
@@ -183,7 +183,7 @@ class SinglyLinkedListTest {
         assertNull(head.getNext().getNext().getNext().getNext());
         assertEquals(tail, head.getNext().getNext().getNext());
 
-        list.insertInTheMiddle(1, 6);
+        list.insert(1, 6);
         assertEquals(5, list.size());
         head = getHead(list);
         tail = getTail(list);
@@ -199,7 +199,7 @@ class SinglyLinkedListTest {
         assertNull(head.getNext().getNext().getNext().getNext().getNext());
         assertEquals(tail, head.getNext().getNext().getNext().getNext());
 
-        list.insertInTheMiddle(4, 11);
+        list.insert(4, 11);
         assertEquals(6, list.size());
         head = getHead(list);
         tail = getTail(list);
@@ -217,7 +217,7 @@ class SinglyLinkedListTest {
         assertNull(head.getNext().getNext().getNext().getNext().getNext().getNext());
         assertEquals(tail, head.getNext().getNext().getNext().getNext().getNext());
 
-        list.insertInTheMiddle(1, 2);
+        list.insert(1, 2);
         assertEquals(7, list.size());
         head = getHead(list);
         tail = getTail(list);
@@ -241,18 +241,18 @@ class SinglyLinkedListTest {
     }
 
     @Test
-    void removeHead() throws NoSuchFieldException, IllegalAccessException {
+    void removeFirstElement() throws NoSuchFieldException, IllegalAccessException {
         SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
 
         list.insertAtTheBeginning(10);
-        list.insertInTheMiddle(0, 9);
+        list.insert(0, 9);
         list.insertAtTheEnd(12);
-        list.insertInTheMiddle(1, 14);
+        list.insert(1, 14);
         list.insertAtTheBeginning(1);
         list.insertAtTheEnd(20);
-        list.insertInTheMiddle(1, 2);
-        list.insertInTheMiddle(2, 3);
-        list.insertInTheMiddle(3, 4);
+        list.insert(1, 2);
+        list.insert(2, 3);
+        list.insert(3, 4);
 
         SinglyLinkedList.Node<Integer> tail;
         SinglyLinkedList.Node<Integer> head;
@@ -275,51 +275,51 @@ class SinglyLinkedListTest {
         assertEquals(1, head.getValue());
         assertEquals(20, tail.getValue());
 
-        assertEquals(1, list.removeHead());
+        assertEquals(1, list.removeFirstElement());
         assertEquals(8, list.size());
 
-        assertEquals(2, list.removeHead());
+        assertEquals(2, list.removeFirstElement());
         assertEquals(7, list.size());
 
-        assertEquals(3, list.removeHead());
+        assertEquals(3, list.removeFirstElement());
         assertEquals(6, list.size());
 
-        assertEquals(4, list.removeHead());
+        assertEquals(4, list.removeFirstElement());
         assertEquals(5, list.size());
 
-        assertEquals(9, list.removeHead());
+        assertEquals(9, list.removeFirstElement());
         assertEquals(4, list.size());
 
-        assertEquals(14, list.removeHead());
+        assertEquals(14, list.removeFirstElement());
         assertEquals(3, list.size());
 
-        assertEquals(10, list.removeHead());
+        assertEquals(10, list.removeFirstElement());
         assertEquals(2, list.size());
 
-        assertEquals(12, list.removeHead());
+        assertEquals(12, list.removeFirstElement());
         assertEquals(1, list.size());
 
-        assertEquals(20, list.removeHead());
+        assertEquals(20, list.removeFirstElement());
         assertEquals(0, list.size());
 
-        assertThrows(IllegalArgumentException.class, list::removeHead);
+        assertThrows(IllegalArgumentException.class, list::removeFirstElement);
 
         list.printList();
     }
 
     @Test
-    void removeTail() throws NoSuchFieldException, IllegalAccessException {
+    void removeLastElement() throws NoSuchFieldException, IllegalAccessException {
         SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
 
         list.insertAtTheBeginning(10);
-        list.insertInTheMiddle(0, 9);
+        list.insert(0, 9);
         list.insertAtTheEnd(12);
-        list.insertInTheMiddle(1, 14);
+        list.insert(1, 14);
         list.insertAtTheBeginning(1);
         list.insertAtTheEnd(20);
-        list.insertInTheMiddle(1, 2);
-        list.insertInTheMiddle(2, 3);
-        list.insertInTheMiddle(3, 4);
+        list.insert(1, 2);
+        list.insert(2, 3);
+        list.insert(3, 4);
 
         SinglyLinkedList.Node<Integer> tail;
         SinglyLinkedList.Node<Integer> head;
@@ -342,51 +342,51 @@ class SinglyLinkedListTest {
         assertEquals(1, head.getValue());
         assertEquals(20, tail.getValue());
 
-        assertEquals(20, list.removeTail());
+        assertEquals(20, list.removeLastElement());
         assertEquals(8, list.size());
 
-        assertEquals(12, list.removeTail());
+        assertEquals(12, list.removeLastElement());
         assertEquals(7, list.size());
 
-        assertEquals(10, list.removeTail());
+        assertEquals(10, list.removeLastElement());
         assertEquals(6, list.size());
 
-        assertEquals(14, list.removeTail());
+        assertEquals(14, list.removeLastElement());
         assertEquals(5, list.size());
 
-        assertEquals(9, list.removeTail());
+        assertEquals(9, list.removeLastElement());
         assertEquals(4, list.size());
 
-        assertEquals(4, list.removeTail());
+        assertEquals(4, list.removeLastElement());
         assertEquals(3, list.size());
 
-        assertEquals(3, list.removeTail());
+        assertEquals(3, list.removeLastElement());
         assertEquals(2, list.size());
 
-        assertEquals(2, list.removeTail());
+        assertEquals(2, list.removeLastElement());
         assertEquals(1, list.size());
 
-        assertEquals(1, list.removeTail());
+        assertEquals(1, list.removeLastElement());
         assertEquals(0, list.size());
 
-        assertThrows(IllegalArgumentException.class, list::removeTail);
+        assertThrows(IllegalArgumentException.class, list::removeLastElement);
 
         list.printList();
     }
 
     @Test
-    void removeAt() throws NoSuchFieldException, IllegalAccessException {
+    void remove() throws NoSuchFieldException, IllegalAccessException {
         SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
 
         list.insertAtTheBeginning(10);
-        list.insertInTheMiddle(0, 9);
+        list.insert(0, 9);
         list.insertAtTheEnd(12);
-        list.insertInTheMiddle(1, 14);
+        list.insert(1, 14);
         list.insertAtTheBeginning(1);
         list.insertAtTheEnd(20);
-        list.insertInTheMiddle(1, 2);
-        list.insertInTheMiddle(2, 3);
-        list.insertInTheMiddle(3, 4);
+        list.insert(1, 2);
+        list.insert(2, 3);
+        list.insert(3, 4);
 
         SinglyLinkedList.Node<Integer> tail;
         SinglyLinkedList.Node<Integer> head;
@@ -409,7 +409,7 @@ class SinglyLinkedListTest {
         assertEquals(1, head.getValue());
         assertEquals(20, tail.getValue());
 
-        assertEquals(20, list.removeAt(8)); // last element
+        assertEquals(20, list.remove(8)); // last element
         assertEquals(8, list.size());
 
         /*
@@ -422,7 +422,7 @@ class SinglyLinkedListTest {
         10
         12
          */
-        assertEquals(1, list.removeAt(0)); // first element
+        assertEquals(1, list.remove(0)); // first element
         assertEquals(7, list.size());
 
         /*
@@ -434,7 +434,7 @@ class SinglyLinkedListTest {
         10
         12
          */
-        assertEquals(3, list.removeAt(1)); // second element
+        assertEquals(3, list.remove(1)); // second element
         assertEquals(6, list.size());
 
         /*
@@ -445,7 +445,7 @@ class SinglyLinkedListTest {
         10
         12
          */
-        assertEquals(9, list.removeAt(2)); // middle element
+        assertEquals(9, list.remove(2)); // middle element
         assertEquals(5, list.size());
 
         /*
@@ -455,7 +455,7 @@ class SinglyLinkedListTest {
         10
         12
          */
-        assertEquals(10, list.removeAt(3)); // last element
+        assertEquals(10, list.remove(3)); // last element
         assertEquals(4, list.size());
 
         /*
@@ -464,7 +464,7 @@ class SinglyLinkedListTest {
         14
         12
          */
-        assertEquals(4, list.removeAt(1)); // second element
+        assertEquals(4, list.remove(1)); // second element
         assertEquals(3, list.size());
 
         /*
@@ -472,23 +472,23 @@ class SinglyLinkedListTest {
         14
         12
          */
-        assertEquals(2, list.removeAt(0));
+        assertEquals(2, list.remove(0));
         assertEquals(2, list.size());
 
         /*
         14
         12
          */
-        assertEquals(12, list.removeAt(1));
+        assertEquals(12, list.remove(1));
         assertEquals(1, list.size());
 
         /*
         14
          */
-        assertEquals(14, list.removeAt(0));
+        assertEquals(14, list.remove(0));
         assertEquals(0, list.size());
 
-        assertThrows(IllegalArgumentException.class, () -> list.removeAt(0));
+        assertThrows(IllegalArgumentException.class, () -> list.remove(0));
     }
 
     @Test
@@ -496,14 +496,14 @@ class SinglyLinkedListTest {
         SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
 
         list.insertAtTheBeginning(10);
-        list.insertInTheMiddle(0, 9);
+        list.insert(0, 9);
         list.insertAtTheEnd(12);
-        list.insertInTheMiddle(1, 14);
+        list.insert(1, 14);
         list.insertAtTheBeginning(1);
         list.insertAtTheEnd(20);
-        list.insertInTheMiddle(1, 2);
-        list.insertInTheMiddle(2, 3);
-        list.insertInTheMiddle(3, 4);
+        list.insert(1, 2);
+        list.insert(2, 3);
+        list.insert(3, 4);
 
         /*
         1
@@ -536,14 +536,14 @@ class SinglyLinkedListTest {
         SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
 
         list.insertAtTheBeginning(10);
-        list.insertInTheMiddle(0, 9);
+        list.insert(0, 9);
         list.insertAtTheEnd(12);
-        list.insertInTheMiddle(1, 14);
+        list.insert(1, 14);
         list.insertAtTheBeginning(1);
         list.insertAtTheEnd(20);
-        list.insertInTheMiddle(1, 2);
-        list.insertInTheMiddle(2, 3);
-        list.insertInTheMiddle(3, 4);
+        list.insert(1, 2);
+        list.insert(2, 3);
+        list.insert(3, 4);
 
         assertEquals("1 --> 2 --> 3 --> 4 --> 9 --> 14 --> 10 --> 12 --> 20", list.toString());
         list.reverse();

@@ -22,5 +22,9 @@
             <groupId>io.abdul</groupId>
             <artifactId>api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.abdul</groupId>
+            <artifactId>static-array</artifactId>
+        </dependency>
     </dependencies>
 </project>

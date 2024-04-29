@@ -9,13 +9,13 @@ public interface LinkedList<E> {
 
     void insertAtTheBeginning(E element);
 
-    void remove(int position);
+    E remove(int position);
 
-    void removeFirstElement();
+    E removeFirstElement();
 
-    void removeLastElement();
+    E removeLastElement();
 
-    void lookup(E element);
+    int lookup(E element);
 
     Iterator<E> iterator();
 }

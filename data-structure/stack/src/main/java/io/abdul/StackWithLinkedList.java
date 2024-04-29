@@ -10,6 +10,7 @@ import java.util.Optional;
 
 /**
  * Dynamic Size Stack implementation using Singly Linked List data structure
+ *
  * @param <E>
  */
 public class StackWithLinkedList<E> implements Stack<E> {
@@ -29,13 +30,13 @@ public class StackWithLinkedList<E> implements Stack<E> {
     }
 
     @Override
-    public Optional<E> lookup(E element) {
+    public Optional<Integer> lookup(E element) {
         return Optional.empty();
     }
 
     @Override
-    public int isEmpty() {
-        return 0;
+    public boolean isEmpty() {
+        return false;
     }
 
     @Override
