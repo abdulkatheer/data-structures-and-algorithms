@@ -20,6 +20,7 @@
         <module>api</module>
         <module>stack</module>
         <module>queue</module>
+        <module>tree</module>
     </modules>
 
     <properties>

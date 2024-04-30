@@ -12,6 +12,7 @@
         <module>big-o</module>
         <module>problems</module>
         <module>data-structure</module>
+        <module>algorithms</module>
     </modules>
 
     <properties>
