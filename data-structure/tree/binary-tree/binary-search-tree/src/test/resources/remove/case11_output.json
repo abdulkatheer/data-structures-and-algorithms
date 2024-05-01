@@ -1,0 +1,9 @@
+{
+  "value": "C",
+  "left": {
+    "value": "A",
+    "left": null,
+    "right": null
+  },
+  "right": null
+}
