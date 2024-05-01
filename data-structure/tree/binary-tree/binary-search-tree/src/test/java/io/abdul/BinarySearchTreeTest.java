@@ -55,19 +55,19 @@ class BinarySearchTreeTest {
 
         testRemovingOnlyElementInTheTree(stringTree);
 
-        testRemovingLeafNodeWhichIsOnTheLeftOfParent(stringTree);
-
-        testRemovingLeafNodeWhichIsOnTheRightOfParent(stringTree);
-
         testRemovingRootNodeWithOnlyOneChildOnTheRight(stringTree);
 
         testRemovingRootNodeWithOnlyOneChildOnTheLeft(stringTree);
 
+        testRemovingRootWithTwoChildren(stringTree);
+
+        testRemovingLeafNodeWhichIsOnTheLeftOfParent(stringTree);
+
+        testRemovingLeafNodeWhichIsOnTheRightOfParent(stringTree);
+
         testRemovingParentNodeWithOnlyOneChildOnTheRight(stringTree);
 
         testRemovingParentNodeWithOnlyOneChildOnTheLeft(stringTree);
-
-        testRemovingRootWithTwoChildren(stringTree);
 
         testRemovingRightParentWithTwoChildren(stringTree);
 

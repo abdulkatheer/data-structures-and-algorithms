@@ -41,6 +41,32 @@ public class BinarySearchTree<E extends Comparable<E>> {
         size++;
     }
 
+    public boolean remove(E element) {
+        // 1. Empty tree (✓)
+        // 2. Deleting root node (another node may take root position)
+        // 2a) leaf node (means only one node exists and root will become null)
+        // 2b) one child (that child will become root)
+        // 2c) two children (copy value of successor to root and remove successor)
+        // 3. Deleting a non-root node
+        // 3a) leaf node (parent's right or left will become null)
+        // 3b) one child (parent's left or right will point to that child)
+        // 3c) two children (copy value of successor to root and remove successor)
+        boolean removed = false;
+        if (size != 0) { // 1. Empty tree (✓)
+            if (element.compareTo(root.value) == 0) { // 2. Deleting root node (another node may take root position)
+                removeRootNode();
+                removed = true;
+                size--;
+            } else { // 3. Deleting a non-root node
+                removed = removeNonRootNode(root, element);
+                if (removed) {
+                    size--;
+                }
+            }
+        }
+        return removed;
+    }
+
     public Optional<E> lookup(E element) {
         Node<E> current = root;
         while (current != null) {
@@ -69,38 +95,6 @@ public class BinarySearchTree<E extends Comparable<E>> {
         size = 0;
     }
 
-    public boolean remove(E element) {
-        if (root == null) {
-            return false;
-        }
-
-        if (element.compareTo(root.value) == 0) { // removing root element
-            // No leaf
-            // 1 child
-            // 2 children
-            if (root.isLeaf()) { // lead node
-                root = null;
-            } else if (root.hasOneChild()) { // only one child
-                Node<E> grandChild;
-                if (root.left != null) {
-                    grandChild = root.left;
-                } else {
-                    grandChild = root.right;
-                }
-                root = grandChild;
-            } else { // two children
-                removeNodeWithTwoChildren(root);
-            }
-            size--;
-            return true;
-        }
-        boolean removed = removeElement(root, element);
-        if (removed) {
-            size--;
-        }
-        return removed;
-    }
-
     public List<E> getElements() {
         ArrayList<E> elements = new ArrayList<>(size);
         inOrderTraversal(root, elements);
@@ -109,6 +103,16 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
     public int size() {
         return size;
+    }
+
+    private void removeRootNode() {
+        if (root.isLeaf()) { // 2a) leaf node (means only one node exists and root will become null)
+            root = null;
+        } else if (root.hasOneChild()) { // 2b) one child (that child will become root)
+            root = root.getTheOnlyChild();
+        } else { // 2c) two children (copy value of successor to root and remove successor)
+            removeNodeWithTwoChildren(root);
+        }
     }
 
     public static class Node<E> {
@@ -137,12 +141,21 @@ public class BinarySearchTree<E extends Comparable<E>> {
             return left == null && right == null;
         }
 
+        @JsonIgnore
         public boolean hasOneChild() {
             return (left == null && right != null) || (left != null && right == null);
         }
+
+        @JsonIgnore
+        public Node<E> getTheOnlyChild() {
+            if (hasOneChild()) {
+                return left == null ? right : left;
+            }
+            throw new IllegalArgumentException("Node has zero or two children");
+        }
     }
 
-    private static void inOrderTraversal(Node<?> node, List elements) {
+    private static <E> void inOrderTraversal(Node<E> node, List<E> elements) {
         if (node == null) {
             return;
         }
@@ -151,88 +164,108 @@ public class BinarySearchTree<E extends Comparable<E>> {
         inOrderTraversal(node.right, elements);
     }
 
-    private static <E extends Comparable<E>> boolean removeElement(Node<E> root, E element) {
-        int comp = element.compareTo(root.value);
-        Node<E> parent = root;
-        Node<E> current;
-        boolean currentLeftNode;
-        boolean removed = false;
-        if (comp < 0) { // Traverse left
-            current = parent.left;
-            currentLeftNode = true;
-        } else { // Traverse right
-            current = parent.right;
-            currentLeftNode = false;
+    private static <E extends Comparable<E>> Node<E> findSuccessor(Node<E> root) {
+        Node<E> successor = root.right;
+        if (successor == null) {
+            throw new IllegalArgumentException("No successor found");
         }
-
-        while (current != null) {
-            int compare = element.compareTo(current.value);
-            if (compare == 0) { // match found
-                if (current.isLeaf()) { // lead node
-                    removeLeafNode(parent, currentLeftNode);
-                } else if (current.hasOneChild()) { // only one child
-                    removeNodeWithOneChild(current, parent, currentLeftNode);
-                } else { // two children
-                    removeNodeWithTwoChildren(current);
-                }
-                removed = true;
-                break;
-            } else {
-                parent = current;
-                if (compare < 0) { // Traverse left
-                    current = current.left;
-                    currentLeftNode = true;
-                } else { // Traverse right
-                    current = current.right;
-                    currentLeftNode = false;
-                }
-            }
-        }
-        return removed;
-    }
-
-    private static <E> void removeLeafNode(Node<E> parent, boolean currentLeftNode) {
-        if (currentLeftNode) { // done
-            parent.left = null;
-        } else { // done
-            parent.right = null;
-        }
-    }
-
-    private static <E> void removeNodeWithOneChild(Node<E> current, Node<E> parent, boolean currentLeftNode) {
-        Node<E> grandChild;
-        if (current.left != null) {
-            grandChild = current.left;
-        } else {
-            grandChild = current.right;
-        }
-        if (currentLeftNode) { // done
-            parent.left = grandChild; // Replacing current with its grandchild
-        } else { // done
-            parent.right = grandChild;
-        }
-    }
-
-    private static <E extends Comparable<E>> void removeNodeWithTwoChildren(Node<E> nodeToBeRemoved) {
-        // find successor of current
-        // copy value of successor to current
-        // remove successor (no  child or 1-child case)
-        Node<E> successor = findSuccessor(nodeToBeRemoved);
-        nodeToBeRemoved.value = successor.value;
-        removeElement(nodeToBeRemoved, successor.value);
-    }
-
-    private static <E extends Comparable<E>> Node<E> findSuccessor(Node<E> parent) {
-        Node<E> successor = parent.right;
         Node<E> current = successor.left;
 
         while (current != null) {
-            if (current.left != null && current.left.value.compareTo(successor.value) < 0) {
+            if (current.value.compareTo(successor.value) < 0) {
                 successor = current.left;
             }
             current = current.left;
         }
-
         return successor;
+    }
+
+    private static <E extends Comparable<E>> void removeNodeWithTwoChildren(Node<E> nodeToBeRemoved) {
+        Node<E> successor = findSuccessor(nodeToBeRemoved);
+        nodeToBeRemoved.value = successor.value;
+
+        Node<E> parent = nodeToBeRemoved;
+        Node<E> current = nodeToBeRemoved.right;
+        boolean currentIsOnLeft = false;
+
+        while (current != null) {
+            int compare = current.value.compareTo(successor.value);
+            if (compare == 0) { // successor found
+                if (current.isLeaf()) {
+                    if (currentIsOnLeft) {
+                        parent.left = null;
+                    } else {
+                        parent.right = null;
+                    }
+                } else if (current.hasOneChild()) {
+                    Node<E> theOnlyChild = current.getTheOnlyChild();
+                    if (currentIsOnLeft) {
+                        parent.left = theOnlyChild;
+                    } else {
+                        parent.right = theOnlyChild;
+                    }
+                } else {
+                    throw new IllegalArgumentException("Invalid BST, successor of a node should not have left sub-tree");
+                }
+                break;
+            } else if (compare < 0) {
+                parent = current;
+                current = current.right;
+                currentIsOnLeft = false;
+            } else {
+                parent = current;
+                current = current.left;
+                currentIsOnLeft = true;
+            }
+        }
+    }
+
+    private static <E extends Comparable<E>> boolean removeNonRootNode(Node<E> root, E element) {
+        Node<E> parent;
+        Node<E> current;
+        boolean nodeIsOnLeft = false;
+        boolean removed = false;
+        int comp = root.value.compareTo(element);
+        if (comp < 0) {
+            parent = root;
+            current = root.right;
+        } else if (comp > 0) {
+            parent = root;
+            current = root.left;
+            nodeIsOnLeft = true;
+        } else {
+            throw new IllegalArgumentException("root and element are same");
+        }
+
+        while (current != null) {
+            int compare = current.value.compareTo(element);
+            if (compare == 0) { // Match found
+                if (current.isLeaf()) { // 3a) leaf node (parent's right or left will become null)
+                    if (nodeIsOnLeft) {
+                        parent.left = null;
+                    } else {
+                        parent.right = null;
+                    }
+                } else if (current.hasOneChild()) { // 3b) one child (parent's left or right will point to that child)
+                    Node<E> theOnlyChild = current.getTheOnlyChild();
+                    if (nodeIsOnLeft) {
+                        parent.left = theOnlyChild;
+                    } else {
+                        parent.right = theOnlyChild;
+                    }
+                } else { // 3c) two children (copy value of successor to root and remove successor)
+                    removeNodeWithTwoChildren(current);
+                }
+                removed = true;
+                break;
+            } else if (compare < 0) { // Go towards right
+                parent = current;
+                current = current.right;
+            } else { // Go towards left
+                parent = current;
+                current = current.left;
+            }
+        }
+        return removed;
     }
 }
