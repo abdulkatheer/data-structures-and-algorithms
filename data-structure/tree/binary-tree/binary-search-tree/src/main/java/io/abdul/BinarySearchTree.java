@@ -191,6 +191,28 @@ public class BinarySearchTree<E extends Comparable<E>> {
         return removed;
     }
 
+    private static <E> void removeLeafNode(Node<E> parent, boolean currentLeftNode) {
+        if (currentLeftNode) { // done
+            parent.left = null;
+        } else { // done
+            parent.right = null;
+        }
+    }
+
+    private static <E> void removeNodeWithOneChild(Node<E> current, Node<E> parent, boolean currentLeftNode) {
+        Node<E> grandChild;
+        if (current.left != null) {
+            grandChild = current.left;
+        } else {
+            grandChild = current.right;
+        }
+        if (currentLeftNode) { // done
+            parent.left = grandChild; // Replacing current with its grandchild
+        } else { // done
+            parent.right = grandChild;
+        }
+    }
+
     private static <E extends Comparable<E>> void removeNodeWithTwoChildren(Node<E> nodeToBeRemoved) {
         // find successor of current
         // copy value of successor to current
@@ -212,27 +234,5 @@ public class BinarySearchTree<E extends Comparable<E>> {
         }
 
         return successor;
-    }
-
-    private static <E> void removeNodeWithOneChild(Node<E> current, Node<E> parent, boolean currentLeftNode) {
-        Node<E> grandChild;
-        if (current.left != null) {
-            grandChild = current.left;
-        } else {
-            grandChild = current.right;
-        }
-        if (currentLeftNode) { // done
-            parent.left = grandChild; // Replacing current with its grandchild
-        } else { // done
-            parent.right = grandChild;
-        }
-    }
-
-    private static <E> void removeLeafNode(Node<E> parent, boolean currentLeftNode) {
-        if (currentLeftNode) { // done
-            parent.left = null;
-        } else { // done
-            parent.right = null;
-        }
     }
 }
