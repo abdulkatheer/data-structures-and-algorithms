@@ -1,15 +1,17 @@
 package io.abdul;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.abdul.api.Tree;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class BinarySearchTree<E extends Comparable<E>> {
+public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
     private Node<E> root;
     private int size;
 
+    @Override
     public void insert(E element) {
         Node<E> newNode = new Node<>(element);
         if (size == 0) {
@@ -41,6 +43,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
         size++;
     }
 
+    @Override
     public boolean remove(E element) {
         // 1. Empty tree (✓)
         // 2. Deleting root node (another node may take root position)
@@ -67,6 +70,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
         return removed;
     }
 
+    @Override
     public Optional<E> lookup(E element) {
         Node<E> current = root;
         while (current != null) {
@@ -90,17 +94,20 @@ public class BinarySearchTree<E extends Comparable<E>> {
         return Optional.empty();
     }
 
+    @Override
     public void empty() {
         root = null;
         size = 0;
     }
 
+    @Override
     public List<E> getElements() {
         ArrayList<E> elements = new ArrayList<>(size);
         inOrderTraversal(root, elements);
         return elements;
     }
 
+    @Override
     public int size() {
         return size;
     }
