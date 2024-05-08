@@ -1,0 +1,11 @@
+{
+  "value": "B",
+  "left": {
+    "value": "A",
+    "left": null,
+    "right": null,
+    "height": 1
+  },
+  "right": null,
+  "height": 2
+}

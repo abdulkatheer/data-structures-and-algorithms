@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class BstUsingRecursion<E extends Comparable<E>> implements Tree<E> {
+public class AvlTree<E extends Comparable<E>> implements Tree<E> {
     private Node<E> root;
     private int size;
 
@@ -59,10 +59,11 @@ public class BstUsingRecursion<E extends Comparable<E>> implements Tree<E> {
     }
 
     /**
-     * If root is null, returns a new Node<E><br/>
-     * If element is smaller than root, try inserting in the left and return the node<br/>
-     * If element is bigger than root, try inserting in the right and return the node<br/>
-     * Recursive case 2 and 3 will boil down to Base case
+     * Base case 1 - Tree is empty, creating new Node<E><br/>
+     * Base case 2 - Node has been inserted in the left or right or root</br>
+     * Recursive case 1 - If element is smaller than root, try inserting in the left and return the node<br/>
+     * Recursive case 2 - If element is bigger than root, try inserting in the right and return the node<br/>
+     * Recursive case 1 and 2 will boil down to Base case 2
      *
      * @param root    Root node of the tree or subtree to which the element has to be inserted
      * @param element Element to be inserted
@@ -70,11 +71,13 @@ public class BstUsingRecursion<E extends Comparable<E>> implements Tree<E> {
      * @return Returns either the new node (empty tree) or the root of the subtree where node will be inserted
      */
     private static <E extends Comparable<E>> Node<E> createNode(Node<E> root, E element) {
-        // Base case - Tree is empty, creating new Node<E>
+        // Base case 1 - Tree is empty, creating new Node<E>
         if (root == null) {
             return new Node<>(element);
         }
+        // Prologue - code before recursion
         int compare = element.compareTo(root.value);
+
         if (compare < 0) {
             // Recursive case 1 - Try creating node in the left
             root.left = createNode(root.left, element);
@@ -84,7 +87,37 @@ public class BstUsingRecursion<E extends Comparable<E>> implements Tree<E> {
         } else {
             throw new DuplicateElement("Element=" + element + " already exists");
         }
-        return root;
+
+        // Epilogue - code after recursion
+        updateHeight(root);
+        int balanceFactor = getBalanceFactor(root);
+
+        if (balanceFactor > 1) { // Left is higher
+            if (element.compareTo(root.left.value) < 0) { // Element is smaller than left
+                // Left-Left
+                return rotateRight(root); // Rotate the root and return new root
+            } else { // Element is bigger than left
+                // Left-Right
+                root.left = rotateLeft(root.left); // Rotate the left subtree and update left link
+                return rotateRight(root); // Rotate the root and return new root
+            }
+        } else if (balanceFactor < -1) { // right is higher
+            if (element.compareTo(root.right.value) > 0) { // Element is bigger than right
+                // Right-Right
+                return rotateLeft(root); // Rotate the root and return new root
+            } else { // Element is smaller than right
+                // Right-Left
+                root.right = rotateRight(root.right); // Rotate the right subtree and update right link
+                return rotateLeft(root); // Rotate the root and return new root
+            }
+        }
+
+        // Base case 2 - Node has been inserted in the left or right or root
+        return root; // Return new/old root
+    }
+
+    private static <E extends Comparable<E>> int getBalanceFactor(Node<E> root) {
+        return root == null ? 0 : getHeight(root.left) - getHeight(root.right);
     }
 
     /**
@@ -97,34 +130,105 @@ public class BstUsingRecursion<E extends Comparable<E>> implements Tree<E> {
      * @return New root of the tree
      */
     private static <E extends Comparable<E>> Node<E> deleteNode(Node<E> root, E element) {
+        // Step 1: Normal BST delete
+
         // Base case 1 - Not found case
         if (root == null) {
             throw new ElementNotFound("Element=" + element + " not found");
         }
+
         int compare = element.compareTo(root.value);
         if (compare < 0) { // Recursive case 1 - Element is smaller, so look in the left subtree
             root.left = deleteNode(root.left, element);
         } else if (compare > 0) {
             root.right = deleteNode(root.right, element); // Recursive case 2 - Element is bigger, so look in the right subtree
         } else {
-            // Base case 2 - No child case
-            if (root.isLeaf()) {
-                return null;
-            }
-            // Base case 3 - Single child case
-            if (root.left == null) {
-                return root.right;
-            } else if (root.right == null) {
-                return root.left;
-            }
 
-            E successor = findSuccessor(root.right);
-            root.value = successor; // copied value of successor
+            if (root.isLeaf()) { // Base case 2 - No child case
+                root = null;
+            } else if (root.hasOneChild()) {  // Base case 3 - Single child case
+                root = root.getTheOnlyChild();
+            } else {
+                E successor = findSuccessor(root.right);
+                root.value = successor; // copied value of successor
 
-            // Recursive case 3 - Element is matched, so remove it
-            root.right = deleteNode(root.right, successor);
+                // Recursive case 3 - Element is matched, so remove it
+                root.right = deleteNode(root.right, successor);
+            }
+        }
+
+        // If the tree had only one node then return
+        if (root == null) {
+            return root;
+        }
+
+        // Step 2: Update tree height
+        updateHeight(root);
+
+        // Step 3: Balance if not
+        int balanceFactor = getBalanceFactor(root);
+        if (balanceFactor > 1) { // Left is heavy
+            if (getBalanceFactor(root.left) >= 0) { // Left of left is heavy or balanced
+                // Left-Left case
+                root = rotateRight(root);
+            } else { // Right of left is heavy or balanced
+                // Left-Right case
+                root.left = rotateLeft(root.left);
+                root = rotateRight(root);
+            }
+        } else if (balanceFactor < -1) { // Right is heavy
+            if (getBalanceFactor(root.right) <= 0) { // Right of right is heavy or balanced
+                // Right-Right case
+                root = rotateLeft(root);
+            } else {  // Left of right is heavy
+                // Right-Left case
+                root.right = rotateRight(root.right);
+                root = rotateLeft(root);
+            }
         }
         return root;
+    }
+
+    private static <E extends Comparable<E>> E findSuccessor(Node<E> root) {
+        E successor = root.value;
+        while (root.left != null) {
+            if (root.left.value.compareTo(successor) < 0) {
+                successor = root.left.value;
+            }
+            root = root.left;
+        }
+        return successor;
+    }
+
+    private static <E> Node<E> rotateRight(Node<E> z) {
+        Node<E> y = z.left;
+
+        z.left = y.right;
+        y.right = z;
+
+        updateHeight(z);
+        updateHeight(y);
+        return y;
+    }
+
+    private static <E> Node<E> rotateLeft(Node<E> z) {
+        Node<E> y = z.right;
+
+        z.right = y.left;
+        y.left = z;
+
+        updateHeight(z);
+        updateHeight(y);
+        return y;
+    }
+
+
+    private static <E> int getHeight(Node<E> node) {
+        return node == null ? 0 : node.height;
+    }
+
+    private static <E> void updateHeight(Node<E> root) {
+        root.height = 1 + Math.max(getHeight(root.left), getHeight(root.right));
     }
 
     /**
@@ -156,18 +260,7 @@ public class BstUsingRecursion<E extends Comparable<E>> implements Tree<E> {
         }
     }
 
-    private static <E extends Comparable<E>> E findSuccessor(Node<E> root) {
-        E successor = root.value;
-        while (root.left != null) {
-            if (root.left.value.compareTo(successor) < 0) {
-                successor = root.left.value;
-            }
-            root = root.left;
-        }
-        return successor;
-    }
-
-    private static <E> void inOrderTraversal(BstUsingRecursion.Node<E> node, List<E> elements) {
+    private static <E> void inOrderTraversal(AvlTree.Node<E> node, List<E> elements) {
         if (node == null) {
             return;
         }
@@ -178,23 +271,29 @@ public class BstUsingRecursion<E extends Comparable<E>> implements Tree<E> {
 
     public static class Node<E> {
         private E value;
-        private BstUsingRecursion.Node<E> left;
-        private BstUsingRecursion.Node<E> right;
+        private AvlTree.Node<E> left;
+        private AvlTree.Node<E> right;
+        private int height;
 
         public E getValue() {
             return value;
         }
 
-        public BstUsingRecursion.Node<E> getLeft() {
+        public AvlTree.Node<E> getLeft() {
             return left;
         }
 
-        public BstUsingRecursion.Node<E> getRight() {
+        public AvlTree.Node<E> getRight() {
             return right;
+        }
+
+        public int getHeight() {
+            return height;
         }
 
         public Node(E value) {
             this.value = value;
+            this.height = 1;
         }
 
         @JsonIgnore
@@ -208,7 +307,7 @@ public class BstUsingRecursion<E extends Comparable<E>> implements Tree<E> {
         }
 
         @JsonIgnore
-        public BstUsingRecursion.Node<E> getTheOnlyChild() {
+        public AvlTree.Node<E> getTheOnlyChild() {
             if (hasOneChild()) {
                 return left == null ? right : left;
             }

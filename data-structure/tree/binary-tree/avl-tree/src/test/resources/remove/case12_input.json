@@ -1,0 +1,21 @@
+{
+  "value": "F",
+  "left": {
+    "value": "E",
+    "left": null,
+    "right": null,
+    "height": 1
+  },
+  "right": {
+    "value": "G",
+    "left": null,
+    "right": {
+      "value": "H",
+      "left": null,
+      "right": null,
+      "height": 1
+    },
+    "height": 2
+  },
+  "height": 3
+}

@@ -29,3 +29,24 @@ The height of a subtree is the number of edges between the root node of the subt
 BF<sub>x</sub> = height(rightSubtree(x)) - height(leftSubtree(x)), where x is the node
 
 BF<sub>x</sub> should be 0, 1 or -1 at any point in time, otherwise tree needs to be balanced
+
+### Insertion
+![Insertion in AVL tree](insertion.png)
+![Insertion steps](insertion-steps.png)
+![1. Left-Left case](insert-left-left.png)
+![2. Left-Right case](insert-left-right.png)
+![3. Right-Right case](insert-right-right.png)
+![4. Right-Left case](insert-right-left.png)
+
+#### Examples
+![1. No balancing needed](insert-balanced-ex.png)
+![2. Left-Left](insert-left-left-ex.png)
+![2. Left-Right](insert-left-right-ex.png)
+![2. Right-Right](insert-right-right-ex.png)
+![2. Right-Left](insert-right-left-ex.png)
+
+### Deletion
+![Deletion in AVL tree](deletion.png)
+![Deletion steps](deletion-steps.png)
+![Left case](deletion-left-case.png)
+![Right case](deletion-right-case.png)

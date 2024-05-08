@@ -1,0 +1,26 @@
+{
+  "value": 5,
+  "left": {
+    "value": 4,
+    "left": null,
+    "right": null,
+    "height": 1
+  },
+  "right": {
+    "value": 109,
+    "left": {
+      "value": 100,
+      "left": null,
+      "right": null,
+      "height": 1
+    },
+    "right": {
+      "value": 110,
+      "left": null,
+      "right": null,
+      "height": 1
+    },
+    "height": 2
+  },
+  "height": 3
+}

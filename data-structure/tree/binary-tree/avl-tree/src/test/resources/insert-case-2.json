@@ -1,0 +1,31 @@
+{
+  "value": 150,
+  "left": {
+    "value": 100,
+    "left": null,
+    "right": {
+      "value": 109,
+      "left": null,
+      "right": null,
+      "height": 1
+    },
+    "height": 2
+  },
+  "right": {
+    "value": 200,
+    "left": {
+      "value": 160,
+      "left": null,
+      "right": null,
+      "height": 1
+    },
+    "right": {
+      "value": 210,
+      "left": null,
+      "right": null,
+      "height": 1
+    },
+    "height": 2
+  },
+  "height": 3
+}
