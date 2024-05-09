@@ -55,6 +55,99 @@ class AvlTreeTest {
         testRemovingNonRootNodeWithTwoChildrenAndSuccessorIsFarFromNodeAndSuccessorIsHavingOneChild();
 
         testRemovingNonRootNodeWithTwoChildrenAndSuccessorFarFromNodeAndSuccessorIsHavingNoChild();
+
+        testLeftLeftRotation();
+
+        testLeftRightRotation();
+
+        testRightRightRotation();
+
+        AvlTree<Integer> integerTree = new AvlTree<>();
+        integerTree.insert(20);
+        integerTree.insert(10);
+        integerTree.insert(60);
+        integerTree.insert(50);
+        assertEquals("10 --> 20 --> 50 --> 60", integerTree.toString());
+        integerTree.remove(10);
+        assertEquals("20 --> 50 --> 60", integerTree.toString());
+    }
+
+    @Test
+    void lookup() {
+        AvlTree<String> stringTree = new AvlTree<>();
+
+        assertTrue(stringTree.lookup("A").isEmpty());
+
+        stringTree.insert("A");
+        assertEquals("A", stringTree.lookup("A").get());
+
+        stringTree.insert("B");
+        assertEquals("B", stringTree.lookup("B").get());
+
+        stringTree.insert("C");
+        assertEquals("C", stringTree.lookup("C").get());
+
+        stringTree.insert("D");
+        assertEquals("D", stringTree.lookup("D").get());
+
+        stringTree.insert("E");
+        assertEquals("E", stringTree.lookup("E").get());
+
+        stringTree.insert("F");
+        assertEquals("F", stringTree.lookup("F").get());
+    }
+
+    private static void testRightRightRotation() {
+        AvlTree<Integer> integerTree = new AvlTree<>();
+        integerTree.insert(30);
+        integerTree.insert(10);
+        integerTree.insert(50);
+        integerTree.insert(80);
+        assertEquals("10 --> 30 --> 50 --> 80", integerTree.toString());
+        integerTree.remove(10);
+        assertEquals("30 --> 50 --> 80", integerTree.toString());
+
+        integerTree = new AvlTree<>();
+        integerTree.insert(70);
+        integerTree.insert(30);
+        integerTree.insert(100);
+        integerTree.insert(80);
+        integerTree.insert(110);
+        assertEquals("30 --> 70 --> 80 --> 100 --> 110", integerTree.toString());
+        integerTree.remove(30);
+        assertEquals("70 --> 80 --> 100 --> 110", integerTree.toString());
+    }
+
+    private static void testLeftRightRotation() {
+        AvlTree<Integer> integerTree = new AvlTree<>();
+        integerTree.insert(50);
+        integerTree.insert(40);
+        integerTree.insert(60);
+        integerTree.insert(45);
+        assertEquals("40 --> 45 --> 50 --> 60", integerTree.toString());
+        integerTree.remove(60);
+        assertEquals("40 --> 45 --> 50", integerTree.toString());
+    }
+
+    private static void testLeftLeftRotation() {
+        AvlTree<Integer> integerTree = new AvlTree<>();
+        integerTree.insert(20);
+        integerTree.insert(10);
+        integerTree.insert(30);
+        integerTree.insert(5);
+        integerTree.insert(15);
+        assertEquals("5 --> 10 --> 15 --> 20 --> 30", integerTree.toString());
+        integerTree.remove(30);
+        assertEquals("5 --> 10 --> 15 --> 20", integerTree.toString());
+
+        integerTree = new AvlTree<>();
+        integerTree.insert(100);
+        integerTree.insert(70);
+        integerTree.insert(110);
+        integerTree.insert(30);
+        assertEquals("30 --> 70 --> 100 --> 110", integerTree.toString());
+        integerTree.remove(110);
+        assertEquals("30 --> 70 --> 100", integerTree.toString());
     }
 
     private static <E extends Comparable<E>> void testLeftLeftAndRightRightCase() throws NoSuchFieldException, IllegalAccessException, JsonProcessingException {

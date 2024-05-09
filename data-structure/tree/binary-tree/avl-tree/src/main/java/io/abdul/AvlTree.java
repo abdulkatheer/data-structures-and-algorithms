@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.stream.Collectors.joining;
+
 public class AvlTree<E extends Comparable<E>> implements Tree<E> {
     private Node<E> root;
     private int size;
@@ -56,6 +58,13 @@ public class AvlTree<E extends Comparable<E>> implements Tree<E> {
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public String toString() {
+        return getElements().stream()
+                .map(E::toString)
+                .collect(joining(" --> "));
     }
 
     /**
