@@ -1,0 +1,21 @@
+{
+  "red": false,
+  "value": 100,
+  "left": {
+    "red": false,
+    "value": 90,
+    "left": null,
+    "right": {
+      "red": true,
+      "value": 95,
+      "left": null,
+      "right": null
+    }
+  },
+  "right": {
+    "red": false,
+    "value": 110,
+    "left": null,
+    "right": null
+  }
+}
