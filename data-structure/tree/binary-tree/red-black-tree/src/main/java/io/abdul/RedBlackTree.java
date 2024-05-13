@@ -34,6 +34,7 @@ public class RedBlackTree<E extends Comparable<E>> implements Tree<E> {
         }
     }
 
+    // TODO not balanced yet!!
     @Override
     public boolean remove(E element) {
         try {
@@ -192,20 +193,20 @@ public class RedBlackTree<E extends Comparable<E>> implements Tree<E> {
         } else {
             // Base case 2 - No child case
             if (root.isLeaf()) {
-                return null;
-            }
-            // Base case 3 - Single child case
-            if (root.left == null) {
-                return root.right;
-            } else if (root.right == null) {
-                return root.left;
-            }
+                root = null;
+            } else if (root.hasOneChild()) { // Base case 3 - Single child case
+                if (root.left == null) {
+                    root = root.right;
+                } else if (root.right == null) {
+                    root = root.left;
+                }
+            } else {
+                E successor = findSuccessor(root.right);
+                root.value = successor; // copied value of successor
 
-            E successor = findSuccessor(root.right);
-            root.value = successor; // copied value of successor
-
-            // Recursive case 3 - Element is matched, so remove it
-            root.right = deleteNode(root.right, successor);
+                // Recursive case 3 - Element is matched, so remove it
+                root.right = deleteNode(root.right, successor);
+            }
         }
         return root;
     }

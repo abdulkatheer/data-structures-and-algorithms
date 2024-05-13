@@ -38,6 +38,7 @@ Rules That Every Red-Black Tree Follows:
    black nodes.
 
 ### Insertion
+
 1) Root is red
 2) Node's parent is red and uncle is also red - Recolor aunt and parent to black & grandparent to red
 3) Node's parent is red and uncle is black -> Rotate for 1 of the cases and recolor parent to black & grandparent to red
@@ -45,3 +46,32 @@ Rules That Every Red-Black Tree Follows:
    b) Left-Right
    c) Right-Right
    d) Right-Left
+
+### Deletion
+
+Let,
+the node to be deleted - v
+child of the node to be deleted - u
+other child of the parent, sibling to v - s
+red child of the sibling s - r
+
+1) Either u or v is red -> Just delete node and set parent color to black (Both cannot be red, as it
+   violated RBT rule)
+    - Mark replaced child as black, hence no change in black height
+2) Both u & v are black
+    1) s is black
+        1) at least one of its child is red (r)
+            1) Left-Left case --> s is left child of its parent & r is left child of s (or both child of s are red)
+            2) Left-Right case --> s is left child of its parent & r is right child of s
+            3) Right-Right case --> s is right child of its parent & r is right child of s (or both child of s are red)
+               ![Right-Right case](rb-delete-1.png)
+            4) Right-Left case --> s is right child of its parent & r is left child of s
+               ![Right-Left case](rb-delete-2.png)
+        2) both children of s are black
+           ![sibling children are black](rb-delete-3.png)
+    2) s is red
+        1) s is left child of its parent
+        2) s is right child of its parent
+           ![Right case](rb-delete-4.png)
+3) If u is root
+   - make it single black and return (Black height of complete tree reduces by 1)
