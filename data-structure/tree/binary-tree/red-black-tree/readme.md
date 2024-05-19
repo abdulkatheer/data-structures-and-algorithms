@@ -41,11 +41,16 @@ Rules That Every Red-Black Tree Follows:
 
 1) Root is red
 2) Node's parent is red and uncle is also red - Recolor aunt and parent to black & grandparent to red
+   ![Uncle is red](rb-insert-1.png)
 3) Node's parent is red and uncle is black -> Rotate for 1 of the cases and recolor parent to black & grandparent to red
-   a) Left-Left
-   b) Left-Right
-   c) Right-Right
-   d) Right-Left
+     - Left-Left
+     ![Left-Left case](rb-insert-2.png)
+     - Left-Right
+     ![Left-Right case](rb-insert-3.png)
+     - Right-Right
+     ![Right-Right case](rb-insert-4.png)
+     - Right-Left
+     ![Right-Left case](rb-insert-5.png)
 
 ### Deletion
 

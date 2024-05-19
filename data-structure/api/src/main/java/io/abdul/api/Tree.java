@@ -3,7 +3,7 @@ package io.abdul.api;
 import java.util.List;
 import java.util.Optional;
 
-public interface Tree<E> {
+public interface Tree<E extends Comparable<E>> {
     void insert(E element);
 
     Optional<E> lookup(E element);

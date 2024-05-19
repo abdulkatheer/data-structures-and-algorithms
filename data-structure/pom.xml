@@ -21,6 +21,7 @@
         <module>stack</module>
         <module>queue</module>
         <module>tree</module>
+        <module>tree/b-tree</module>
     </modules>
 
     <properties>

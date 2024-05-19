@@ -1,0 +1,45 @@
+{
+  "elements": [
+    3,
+    6,
+    9,
+    12
+  ],
+  "children": [
+    {
+      "elements": [
+        1,
+        2
+      ],
+      "children": []
+    },
+    {
+      "elements": [
+        4,
+        5
+      ],
+      "children": []
+    },
+    {
+      "elements": [
+        7,
+        8
+      ],
+      "children": []
+    },
+    {
+      "elements": [
+        10,
+        11
+      ],
+      "children": []
+    },
+    {
+      "elements": [
+        13,
+        14
+      ],
+      "children": []
+    }
+  ]
+}

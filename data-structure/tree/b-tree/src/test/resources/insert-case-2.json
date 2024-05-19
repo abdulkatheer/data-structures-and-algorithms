@@ -1,0 +1,29 @@
+{
+  "elements": [
+    3,
+    6
+  ],
+  "children": [
+    {
+      "elements": [
+        1,
+        2
+      ],
+      "children": []
+    },
+    {
+      "elements": [
+        4,
+        5
+      ],
+      "children": []
+    },
+    {
+      "elements": [
+        7,
+        8
+      ],
+      "children": []
+    }
+  ]
+}
