@@ -1,9 +1,7 @@
 package io.abdul;
 
-import java.util.Collection;
-
 public interface Sort<E> {
-    void sort(Collection<E> collection);
+    void sortInPlace(E[] elements);
 
-
+    E[] sort(E[] elements);
 }

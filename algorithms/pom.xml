@@ -13,6 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>algorithms-api</module>
+        <module>sort</module>
+        <module>search</module>
     </modules>
 
     <properties>
@@ -21,4 +23,23 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.17.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.abdul</groupId>
+                <artifactId>api</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>io.abdul</groupId>
+                <artifactId>algorithms-api</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

@@ -22,6 +22,7 @@
         <module>queue</module>
         <module>tree</module>
         <module>tree/b-tree</module>
+        <module>tree/heap</module>
     </modules>
 
     <properties>
