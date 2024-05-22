@@ -5,5 +5,7 @@ public interface Heap <E extends Comparable<E>> {
 
     E peek();
 
+    E delete();
+
     int size();
 }

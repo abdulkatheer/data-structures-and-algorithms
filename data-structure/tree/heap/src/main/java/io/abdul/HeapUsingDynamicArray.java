@@ -68,6 +68,14 @@ public class HeapUsingDynamicArray<E extends Comparable<E>> implements Heap<E> {
         if (size == 0) {
             throw new HeapEmpty("No elements in the heap");
         }
+        return elements.get(0);
+    }
+
+    @Override
+    public E delete() {
+        if (size == 0) {
+            throw new HeapEmpty("No elements in the heap");
+        }
         E topElement = elements.get(0);
         elements.set(0, elements.get(size - 1)); // Copying last element to first
         elements.remove(size - 1);

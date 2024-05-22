@@ -42,7 +42,7 @@ class HeapUsingDynamicArrayTest {
 
 
     @Test
-    void peek() {
+    void delete() {
         withOneElement();
 
         withTwoElements();
@@ -57,7 +57,7 @@ class HeapUsingDynamicArrayTest {
     }
 
     @Test
-    void peekWithComparator() {
+    void deleteWithComparator() {
         withOneElementAndComparator();
 
         withTwoElementsAndComparator();
@@ -81,22 +81,22 @@ class HeapUsingDynamicArrayTest {
         numbers.insert(1);
 
         assertEquals(6, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(5, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(4, numbers.size());
-        assertEquals(3, numbers.peek());
+        assertEquals(3, numbers.delete());
 
         assertEquals(3, numbers.size());
-        assertEquals(4, numbers.peek());
+        assertEquals(4, numbers.delete());
 
         assertEquals(2, numbers.size());
-        assertEquals(5, numbers.peek());
+        assertEquals(5, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(6, numbers.peek());
+        assertEquals(6, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -110,19 +110,19 @@ class HeapUsingDynamicArrayTest {
         numbers.insert(1);
 
         assertEquals(5, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(4, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(3, numbers.size());
-        assertEquals(3, numbers.peek());
+        assertEquals(3, numbers.delete());
 
         assertEquals(2, numbers.size());
-        assertEquals(4, numbers.peek());
+        assertEquals(4, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(5, numbers.peek());
+        assertEquals(5, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -135,16 +135,16 @@ class HeapUsingDynamicArrayTest {
         numbers.insert(1);
 
         assertEquals(4, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(3, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(2, numbers.size());
-        assertEquals(3, numbers.peek());
+        assertEquals(3, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(4, numbers.peek());
+        assertEquals(4, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -156,13 +156,13 @@ class HeapUsingDynamicArrayTest {
         numbers.insert(1);
 
         assertEquals(3, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(2, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(3, numbers.peek());
+        assertEquals(3, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -173,10 +173,10 @@ class HeapUsingDynamicArrayTest {
         numbers.insert(2);
 
         assertEquals(2, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -186,7 +186,7 @@ class HeapUsingDynamicArrayTest {
         numbers.insert(1);
 
         assertEquals(1, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -202,22 +202,22 @@ class HeapUsingDynamicArrayTest {
         numbers.insert(6);
 
         assertEquals(6, numbers.size());
-        assertEquals(6, numbers.peek());
+        assertEquals(6, numbers.delete());
 
         assertEquals(5, numbers.size());
-        assertEquals(5, numbers.peek());
+        assertEquals(5, numbers.delete());
 
         assertEquals(4, numbers.size());
-        assertEquals(4, numbers.peek());
+        assertEquals(4, numbers.delete());
 
         assertEquals(3, numbers.size());
-        assertEquals(3, numbers.peek());
+        assertEquals(3, numbers.delete());
 
         assertEquals(2, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -231,19 +231,19 @@ class HeapUsingDynamicArrayTest {
         numbers.insert(5);
 
         assertEquals(5, numbers.size());
-        assertEquals(5, numbers.peek());
+        assertEquals(5, numbers.delete());
 
         assertEquals(4, numbers.size());
-        assertEquals(4, numbers.peek());
+        assertEquals(4, numbers.delete());
 
         assertEquals(3, numbers.size());
-        assertEquals(3, numbers.peek());
+        assertEquals(3, numbers.delete());
 
         assertEquals(2, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -256,16 +256,16 @@ class HeapUsingDynamicArrayTest {
         numbers.insert(4);
 
         assertEquals(4, numbers.size());
-        assertEquals(4, numbers.peek());
+        assertEquals(4, numbers.delete());
 
         assertEquals(3, numbers.size());
-        assertEquals(3, numbers.peek());
+        assertEquals(3, numbers.delete());
 
         assertEquals(2, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -277,13 +277,13 @@ class HeapUsingDynamicArrayTest {
         numbers.insert(3);
 
         assertEquals(3, numbers.size());
-        assertEquals(3, numbers.peek());
+        assertEquals(3, numbers.delete());
 
         assertEquals(2, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -294,10 +294,10 @@ class HeapUsingDynamicArrayTest {
         numbers.insert(2);
 
         assertEquals(2, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -307,7 +307,7 @@ class HeapUsingDynamicArrayTest {
         numbers.insert(1);
 
         assertEquals(1, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -323,22 +323,22 @@ class HeapUsingDynamicArrayTest {
         Heap<Integer> numbers = new HeapUsingDynamicArray<>(unOrdered);
 
         assertEquals(6, numbers.size());
-        assertEquals(6, numbers.peek());
+        assertEquals(6, numbers.delete());
 
         assertEquals(5, numbers.size());
-        assertEquals(5, numbers.peek());
+        assertEquals(5, numbers.delete());
 
         assertEquals(4, numbers.size());
-        assertEquals(4, numbers.peek());
+        assertEquals(4, numbers.delete());
 
         assertEquals(3, numbers.size());
-        assertEquals(3, numbers.peek());
+        assertEquals(3, numbers.delete());
 
         assertEquals(2, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -354,22 +354,22 @@ class HeapUsingDynamicArrayTest {
         Heap<Integer> numbers = new HeapUsingDynamicArray<>(unOrdered, Comparator.reverseOrder());
 
         assertEquals(6, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(5, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(4, numbers.size());
-        assertEquals(3, numbers.peek());
+        assertEquals(3, numbers.delete());
 
         assertEquals(3, numbers.size());
-        assertEquals(4, numbers.peek());
+        assertEquals(4, numbers.delete());
 
         assertEquals(2, numbers.size());
-        assertEquals(5, numbers.peek());
+        assertEquals(5, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(6, numbers.peek());
+        assertEquals(6, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -384,19 +384,19 @@ class HeapUsingDynamicArrayTest {
         Heap<Integer> numbers = new HeapUsingDynamicArray<>(unOrdered);
 
         assertEquals(5, numbers.size());
-        assertEquals(5, numbers.peek());
+        assertEquals(5, numbers.delete());
 
         assertEquals(4, numbers.size());
-        assertEquals(4, numbers.peek());
+        assertEquals(4, numbers.delete());
 
         assertEquals(3, numbers.size());
-        assertEquals(3, numbers.peek());
+        assertEquals(3, numbers.delete());
 
         assertEquals(2, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -411,19 +411,19 @@ class HeapUsingDynamicArrayTest {
         Heap<Integer> numbers = new HeapUsingDynamicArray<>(unOrdered, Comparator.reverseOrder());
 
         assertEquals(5, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(4, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(3, numbers.size());
-        assertEquals(3, numbers.peek());
+        assertEquals(3, numbers.delete());
 
         assertEquals(2, numbers.size());
-        assertEquals(4, numbers.peek());
+        assertEquals(4, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(5, numbers.peek());
+        assertEquals(5, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -437,16 +437,16 @@ class HeapUsingDynamicArrayTest {
         Heap<Integer> numbers = new HeapUsingDynamicArray<>(unOrdered);
 
         assertEquals(4, numbers.size());
-        assertEquals(4, numbers.peek());
+        assertEquals(4, numbers.delete());
 
         assertEquals(3, numbers.size());
-        assertEquals(3, numbers.peek());
+        assertEquals(3, numbers.delete());
 
         assertEquals(2, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -460,16 +460,16 @@ class HeapUsingDynamicArrayTest {
         Heap<Integer> numbers = new HeapUsingDynamicArray<>(unOrdered, Comparator.reverseOrder());
 
         assertEquals(4, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(3, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(2, numbers.size());
-        assertEquals(3, numbers.peek());
+        assertEquals(3, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(4, numbers.peek());
+        assertEquals(4, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -482,13 +482,13 @@ class HeapUsingDynamicArrayTest {
         Heap<Integer> numbers = new HeapUsingDynamicArray<>(unOrdered);
 
         assertEquals(3, numbers.size());
-        assertEquals(3, numbers.peek());
+        assertEquals(3, numbers.delete());
 
         assertEquals(2, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -501,13 +501,13 @@ class HeapUsingDynamicArrayTest {
         Heap<Integer> numbers = new HeapUsingDynamicArray<>(unOrdered, Comparator.reverseOrder());
 
         assertEquals(3, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(2, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(3, numbers.peek());
+        assertEquals(3, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -519,10 +519,10 @@ class HeapUsingDynamicArrayTest {
         Heap<Integer> numbers = new HeapUsingDynamicArray<>(unOrdered);
 
         assertEquals(2, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -534,10 +534,10 @@ class HeapUsingDynamicArrayTest {
         Heap<Integer> numbers = new HeapUsingDynamicArray<>(unOrdered, Comparator.reverseOrder());
 
         assertEquals(2, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(1, numbers.size());
-        assertEquals(2, numbers.peek());
+        assertEquals(2, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -548,7 +548,7 @@ class HeapUsingDynamicArrayTest {
 
         Heap<Integer> numbers = new HeapUsingDynamicArray<>(unOrdered);
         assertEquals(1, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
@@ -559,7 +559,7 @@ class HeapUsingDynamicArrayTest {
 
         Heap<Integer> numbers = new HeapUsingDynamicArray<>(unOrdered, Comparator.reverseOrder());
         assertEquals(1, numbers.size());
-        assertEquals(1, numbers.peek());
+        assertEquals(1, numbers.delete());
 
         assertEquals(0, numbers.size());
     }
