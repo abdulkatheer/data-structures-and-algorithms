@@ -5,16 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>io.abdul</groupId>
-        <artifactId>data-structure</artifactId>
+        <artifactId>tree</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>tree</artifactId>
+    <artifactId>m-way-tree</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>binary-tree</module>
-        <module>b-plus-tree</module>
-        <module>m-way-tree</module>
+        <module>trie</module>
     </modules>
 
     <properties>
