@@ -24,6 +24,7 @@
         <module>tree/b-tree</module>
         <module>tree/heap</module>
         <module>priority-queue</module>
+        <module>graph</module>
     </modules>
 
     <properties>
