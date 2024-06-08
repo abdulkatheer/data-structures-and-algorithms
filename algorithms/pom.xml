@@ -15,6 +15,7 @@
         <module>algorithms-api</module>
         <module>sort</module>
         <module>search</module>
+        <module>recursion</module>
     </modules>
 
     <properties>
