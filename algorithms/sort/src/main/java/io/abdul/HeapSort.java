@@ -4,6 +4,12 @@ import io.abdul.api.exception.NotImplemented;
 
 import java.util.Comparator;
 
+/**
+ * Time Complexity - O(n * log n) <br>
+ * Space Complexity - O(1)
+ *
+ * @param <E>
+ */
 public class HeapSort<E extends Comparable<E>> implements Sort<E> {
     private final Comparator<E> comparator;
 
