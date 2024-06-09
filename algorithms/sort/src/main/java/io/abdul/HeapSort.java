@@ -23,6 +23,9 @@ public class HeapSort<E extends Comparable<E>> implements Sort<E> {
 
     @Override
     public void sortInPlace(E[] elements) {
+        if (elements.length <= 1) {
+            return;
+        }
         if (comparator != null) {
             heapSort(elements, comparator);
         } else {

@@ -11,6 +11,9 @@ import io.abdul.api.exception.NotImplemented;
 public class BubbleSort<E extends Comparable<E>> implements Sort<E> {
     @Override
     public void sortInPlace(E[] elements) {
+        if (elements.length <= 1) {
+            return;
+        }
         for (int i = 0; i < elements.length; i++) {
             for (int j = 0; j < elements.length - i - 1; j++) {
                 if (elements[j].compareTo(elements[j + 1]) > 0) {
