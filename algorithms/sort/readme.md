@@ -1,3 +1,24 @@
+### Summary
+
+#### Quick Sort
+1. Divide and Conquer
+2. Recursive
+3. Not stable
+4. In-place sorting
+5. Partitioning technique - Lomuto Partitioning & other algorithms exist
+6. Worst-case time complexity - O(n<sup>2</sup>)
+7. Randomized Quick Sort reduces the probability of O(n<sup>2</sup>), still it can happen
+8. Worst-case space complexity - O(n) for the call stack 
+
+#### Merge Sort
+1. Divide and Conquer
+2. Recursive
+3. Stable
+4. In-place sorting requires to make a copy of original set
+5. Merging technique - 2-way merge, m-way merge, in-place merge & other algorithms exist
+6. Worst-case time complexity - O(n log(n))
+7. Worst-case space complexity - (log(n)) for the call stack
+
 ### Groups
 
 #### Based on worst-case time complexity

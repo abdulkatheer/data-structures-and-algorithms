@@ -2,7 +2,11 @@ package io.abdul;
 
 import io.abdul.api.exception.NotImplemented;
 
-public class QuickSort<E extends Comparable<E>> implements Sort<E> {
+import java.util.Random;
+
+public class RandomizedQuickSort<E extends Comparable<E>> implements Sort<E> {
+    private static final Random RANDOM = new Random();
+
     @Override
     public void sortInPlace(E[] elements) {
         if (elements.length <= 1) {
@@ -13,7 +17,7 @@ public class QuickSort<E extends Comparable<E>> implements Sort<E> {
 
     @Override
     public E[] sort(E[] elements) {
-        throw new NotImplemented("sort() not implemented in " + QuickSort.class.getName());
+        throw new NotImplemented("sort() not implemented in " + RandomizedQuickSort.class.getName());
     }
 
     private static <E extends Comparable<E>> void quickSort(E[] elements, int start, int end) {
@@ -23,9 +27,19 @@ public class QuickSort<E extends Comparable<E>> implements Sort<E> {
         if (start > end) { // Base case: invalid segment
             return;
         }
-        int partitionIndex = partition(elements, start, end);
+        int partitionIndex = randomizedPartition(elements, start, end);
         quickSort(elements, start, partitionIndex - 1);
         quickSort(elements, partitionIndex + 1, end);
+    }
+
+    // Randomized Lomuto Partitioning Algorithm
+    public static <E extends Comparable<E>> int randomizedPartition(E[] elements, int start, int end) {
+        int randomPivotIndex = RANDOM.nextInt(start, end + 1);
+        // Move element at this randomly picked location to the end, so that probability of splitting at the end/start is been reduced
+        E temp = elements[randomPivotIndex];
+        elements[randomPivotIndex] = elements[end];
+        elements[end] = temp;
+        return partition(elements, start, end);
     }
 
     // Lomuto Partitioning Algorithm
