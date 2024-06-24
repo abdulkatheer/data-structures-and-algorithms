@@ -7,10 +7,6 @@ import io.abdul.api.exception.NotImplemented;
  * O(n<sup>2</sup>) - When elements are random <br>
  * \u03A9(n) - When elements are already sorted <br>
  * Space Complexity - O(1)
- * <p>
- * Once all elements are sorted, no swaps will happen.
- * Idea is to sense that no swaps didn't happen in previous iteration and stop further iterations
- *
  * @param <E>
  */
 public class InsertionSort<E extends Comparable<E>> implements Sort<E> {

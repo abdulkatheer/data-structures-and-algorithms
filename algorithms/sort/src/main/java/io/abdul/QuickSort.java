@@ -37,8 +37,12 @@ public class QuickSort<E extends Comparable<E>> implements Sort<E> {
         // at any point in time, all elements before partIndex will be lesser than pivot
         // and all elements after partIndex will be greater than pivot
         // So iterate through the list and anytime you find a smaller element put it in the place of partIndex and move partIndex to next location
+        // For already sorted arrays, partIndex and i will increment together, avoiding swaps
         for (int i = start; i < end; i++) {
             if (elements[i].compareTo(pivot) <= 0) {
+                if (partIndex == i) { // Both are at same element
+                    continue;
+                }
                 E temp = elements[i];
                 elements[i] = elements[partIndex];
                 elements[partIndex] = temp;

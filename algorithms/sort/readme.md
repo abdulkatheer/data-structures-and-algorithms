@@ -1,6 +1,33 @@
 ### Summary
 
+#### Bubble Sort
+
+#### Selection Sort
+
+#### Insertion Sort
+
+1. Iterative
+2. Stable
+3. In-place sorting
+4. Adaptive - meaning it can take advantage of the existing order in the list and will perform faster if the list is
+   already partially sorted.
+5. Worst-case time complexity - O(n<sup>2</sup>)
+6. Worst-case space complexity - O(1)
+7. Best-case time complexity - O(n) - When the array is already sorted
+
+##### Pros
+
+1. Algorithm is highly efficient when the list is already mostly sorted.
+2. Its best-case time complexity is O(n) when the list is already sorted, as it only requires a single pass to confirm
+   the order.
+3. Typically, performs fewer comparisons and swaps than selection and bubble sort, making it faster in practice for
+   small
+   datasets. It sorts the array as it iterates, which can reduce the total number of operations.
+4. It is adaptive, meaning it can take advantage of the existing order in the list and will perform faster if the list
+   is already partially sorted.
+
 #### Quick Sort
+
 1. Divide and Conquer
 2. Recursive
 3. Not stable
@@ -8,49 +35,18 @@
 5. Partitioning technique - Lomuto Partitioning & other algorithms exist
 6. Worst-case time complexity - O(n<sup>2</sup>)
 7. Randomized Quick Sort reduces the probability of O(n<sup>2</sup>), still it can happen
-8. Worst-case space complexity - O(n) for the call stack 
+8. Worst-case space complexity - O(n) for the call stack
 
 #### Merge Sort
+
 1. Divide and Conquer
 2. Recursive
 3. Stable
-4. In-place sorting requires to make a copy of original set
+4. Not In-place sorting - requires to make a copy of original set
 5. Merging technique - 2-way merge, m-way merge, in-place merge & other algorithms exist
 6. Worst-case time complexity - O(n log(n))
-7. Worst-case space complexity - (log(n)) for the call stack
-
-### Groups
-
-#### Based on worst-case time complexity
-
-1. Quadratic O(n<sup>2</sup>)
-    1. Selection sort - O(1) space
-    2. Bubble sort - O(1) space
-    3. Insertion sort - O(1) space
-    4. Quick Sort - O(log (n))
-2. Linear logarithmic O(n * logn)
-    1. Merge sort - O(n) space
-    2. Heap sort - O(1) space
-3. Polynomial O(n * k) ?? Explore
-    1. Radix sort - O(n + k) space
-4. Linear O(n + l) ?? Explore
-    1. Counting sort - O(k) space
-
-#### Based on stability
-
-Stable sort maintains the relative order when the keys are same or equal.
-That is, a sorting algorithm is stable if whenever there are two records R and S with the same key and with R appearing
-before S in the original list, R will appear before S in the sorted list
-
-1. Insertion sort
-2. Bubble sort
-3. Merge sort
-4. Radix sort
-5. Counting sort
-
-### Which one to use?
-
-#### Merge Sort
+7. Worst-case space complexity - O(n) for the array copy
+8. If the temp space is not reused - O(n log(n))
 
 ##### Pros
 
@@ -94,6 +90,72 @@ before S in the original list, R will appear before S in the sorted list
    than simpler sorting algorithms like insertion sort or selection sort for very small datasets. When sorting only a
    few elements, the overhead of merge sort may outweigh its benefits, and simpler algorithms may be preferred.
 
+### Groups
+
+#### Based on worst-case time complexity
+
+1. Quadratic O(n<sup>2</sup>)
+    1. Selection sort - O(1) space
+    2. Bubble sort - O(1) space
+    3. Insertion sort - O(1) space
+    4. Quick Sort - O(log (n))
+2. Linear logarithmic O(n * logn)
+    1. Merge sort - O(n) space
+    2. Heap sort - O(1) space
+3. Polynomial O(n * k) ?? Explore
+    1. Radix sort - O(n + k) space
+4. Linear O(n + l) ?? Explore
+    1. Counting sort - O(k) space
+
+#### Based on stability
+
+Stable sort maintains the relative order when the keys are same or equal.
+That is, a sorting algorithm is stable if whenever there are two records R and S with the same key and with R appearing
+before S in the original list, R will appear before S in the sorted list
+
+1. Insertion sort
+2. Bubble sort
+3. Merge sort
+4. Radix sort
+5. Counting sort
+
+#### Based on type
+
+##### Comparison sort
+
+1. Insertion sort
+2. Bubble sort
+3. Selection sort
+4. Merge sort
+5. Quick sort
+6. Heap sort
+
+##### Non-comparson sort
+
+<i>PS: Works only with fixed-length integer key types</i>
+
+1. Counting sort
+2. Radix sort
+
+### Which one to use?
+
+1. Bubble and Selection - No practical uses, just for learning
+2. Insertion sort - Small or nearly sorted datasets
+3. Merge sort - External sorting, large datasets, stable sorting
+    1. When Stable sorting & consistent performance required
+    2. Large datasets
+    3. External sorting - disks
+    4. Linked Lists -> No additional space for merge
+4. Quick sort - General-purpose in-memory sorting, small to medium-sized arrays
+    1. When memory constraint exists and in-place sorting needed
+    2. When performance is preferred over stability
+    3. The secret of Quicksort is: It almost doesn't do unnecessary element swaps. Swap is time consuming.
+5. Heap sort - In-place sorting with predictable performance, memory-constrained environments
+    1. Often used as an alternative to Quick sort
+    2. When consistent performance required
+
+https://stackoverflow.com/questions/2467751/quicksort-vs-heapsort
+
 ### References
 
 1. Sorting dances - https://www.youtube.com/playlist?list=PLcX11VWS1PdA4dSPip8-1JfKxFa32X53y
@@ -109,3 +171,7 @@ before S in the original list, R will appear before S in the sorted list
     2. https://algodaily.com/lessons/types-of-sorting-algorithm-cheat-sheet
     3. https://www.bigocheatsheet.com/
 4. https://stackoverflow.com/questions/1517793/what-is-stability-in-sorting-algorithms-and-why-is-it-important
+5. Radix Sort: https://brilliant.org/wiki/radix-sort/
+6. Radix Sort Animation: https://www.cs.usfca.edu/~galles/visualization/RadixSort.html
+7. Counting Sort: https://brilliant.org/wiki/counting-sort/
+8. Counting Sort Animation: https://www.cs.usfca.edu/~galles/visualization/CountingSort.html
