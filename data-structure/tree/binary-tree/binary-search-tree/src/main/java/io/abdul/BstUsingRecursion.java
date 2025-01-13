@@ -1,6 +1,8 @@
 package io.abdul;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.abdul.api.BinaryTree;
+import io.abdul.api.BinaryTreeNode;
 import io.abdul.api.Tree;
 import io.abdul.api.exception.DuplicateElement;
 import io.abdul.api.exception.ElementNotFound;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class BstUsingRecursion<E extends Comparable<E>> implements Tree<E> {
+public class BstUsingRecursion<E extends Comparable<E>> implements BinaryTree<E> {
     private Node<E> root;
     private int size;
 
@@ -56,6 +58,11 @@ public class BstUsingRecursion<E extends Comparable<E>> implements Tree<E> {
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public BinaryTreeNode<E> getRoot() {
+        return root;
     }
 
     /**
@@ -176,19 +183,22 @@ public class BstUsingRecursion<E extends Comparable<E>> implements Tree<E> {
         inOrderTraversal(node.right, elements);
     }
 
-    public static class Node<E> {
+    public static class Node<E> implements BinaryTreeNode<E> {
         private E value;
         private BstUsingRecursion.Node<E> left;
         private BstUsingRecursion.Node<E> right;
 
+        @Override
         public E getValue() {
             return value;
         }
 
+        @Override
         public BstUsingRecursion.Node<E> getLeft() {
             return left;
         }
 
+        @Override
         public BstUsingRecursion.Node<E> getRight() {
             return right;
         }

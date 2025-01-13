@@ -5,15 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>io.abdul</groupId>
-        <artifactId>data-structure</artifactId>
+        <artifactId>graph</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>graph</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>shortest-path</module>
-    </modules>
+    <artifactId>shortest-path</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

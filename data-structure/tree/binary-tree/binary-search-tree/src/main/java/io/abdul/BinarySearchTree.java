@@ -1,40 +1,41 @@
 package io.abdul;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.abdul.api.Tree;
+import io.abdul.api.BinaryTree;
+import io.abdul.api.BinaryTreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
-    private Node<E> root;
+public class BinarySearchTree<E extends Comparable<E>> implements BinaryTree<E> {
+    private BinaryTreeNode<E> root;
     private int size;
 
     @Override
     public void insert(E element) {
-        Node<E> newNode = new Node<>(element);
+        BinaryTreeNode<E> newNode = new Node<>(element);
         if (size == 0) {
             root = newNode;
             size++;
             return;
         }
-        Node<E> current = root;
+        BinaryTreeNode<E> current = root;
         while (current != null) {
-            int compare = element.compareTo(current.value);
+            int compare = element.compareTo(current.getValue());
             if (compare > 0) { // Traverse right
-                if (current.right == null) {
-                    current.right = newNode;
+                if (current.getRight() == null) {
+                    current.setRight(newNode);
                     break;
                 } else {
-                    current = current.right;
+                    current = current.getRight();
                 }
             } else if (compare < 0) { // Traverse left
-                if (current.left == null) {
-                    current.left = newNode;
+                if (current.getLeft() == null) {
+                    current.setLeft(newNode);
                     break;
                 } else {
-                    current = current.left;
+                    current = current.getLeft();
                 }
             } else {
                 throw new IllegalArgumentException("Duplicate element");
@@ -56,7 +57,7 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
         // 3c) two children (copy value of successor to root and remove successor)
         boolean removed = false;
         if (size != 0) { // 1. Empty tree (✓)
-            if (element.compareTo(root.value) == 0) { // 2. Deleting root node (another node may take root position)
+            if (element.compareTo(root.getValue()) == 0) { // 2. Deleting root node (another node may take root position)
                 removeRootNode();
                 removed = true;
                 size--;
@@ -72,23 +73,23 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
 
     @Override
     public Optional<E> lookup(E element) {
-        Node<E> current = root;
+        BinaryTreeNode<E> current = root;
         while (current != null) {
-            int compare = element.compareTo(current.value);
+            int compare = element.compareTo(current.getValue());
             if (compare > 0) { // Traverse right
-                if (current.right == null) {
+                if (current.getRight() == null) {
                     break;
                 } else {
-                    current = current.right;
+                    current = current.getRight();
                 }
             } else if (compare < 0) { // Traverse left
-                if (current.left == null) {
+                if (current.getLeft() == null) {
                     break;
                 } else {
-                    current = current.left;
+                    current = current.getLeft();
                 }
             } else {
-                return Optional.of(current.value);
+                return Optional.of(current.getValue());
             }
         }
         return Optional.empty();
@@ -112,35 +113,58 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
         return size;
     }
 
+    @Override
+    public BinaryTreeNode<E> getRoot() {
+        return root;
+    }
+
     private void removeRootNode() {
         if (root.isLeaf()) { // 2a) leaf node (means only one node exists and root will become null)
             root = null;
-        } else if (root.hasOneChild()) { // 2b) one child (that child will become root)
-            root = root.getTheOnlyChild();
+        } else if (((Node<E>) root).hasOneChild()) { // 2b) one child (that child will become root)
+            root = ((Node<E>) root).getTheOnlyChild();
         } else { // 2c) two children (copy value of successor to root and remove successor)
             removeNodeWithTwoChildren(root);
         }
     }
 
-    public static class Node<E> {
+    public static class Node<E> implements BinaryTreeNode<E> {
         private E value;
-        private Node<E> left;
-        private Node<E> right;
+        private BinaryTreeNode<E> left;
+        private BinaryTreeNode<E> right;
 
+        @Override
+        public void setLeft(BinaryTreeNode<E> newLeft) {
+            this.left = newLeft;
+        }
+
+        @Override
+        public void setValue(E newValue) {
+            this.value = newValue;
+        }
+
+        public Node(E value) {
+            this.setValue(value);
+        }
+
+        @Override
         public E getValue() {
             return value;
         }
 
-        public Node<E> getLeft() {
+        @Override
+        public BinaryTreeNode<E> getLeft() {
             return left;
         }
 
-        public Node<E> getRight() {
+        @Override
+        public BinaryTreeNode<E> getRight() {
             return right;
         }
 
-        public Node(E value) {
-            this.value = value;
+        @Override
+        public void setRight(BinaryTreeNode<E> newRight) {
+            this.right = newRight;
         }
 
         @JsonIgnore
@@ -154,7 +178,7 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
         }
 
         @JsonIgnore
-        public Node<E> getTheOnlyChild() {
+        public BinaryTreeNode<E> getTheOnlyChild() {
             if (hasOneChild()) {
                 return left == null ? right : left;
             }
@@ -162,54 +186,54 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
         }
     }
 
-    private static <E> void inOrderTraversal(Node<E> node, List<E> elements) {
+    private static <E> void inOrderTraversal(BinaryTreeNode<E> node, List<E> elements) {
         if (node == null) {
             return;
         }
-        inOrderTraversal(node.left, elements);
-        elements.add(node.value);
-        inOrderTraversal(node.right, elements);
+        inOrderTraversal(node.getLeft(), elements);
+        elements.add(node.getValue());
+        inOrderTraversal(node.getRight(), elements);
     }
 
-    private static <E extends Comparable<E>> Node<E> findSuccessor(Node<E> root) {
-        Node<E> successor = root.right;
+    private static <E extends Comparable<E>> BinaryTreeNode<E> findSuccessor(BinaryTreeNode<E> root) {
+        BinaryTreeNode<E> successor = root.getRight();
         if (successor == null) {
             throw new IllegalArgumentException("No successor found");
         }
-        Node<E> current = successor.left;
+        BinaryTreeNode<E> current = successor.getLeft();
 
         while (current != null) {
-            if (current.value.compareTo(successor.value) < 0) {
-                successor = current.left;
+            if (current.getValue().compareTo(successor.getValue()) < 0) {
+                successor = current.getLeft();
             }
-            current = current.left;
+            current = current.getLeft();
         }
         return successor;
     }
 
-    private static <E extends Comparable<E>> void removeNodeWithTwoChildren(Node<E> nodeToBeRemoved) {
-        Node<E> successor = findSuccessor(nodeToBeRemoved);
-        nodeToBeRemoved.value = successor.value;
+    private static <E extends Comparable<E>> void removeNodeWithTwoChildren(BinaryTreeNode<E> nodeToBeRemoved) {
+        BinaryTreeNode<E> successor = findSuccessor(nodeToBeRemoved);
+        nodeToBeRemoved.setValue(successor.getValue());
 
-        Node<E> parent = nodeToBeRemoved;
-        Node<E> current = nodeToBeRemoved.right;
+        BinaryTreeNode<E> parent = nodeToBeRemoved;
+        BinaryTreeNode<E> current = nodeToBeRemoved.getRight();
         boolean currentIsOnLeft = false;
 
         while (current != null) {
-            int compare = current.value.compareTo(successor.value);
+            int compare = current.getValue().compareTo(successor.getValue());
             if (compare == 0) { // successor found
                 if (current.isLeaf()) {
                     if (currentIsOnLeft) {
-                        parent.left = null;
+                        parent.setLeft(null);
                     } else {
-                        parent.right = null;
+                        parent.setRight(null);
                     }
-                } else if (current.hasOneChild()) {
-                    Node<E> theOnlyChild = current.getTheOnlyChild();
+                } else if (((Node<E>) current).hasOneChild()) {
+                    BinaryTreeNode<E> theOnlyChild = ((Node<E>) current).getTheOnlyChild();
                     if (currentIsOnLeft) {
-                        parent.left = theOnlyChild;
+                        parent.setLeft(theOnlyChild);
                     } else {
-                        parent.right = theOnlyChild;
+                        parent.setRight(theOnlyChild);
                     }
                 } else {
                     throw new IllegalArgumentException("Invalid BST, successor of a node should not have left sub-tree");
@@ -217,48 +241,48 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
                 break;
             } else if (compare < 0) {
                 parent = current;
-                current = current.right;
+                current = current.getRight();
                 currentIsOnLeft = false;
             } else {
                 parent = current;
-                current = current.left;
+                current = current.getLeft();
                 currentIsOnLeft = true;
             }
         }
     }
 
-    private static <E extends Comparable<E>> boolean removeNonRootNode(Node<E> root, E element) {
-        Node<E> parent;
-        Node<E> current;
+    private static <E extends Comparable<E>> boolean removeNonRootNode(BinaryTreeNode<E> root, E element) {
+        BinaryTreeNode<E> parent;
+        BinaryTreeNode<E> current;
         boolean nodeIsOnLeft = false;
         boolean removed = false;
-        int comp = root.value.compareTo(element);
+        int comp = root.getValue().compareTo(element);
         if (comp < 0) {
             parent = root;
-            current = root.right;
+            current = root.getRight();
         } else if (comp > 0) {
             parent = root;
-            current = root.left;
+            current = root.getLeft();
             nodeIsOnLeft = true;
         } else {
             throw new IllegalArgumentException("root and element are same");
         }
 
         while (current != null) {
-            int compare = current.value.compareTo(element);
+            int compare = current.getValue().compareTo(element);
             if (compare == 0) { // Match found
                 if (current.isLeaf()) { // 3a) leaf node (parent's right or left will become null)
                     if (nodeIsOnLeft) {
-                        parent.left = null;
+                        parent.setLeft(null);
                     } else {
-                        parent.right = null;
+                        parent.setRight(null);
                     }
-                } else if (current.hasOneChild()) { // 3b) one child (parent's left or right will point to that child)
-                    Node<E> theOnlyChild = current.getTheOnlyChild();
+                } else if (((Node<E>) current).hasOneChild()) { // 3b) one child (parent's left or right will point to that child)
+                    BinaryTreeNode<E> theOnlyChild = ((Node<E>) current).getTheOnlyChild();
                     if (nodeIsOnLeft) {
-                        parent.left = theOnlyChild;
+                        parent.setLeft(theOnlyChild);
                     } else {
-                        parent.right = theOnlyChild;
+                        parent.setRight(theOnlyChild);
                     }
                 } else { // 3c) two children (copy value of successor to root and remove successor)
                     removeNodeWithTwoChildren(current);
@@ -267,10 +291,10 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
                 break;
             } else if (compare < 0) { // Go towards right
                 parent = current;
-                current = current.right;
+                current = current.getRight();
             } else { // Go towards left
                 parent = current;
-                current = current.left;
+                current = current.getLeft();
             }
         }
         return removed;

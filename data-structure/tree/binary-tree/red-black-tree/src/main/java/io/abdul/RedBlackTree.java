@@ -1,7 +1,8 @@
 package io.abdul;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.abdul.api.Tree;
+import io.abdul.api.BinaryTree;
+import io.abdul.api.BinaryTreeNode;
 import io.abdul.api.exception.DuplicateElement;
 import io.abdul.api.exception.ElementNotFound;
 
@@ -11,7 +12,7 @@ import java.util.Optional;
 
 import static java.util.stream.Collectors.joining;
 
-public class RedBlackTree<E extends Comparable<E>> implements Tree<E> {
+public class RedBlackTree<E extends Comparable<E>> implements BinaryTree<E> {
     private Node<E> root;
     private int size;
 
@@ -62,6 +63,11 @@ public class RedBlackTree<E extends Comparable<E>> implements Tree<E> {
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public BinaryTreeNode<E> getRoot() {
+        return root;
     }
 
     @Override
@@ -260,20 +266,23 @@ public class RedBlackTree<E extends Comparable<E>> implements Tree<E> {
         inOrderTraversal(node.right, elements);
     }
 
-    public static class Node<E> {
+    public static class Node<E> implements BinaryTreeNode<E> {
         private boolean red = true;
         private E value;
         private RedBlackTree.Node<E> left;
         private RedBlackTree.Node<E> right;
 
+        @Override
         public E getValue() {
             return value;
         }
 
+        @Override
         public RedBlackTree.Node<E> getLeft() {
             return left;
         }
 
+        @Override
         public RedBlackTree.Node<E> getRight() {
             return right;
         }

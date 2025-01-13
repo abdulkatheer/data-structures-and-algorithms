@@ -25,6 +25,7 @@
         <module>tree/heap</module>
         <module>priority-queue</module>
         <module>graph</module>
+        <module>graph-traversal</module>
     </modules>
 
     <properties>

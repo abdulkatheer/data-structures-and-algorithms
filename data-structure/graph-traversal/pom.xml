@@ -9,16 +9,31 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>graph</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>shortest-path</module>
-    </modules>
+    <artifactId>graph-traversal</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.abdul</groupId>
+            <artifactId>api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.abdul</groupId>
+            <artifactId>binary-search-tree</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.abdul</groupId>
+            <artifactId>queue</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.abdul</groupId>
+            <artifactId>stack</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
