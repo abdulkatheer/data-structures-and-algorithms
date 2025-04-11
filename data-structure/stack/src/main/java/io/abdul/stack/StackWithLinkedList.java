@@ -1,56 +1,48 @@
-package io.abdul;
+package io.abdul.stack;
 
-
-import io.abdul.api.Array;
+import io.abdul.SinglyLinkedList;
+import io.abdul.api.LinkedList;
 import io.abdul.api.Stack;
 import io.abdul.api.exception.IndexOutOfBounds;
-import io.abdul.api.exception.StackOverflow;
+import io.abdul.api.exception.OperationNotSupported;
 import io.abdul.api.exception.StackUnderflow;
 
 import java.util.Iterator;
 import java.util.Optional;
 
 /**
- * Fixed Size Stack implementation using StaticArray data structure
+ * Dynamic Size Stack implementation using Singly Linked List data structure
  *
  * @param <E>
  */
-public class StackWithStaticArray<E> implements Stack<E> {
-    private final Array<E> stack;
-    private final int capacity;
+public class StackWithLinkedList<E> implements Stack<E> {
+    private final LinkedList<E> stack;
 
-    public StackWithStaticArray(int size) {
-        this.stack = new StaticArray<>(size);
-        this.capacity = size;
+    public StackWithLinkedList() {
+        stack = new SinglyLinkedList<>();
     }
 
     @Override
     public void push(E element) {
-        try {
-            if (stack.size() == 0) {
-                stack.add(element);
-            } else {
-                stack.insert(0, element);
-            }
-        } catch (IndexOutOfBounds e) {
-            throw new StackOverflow("Stack is full");
-        }
+        stack.insertAtTheBeginning(element);
     }
 
     @Override
     public E pop() throws StackUnderflow {
-        if (stack.size() == 0) {
+        try {
+            return stack.removeFirstElement();
+        } catch (IndexOutOfBounds e) {
             throw new StackUnderflow("Stack is empty");
         }
-        return stack.remove(0);
     }
 
     @Override
     public E peek() throws StackUnderflow {
-        if (stack.size() == 0) {
+        try {
+            return stack.getFirstElement();
+        } catch (IndexOutOfBounds e) {
             throw new StackUnderflow("Stack is empty");
         }
-        return stack.get(0);
     }
 
     @Override
@@ -64,8 +56,8 @@ public class StackWithStaticArray<E> implements Stack<E> {
     }
 
     @Override
-    public boolean isFull() {
-        return stack.size() == capacity;
+    public boolean isFull() throws OperationNotSupported {
+        throw new OperationNotSupported("isFull is not supported in StackWithLinkedList");
     }
 
     @Override

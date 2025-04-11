@@ -4,6 +4,8 @@ import io.abdul.api.Array;
 import io.abdul.api.Stack;
 import io.abdul.api.exception.StackOverflow;
 import io.abdul.api.exception.StackUnderflow;
+import io.abdul.stack.StackWithStaticArray;
+
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;

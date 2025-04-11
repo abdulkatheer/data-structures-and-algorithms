@@ -1,48 +1,49 @@
-package io.abdul;
+package io.abdul.stack;
 
-import io.abdul.api.LinkedList;
+import io.abdul.DynamicArray;
+import io.abdul.api.Array;
 import io.abdul.api.Stack;
-import io.abdul.api.exception.IndexOutOfBounds;
 import io.abdul.api.exception.OperationNotSupported;
-import io.abdul.api.exception.StackOverflow;
 import io.abdul.api.exception.StackUnderflow;
 
 import java.util.Iterator;
 import java.util.Optional;
 
 /**
- * Dynamic Size Stack implementation using Singly Linked List data structure
+ * Dynamic Size Stack implementation using DynamicArray data structure
  *
  * @param <E>
  */
-public class StackWithLinkedList<E> implements Stack<E> {
-    private final LinkedList<E> stack;
+public class StackWithDynamicArray<E> implements Stack<E> {
+    private final Array<E> stack;
 
-    public StackWithLinkedList() {
-        stack = new SinglyLinkedList<>();
+    public StackWithDynamicArray() {
+        this.stack = new DynamicArray<>();
     }
 
     @Override
     public void push(E element) {
-        stack.insertAtTheBeginning(element);
+        if (stack.size() == 0) {
+            stack.add(element);
+        } else {
+            stack.insert(0, element);
+        }
     }
 
     @Override
     public E pop() throws StackUnderflow {
-        try {
-            return stack.removeFirstElement();
-        } catch (IndexOutOfBounds e) {
+        if (stack.size() == 0) {
             throw new StackUnderflow("Stack is empty");
         }
+        return stack.remove(0);
     }
 
     @Override
     public E peek() throws StackUnderflow {
-        try {
-            return stack.getFirstElement();
-        } catch (IndexOutOfBounds e) {
+        if (stack.size() == 0) {
             throw new StackUnderflow("Stack is empty");
         }
+        return stack.get(0);
     }
 
     @Override
@@ -57,7 +58,7 @@ public class StackWithLinkedList<E> implements Stack<E> {
 
     @Override
     public boolean isFull() throws OperationNotSupported {
-        throw new OperationNotSupported("isFull is not supported in StackWithLinkedList");
+        throw new OperationNotSupported("isFull is not supported in StackWithDynamicArray");
     }
 
     @Override

@@ -1,6 +1,6 @@
 package io.abdul.dfs.in_order;
 
-import io.abdul.StackWithLinkedList;
+import io.abdul.stack.StackWithLinkedList;
 import io.abdul.api.BinaryTreeNode;
 import io.abdul.api.Stack;
 

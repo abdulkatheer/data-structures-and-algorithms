@@ -4,6 +4,8 @@ import io.abdul.api.Array;
 import io.abdul.api.Stack;
 import io.abdul.api.exception.OperationNotSupported;
 import io.abdul.api.exception.StackUnderflow;
+import io.abdul.stack.StackWithDynamicArray;
+
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;

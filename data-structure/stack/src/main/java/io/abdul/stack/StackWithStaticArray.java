@@ -1,31 +1,40 @@
-package io.abdul;
+package io.abdul.stack;
 
+
+import io.abdul.StaticArray;
 import io.abdul.api.Array;
 import io.abdul.api.Stack;
-import io.abdul.api.exception.OperationNotSupported;
+import io.abdul.api.exception.IndexOutOfBounds;
+import io.abdul.api.exception.StackOverflow;
 import io.abdul.api.exception.StackUnderflow;
 
 import java.util.Iterator;
 import java.util.Optional;
 
 /**
- * Dynamic Size Stack implementation using DynamicArray data structure
+ * Fixed Size Stack implementation using StaticArray data structure
  *
  * @param <E>
  */
-public class StackWithDynamicArray<E> implements Stack<E> {
+public class StackWithStaticArray<E> implements Stack<E> {
     private final Array<E> stack;
+    private final int capacity;
 
-    public StackWithDynamicArray() {
-        this.stack = new DynamicArray<>();
+    public StackWithStaticArray(int size) {
+        this.stack = new StaticArray<>(size);
+        this.capacity = size;
     }
 
     @Override
     public void push(E element) {
-        if (stack.size() == 0) {
-            stack.add(element);
-        } else {
-            stack.insert(0, element);
+        try {
+            if (stack.size() == 0) {
+                stack.add(element);
+            } else {
+                stack.insert(0, element);
+            }
+        } catch (IndexOutOfBounds e) {
+            throw new StackOverflow("Stack is full");
         }
     }
 
@@ -56,8 +65,8 @@ public class StackWithDynamicArray<E> implements Stack<E> {
     }
 
     @Override
-    public boolean isFull() throws OperationNotSupported {
-        throw new OperationNotSupported("isFull is not supported in StackWithDynamicArray");
+    public boolean isFull() {
+        return stack.size() == capacity;
     }
 
     @Override

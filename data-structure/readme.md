@@ -1,4 +1,4 @@
-### Data Structutes practiced
+### Data Structures practiced
 
 1. Array
     1) Static Array
