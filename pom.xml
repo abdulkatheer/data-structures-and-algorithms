@@ -14,6 +14,7 @@
         <module>data-structure</module>
         <module>algorithms</module>
         <module>data-structure/graph/representation</module>
+        <module>algorithms/dynamic-programming</module>
     </modules>
 
     <properties>
