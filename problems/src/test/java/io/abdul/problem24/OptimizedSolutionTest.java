@@ -1,5 +1,7 @@
 package io.abdul.problem24;
 
+import io.abdul.ds.problem24.OptimizedSolution;
+import io.abdul.ds.problem24.TreeNode;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
