@@ -1,4 +1,4 @@
-package io.abdul.array.dynamic_programming.problem4;
+package io.abdul.dynamic_programming.problem4;
 
 // https://leetcode.com/problems/climbing-stairs/description/
 public class ClimbingStairs {

@@ -1,4 +1,4 @@
-package io.abdul.array.dynamic_programming.problem1;
+package io.abdul.dynamic_programming.problem1;
 
 import java.util.HashMap;
 import java.util.Map;
