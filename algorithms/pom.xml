@@ -17,6 +17,7 @@
         <module>search</module>
         <module>recursion</module>
         <module>bit-manipulation</module>
+        <module>fast-slow-pointer</module>
     </modules>
 
     <properties>
