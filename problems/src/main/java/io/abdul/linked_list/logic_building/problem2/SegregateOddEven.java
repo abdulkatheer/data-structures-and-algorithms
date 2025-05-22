@@ -110,7 +110,7 @@ class Solution {
 
 /*
 Optimal - In-place shifting of elements
-T - O(n)
+T - O(n) -> 2n, n to find tail/size, n to split
 S - O(1)
  */
 class Solution2 {

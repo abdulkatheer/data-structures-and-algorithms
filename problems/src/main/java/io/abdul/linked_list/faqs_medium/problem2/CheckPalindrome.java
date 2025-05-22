@@ -92,7 +92,7 @@ class Solution {
 
 /*
 Optimal - Find size and keep one fast-pointer at mid+1
-T - O(n)
+T - O(n) - 2n + n/2; n to find size; n/2 to find mid+1; n/2 to reverse second half; n/2 to compare two halves
 S - O(1)
  */
 class Solution2 {
@@ -144,7 +144,8 @@ class Solution2 {
 }
 
 /*
-
+Optimal - fast-slow pointer method
+T - O(n) - n + n/2; n/2 to find middle; n/2 to reverse; n/2 to compare
 
 1 2 3 4 5 6
 s=1 f=1

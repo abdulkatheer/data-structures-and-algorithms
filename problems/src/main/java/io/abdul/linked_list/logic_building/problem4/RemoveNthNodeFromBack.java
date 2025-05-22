@@ -66,7 +66,7 @@ class ListNode {
 
 /*
 Brute - Find size and then remove
-T - O(n) - 2n
+T - O(n) - 2n; n to find size; n to remove
 S - O(1)
  */
 class Solution {
@@ -109,7 +109,7 @@ class Solution {
 
 /*
 Optimal - Slow/fast pointer approach
-T - O(n)
+T - O(n) - n
 S - O(1)
 
 Find n+1 th from the last and set n+1th.next = n+1th.next.next

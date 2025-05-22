@@ -79,7 +79,7 @@ class ListNode {
 
 /*
 Brute - Recreate nodes or replace data
-T - O(n)
+T - O(n) - 2n, n to count; n to update data
 S - O(1)
  */
 class Solution {
@@ -120,7 +120,7 @@ class Solution {
 
 /*
 Optimal - Move 0 to head, Move 2 to tail
-T - O(n)
+T - O(n) - 2n; n to find tail/size; n to group
 S - O(1)
  */
 class Solution2 {
@@ -174,7 +174,7 @@ class Solution2 {
 
 /*
 Optimal - Keep separate LL for zeros,ones,twos
-T - O(n)
+T - O(n) - n
 S - O(1)
  */
 class Solution3 {

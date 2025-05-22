@@ -66,7 +66,7 @@ class ListNode {
 
 /*
 Brute - Data replacement
-T - O(n)
+T - O(n) - 2n
 S - O(n)
  */
 class Solution {
@@ -137,11 +137,11 @@ class Solution3 {
         ListNode reversedTail = head; // Only head is reversed, so that's the tail
         ListNode current = head.next; // 2
         while (current != null) {
-            ListNode unreversedHead = current.next; // move each node to the head one by one 3
+            ListNode currentNext = current.next; // move each node to the head one by one 3
             current.next = head; // 2 -> 1 -> 2 -> 1...
-            reversedTail.next = unreversedHead; // As one element is reversed now, we move reversed tail right side
+            reversedTail.next = currentNext; // As one element is reversed now, we move reversed tail right side
             head = current; // current becomes new head
-            current = unreversedHead; // Head of unreversed, will be reversing this in next iteration
+            current = currentNext; // Head of unreversed, will be reversing this in next iteration
         }
 
         return head;

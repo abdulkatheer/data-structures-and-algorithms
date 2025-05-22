@@ -166,3 +166,60 @@ class Solution {
         return prev;
     }
 }
+
+/*
+Optimal - Simplified
+ */
+class Solution2 {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if (k == 1) {
+            return head;
+        }
+        ListNode dummyHead = new ListNode(-1);
+        ListNode prevTail = dummyHead;
+        ListNode current = head;
+        while(current != null) {
+            if (hasEnoughNodes(current, k)) {
+                ListNode newHead = reverse(current, k);
+                prevTail.next = newHead;
+                prevTail = current;
+                current = current.next;
+            } else {
+                break;
+            }
+        }
+
+        return dummyHead.next;
+    }
+
+    private boolean hasEnoughNodes(ListNode head, int k) {
+        int size = 0;
+        ListNode current = head;
+        while (current != null) {
+            size++;
+            if (size == k) {
+                return true;
+            }
+            current = current.next;
+        }
+
+        return false;
+    }
+
+    private ListNode reverse(ListNode head, int k) {
+        ListNode prev = null;
+        ListNode currentNext = null;
+        ListNode current = head;
+        int i = 0;
+        while (i < k) {
+            currentNext = current.next;
+            current.next = prev;
+            prev = current;
+            current = currentNext;
+            i++;
+        }
+
+        head.next = currentNext; // linking rem LL to tail
+        return prev;
+    }
+}

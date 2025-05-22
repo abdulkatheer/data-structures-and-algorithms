@@ -77,7 +77,7 @@ class ListNode {
 
 /*
 Brute - Reverse, Add, Reverse
-T - O(n)
+T - O(n) - 3n; n to reverse; n to add; n to reverse again
 S - O(1)
  */
 class Solution {
@@ -120,7 +120,7 @@ class Solution {
 
 /*
 Better - Recursive, Less time and more space compared to Brute
-T - O(n)
+T - O(n) - n
 S - O(n)
  */
 class Solution2 {
