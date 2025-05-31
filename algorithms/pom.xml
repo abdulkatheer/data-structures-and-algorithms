@@ -18,6 +18,7 @@
         <module>recursion</module>
         <module>bit-manipulation</module>
         <module>fast-slow-pointer</module>
+        <module>greedy</module>
     </modules>
 
     <properties>
