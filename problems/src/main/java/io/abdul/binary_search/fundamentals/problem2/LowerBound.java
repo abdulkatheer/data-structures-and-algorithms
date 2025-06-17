@@ -1,6 +1,9 @@
 package io.abdul.binary_search.fundamentals.problem2;
 
 /*
+
+First occurrence or the smallest element bigger than X
+
 Case 1: If x doesn't exist, position of first bigger element than x
 Case 2: If x exists only once, x's position
 Case 3: If x exists multiple times, position of first occurrence

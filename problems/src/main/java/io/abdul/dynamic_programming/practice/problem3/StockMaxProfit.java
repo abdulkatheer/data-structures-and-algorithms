@@ -1,4 +1,4 @@
-package io.abdul.dynamic_programming.problem3;
+package io.abdul.dynamic_programming.practice.problem3;
 
 // https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/
 public class StockMaxProfit {

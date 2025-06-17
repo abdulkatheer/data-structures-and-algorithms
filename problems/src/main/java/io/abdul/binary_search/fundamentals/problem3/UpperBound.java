@@ -1,6 +1,8 @@
 package io.abdul.binary_search.fundamentals.problem3;
 
 /*
+The smallest element bigger than x
+
 Case 1: at least 1 bigger element exists
 Case 2: All are smaller than x
  */
