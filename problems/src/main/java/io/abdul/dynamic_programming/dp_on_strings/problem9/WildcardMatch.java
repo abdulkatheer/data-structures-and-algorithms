@@ -227,6 +227,8 @@ class Solution3 {
         int n = str.length();
         int m = pat.length();
         boolean[][] dp = new boolean[n + 1][m + 1];
+        // dp[i][j] stores result considering str of length i (from start) and pat of length j (from start)
+        // So the overall result can be got from dp[n][m] which considers full string and pattern
 
         // Known solutions
         // empty string and empty pattern is a match

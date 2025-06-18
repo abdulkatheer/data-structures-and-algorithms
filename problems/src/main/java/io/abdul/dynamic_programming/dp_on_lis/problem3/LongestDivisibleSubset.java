@@ -1,4 +1,4 @@
-package io.abdul.dynamic_programming.lis.problem3;
+package io.abdul.dynamic_programming.dp_on_lis.problem3;
 
 import java.util.*;
 

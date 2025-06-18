@@ -1,4 +1,4 @@
-package io.abdul.dynamic_programming.lis.problem6;
+package io.abdul.dynamic_programming.dp_on_lis.problem6;
 
 import java.util.HashMap;
 import java.util.Map;

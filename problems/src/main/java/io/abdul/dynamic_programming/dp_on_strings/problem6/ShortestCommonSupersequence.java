@@ -14,57 +14,57 @@ public class ShortestCommonSupersequence {
         String str1 = "mno";
         String str2 = "nop";
         String result = solution.shortestCommonSupersequence(str1, str2);
-//        assertTrue(isSubsequence(str1, result) && isSubsequence(str2, result),
-//                "The result should contain characters of \"mno\" and \"nop\" in the same order");
-//
-//        // Test Case 2: Example input with minimal overlap
-//        str1 = "dynamic";
-//        str2 = "program";
-//        result = solution.shortestCommonSupersequence(str1, str2);
-//        assertTrue(isSubsequence(str1, result) && isSubsequence(str2, result),
-//                "The result should contain characters of \"dynamic\" and \"program\" in the same order");
-//
-//        // Test Case 3: Example input with no overlap
-//        str1 = "apple";
-//        str2 = "orange";
-//        result = solution.shortestCommonSupersequence(str1, str2);
-//        assertTrue(isSubsequence(str1, result) && isSubsequence(str2, result),
-//                "The result should contain characters of \"apple\" and \"orange\" in the same order");
-//
-//        // Test Case 4: Edge case with one empty string
-//        str1 = "";
-//        str2 = "abc";
-//        result = solution.shortestCommonSupersequence(str1, str2);
-//        assertTrue(isSubsequence(str1, result) && isSubsequence(str2, result),
-//                "The result should contain characters of \"\" and \"abc\" in the same order");
-//
-//        // Test Case 5: Edge case with identical strings
-//        str1 = "abcdef";
-//        str2 = "abcdef";
-//        result = solution.shortestCommonSupersequence(str1, str2);
-//        assertTrue(isSubsequence(str1, result) && isSubsequence(str2, result),
-//                "The result should contain characters of \"abcdef\" and \"abcdef\" in the same order");
-//
-//        // Test Case 6: Edge case with one string being a subsequence of the other
-//        str1 = "abc";
-//        str2 = "abcd";
-//        result = solution.shortestCommonSupersequence(str1, str2);
-//        assertTrue(isSubsequence(str1, result) && isSubsequence(str2, result),
-//                "The result should contain characters of \"abc\" and \"abcd\" in the same order");
-//
-//        // Test Case 7: Large input with partial overlap
-//        str1 = "abcdefghij";
-//        str2 = "acegikmoqs";
-//        result = solution.shortestCommonSupersequence(str1, str2);
-//        assertTrue(isSubsequence(str1, result) && isSubsequence(str2, result),
-//                "The result should contain characters of \"abcdefghij\" and \"acegikmoqs\" in the same order");
-//
-//        // Test Case 8: Edge case with no common characters
-//        str1 = "xyz";
-//        str2 = "abc";
-//        result = solution.shortestCommonSupersequence(str1, str2);
-//        assertTrue(isSubsequence(str1, result) && isSubsequence(str2, result),
-//                "The result should contain characters of \"xyz\" and \"abc\" in the same order");
+        assertTrue(isSubsequence(str1, result) && isSubsequence(str2, result),
+                "The result should contain characters of \"mno\" and \"nop\" in the same order");
+
+        // Test Case 2: Example input with minimal overlap
+        str1 = "dynamic";
+        str2 = "program";
+        result = solution.shortestCommonSupersequence(str1, str2);
+        assertTrue(isSubsequence(str1, result) && isSubsequence(str2, result),
+                "The result should contain characters of \"dynamic\" and \"program\" in the same order");
+
+        // Test Case 3: Example input with no overlap
+        str1 = "apple";
+        str2 = "orange";
+        result = solution.shortestCommonSupersequence(str1, str2);
+        assertTrue(isSubsequence(str1, result) && isSubsequence(str2, result),
+                "The result should contain characters of \"apple\" and \"orange\" in the same order");
+
+        // Test Case 4: Edge case with one empty string
+        str1 = "";
+        str2 = "abc";
+        result = solution.shortestCommonSupersequence(str1, str2);
+        assertTrue(isSubsequence(str1, result) && isSubsequence(str2, result),
+                "The result should contain characters of \"\" and \"abc\" in the same order");
+
+        // Test Case 5: Edge case with identical strings
+        str1 = "abcdef";
+        str2 = "abcdef";
+        result = solution.shortestCommonSupersequence(str1, str2);
+        assertTrue(isSubsequence(str1, result) && isSubsequence(str2, result),
+                "The result should contain characters of \"abcdef\" and \"abcdef\" in the same order");
+
+        // Test Case 6: Edge case with one string being a subsequence of the other
+        str1 = "abc";
+        str2 = "abcd";
+        result = solution.shortestCommonSupersequence(str1, str2);
+        assertTrue(isSubsequence(str1, result) && isSubsequence(str2, result),
+                "The result should contain characters of \"abc\" and \"abcd\" in the same order");
+
+        // Test Case 7: Large input with partial overlap
+        str1 = "abcdefghij";
+        str2 = "acegikmoqs";
+        result = solution.shortestCommonSupersequence(str1, str2);
+        assertTrue(isSubsequence(str1, result) && isSubsequence(str2, result),
+                "The result should contain characters of \"abcdefghij\" and \"acegikmoqs\" in the same order");
+
+        // Test Case 8: Edge case with no common characters
+        str1 = "xyz";
+        str2 = "abc";
+        result = solution.shortestCommonSupersequence(str1, str2);
+        assertTrue(isSubsequence(str1, result) && isSubsequence(str2, result),
+                "The result should contain characters of \"xyz\" and \"abc\" in the same order");
 
         str1 = "ggbbgaebfefebgefcaceefbdc";
         str2 = "babcadebe";
@@ -252,6 +252,22 @@ class Solution3 {
         int n = str1.length();
         int m = str2.length();
         int[][] dp = new int[n + 1][m + 1];
+        /*
+         dp[i][j] is the LCS for str1 ending at i and str2 ending at j
+         doesn't mean that str1[i] is part of the LCS!
+         So we can't rebuild the LCS by just looking at last row
+         dp[n][j] only keeps the LCS considering str1 ending at n-1 and str1 ending at j (0 to m-1)
+         But LCS is different at each str1 ending as well, we'll pick the best of it
+         We'll just backtrack the dp table the way we've filled it
+         Ex:
+         ggbbgaebfefebgefcaceefbdc and babcadebe
+         dp[n] = 0 1 2 3 4 5 6 6 7 7
+         dp[n][6] = 6, meaning LCS of str1 length n and str2 length 6 is 6. the last char will be part of LCS as total length is 6 only
+         dp[n][7] = 6, meaning LCS of str1 length n and str2 length 7 is 6. the last char may or may not be part of LCS as length is 7
+         Pos 5 and 6 has 6. Means either of them could have part of LCS. We can't decide by just looking at it.
+         Both d & e are common in both strings. So commonality check also doesn't work.
+         Same goes to Pos 7 and 8.
+        */
 
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= m; j++) {
@@ -275,13 +291,13 @@ class Solution3 {
             if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
                 lcs[k] = str1.charAt(i - 1);
                 k--;
-                i = i - 1;
+                i = i - 1; // go to upper diagonal
                 j = j - 1;
             } else {
                 if (dp[i - 1][j] >= dp[i][j - 1]) {
-                    i = i - 1;
+                    i = i - 1; // left
                 } else {
-                    j = j - 1;
+                    j = j - 1; // up
                 }
             }
         }

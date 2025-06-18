@@ -1,4 +1,4 @@
-package io.abdul.dynamic_programming.lis.problem1;
+package io.abdul.dynamic_programming.dp_on_lis.problem1;
 
 import java.util.ArrayList;
 import java.util.Arrays;

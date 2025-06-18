@@ -1,4 +1,4 @@
-package io.abdul.dynamic_programming.lis.problem4;
+package io.abdul.dynamic_programming.dp_on_lis.problem4;
 
 import java.util.Arrays;
 import java.util.Comparator;

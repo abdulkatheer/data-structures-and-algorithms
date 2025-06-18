@@ -148,6 +148,8 @@ class Solution3 {
         int n = str1.length();
         int m = str2.length();
         int[][] dp = new int[n + 1][m + 1];
+        // dp[i][j] stores the LCS length considering str1 of length i (from start) and str2 of length j (from start)
+        // dp[n][m] stores the total LCS length considering str1 and str2 of full length
 
         // Known solutions
         // dp[i][0] = 0

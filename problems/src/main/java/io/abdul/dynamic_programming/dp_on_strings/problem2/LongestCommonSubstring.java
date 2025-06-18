@@ -8,8 +8,8 @@ public class LongestCommonSubstring {
     public static void main(String[] args) {
 //        Solution solution = new Solution();
 //        Solution2 solution = new Solution2();
-//        Solution3 solution = new Solution3();
-        Solution4 solution = new Solution4();
+        Solution3 solution = new Solution3();
+//        Solution4 solution = new Solution4();
 
         // Test Case 1: Example input with LCS length 2
         String str1 = "abcde";
@@ -93,7 +93,7 @@ class Solution {
             return count;
         }
 
-        int taken = count;
+        int taken = 0;
         if (str1.charAt(i1) == str2.charAt(i2)) {
             taken = longestCommonSubstr(str1, str2, i1 + 1, i2 + 1, count + 1);
         }
@@ -102,7 +102,7 @@ class Solution {
         // new substring length for i1, i2+1
         // new substring length for i1+1, i2
         int skipped = Math.max(longestCommonSubstr(str1, str2, i1, i2 + 1, 0), longestCommonSubstr(str1, str2, i1 + 1, i2, 0));
-        return Math.max(taken, skipped);
+        return Math.max(taken, Math.max(skipped, count));
     }
 }
 
@@ -136,7 +136,7 @@ class Solution2 {
             return dp[i1][i2][count];
         }
 
-        int taken = count;
+        int taken = 0;
         if (str1.charAt(i1) == str2.charAt(i2)) {
             taken = longestCommonSubstr(str1, str2, i1 + 1, i2 + 1, count + 1, dp);
         }
@@ -145,7 +145,7 @@ class Solution2 {
         // new substring length for i1, i2+1
         // new substring length for i1+1, i2
         int skipped = Math.max(longestCommonSubstr(str1, str2, i1, i2 + 1, 0, dp), longestCommonSubstr(str1, str2, i1 + 1, i2, 0, dp));
-        int max = Math.max(taken, skipped);
+        int max = Math.max(taken, Math.max(skipped, count));
         dp[i1][i2][count] = max;
         return max;
     }
@@ -160,12 +160,16 @@ S - O(n*m)
 Known solutions
 Base-case with 1st element is also recursive and little complex.
 So we'll go with 1-based indexing
+Any empty str1 and non-empty str2 -> 0 dp[0][i] = 0
+Any non-empty str1 and empty str2 -> 0 dp[i][0] = 0
  */
 class Solution3 {
     public int longestCommonSubstr(String str1, String str2) {
         int n = str1.length();
         int m = str2.length();
         int[][] dp = new int[n + 1][m + 1];
+        // dp[i][j] means the LCSubstring ending at str1 of length i (from start) and str2 of length j (from start)
+        // that means dp[n][m] will not give LCSubstring of entire strings, rather only when LCS ends at i for str1 and j for str2. So we need to find the max of all rows.
 
         // Known solutions
         // dp[0][i] = 0

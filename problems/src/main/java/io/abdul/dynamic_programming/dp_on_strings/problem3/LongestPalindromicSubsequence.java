@@ -194,8 +194,6 @@ class Solution3a {
     public int longestPalinSubseq(String s) {
         int n = s.length();
         int[][] dp = new int[n + 1][n + 1];
-        String s1 = s;
-        String s2 = new StringBuilder(s).reverse().toString();
 
         // Known solutions
         // dp[n][i] = 0
@@ -203,7 +201,7 @@ class Solution3a {
 
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= n; j++) {
-                if (s1.charAt(i - 1) == s1.charAt(n - j)) {
+                if (s.charAt(i - 1) == s.charAt(n - j)) {
                     dp[i][j] = 1 + dp[i - 1][j - 1];
                 } else {
                     dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
