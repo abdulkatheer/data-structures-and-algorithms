@@ -10,7 +10,9 @@ public class UniquePaths {
 //        Solution solution = new Solution();
 //        Solution2 solution = new Solution2();
 //        Solution3 solution = new Solution3();
-        Solution4 solution = new Solution4();
+//        Solution4 solution = new Solution4();
+//        Solution3a solution = new Solution3a();
+        Solution4a solution = new Solution4a();
 
         // Test Case 1: Example input m = 3, n = 2
         assertEquals(3, solution.uniquePaths(3, 2), "Unique paths for a 3x2 grid should be 3");
@@ -154,6 +156,40 @@ class Solution3 {
 }
 
 /*
+Step 3 - Bottom-up iterative solution
+
+T - O(m*n)
+S - O(m*n)
+
+Copy base case - dp[m][n] = 1; dp[m][j] = 1; dp[i][n] = 1
+Copy iteration parameters - i=m-1 to 1, j=n-1 to 1
+Copy recursive case
+ */
+class Solution3a {
+    public int uniquePaths(int m, int n) {
+        int[][] dp = new int[m + 1][n + 1];
+
+        // Known solutions
+        dp[m][n] = 1;
+        for (int i = 1; i <= m; i++) {
+            dp[i][n] = 1;
+        }
+        for (int j = 1; j <= n; j++) {
+            dp[m][j] = 1;
+        }
+
+        // Recursive solutions
+        for (int i = m - 1; i >= 1; i--) {
+            for (int j = n - 1; j >= 1; j--) {
+                dp[i][j] = dp[i][j + 1] + dp[i + 1][j];
+            }
+        }
+
+        return dp[1][1];
+    }
+}
+
+/*
 Step 4 - Space Optimization
 
 T - O(n^2)
@@ -220,5 +256,33 @@ class Solution4 {
         }
 
         return dp[0][1];
+    }
+}
+
+/*
+Step 4 - Space Optimization
+
+We only need below row and right side cell for any subproblem
+ */
+class Solution4a {
+    public int uniquePaths(int m, int n) {
+
+        int[][] dp = new int[2][n + 1];
+
+        // Known solutions
+        dp[0][n] = 1;
+        for (int j = 1; j <= n; j++) {
+            dp[1][j] = 1;
+        }
+
+        // Recursive solutions
+        for (int i = m - 1; i >= 1; i--) {
+            for (int j = n - 1; j >= 1; j--) {
+                dp[0][j] = dp[0][j + 1] + dp[1][j];
+            }
+            System.arraycopy(dp[0], 0, dp[1], 0, n);
+        }
+
+        return dp[1][1];
     }
 }

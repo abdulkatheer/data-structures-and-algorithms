@@ -1,4 +1,4 @@
-package io.abdul.dynamic_programming.dp_1d.problem9;
+package io.abdul.dynamic_programming.dp_1d.problem4;
 
 import java.util.Arrays;
 
@@ -9,7 +9,11 @@ public class MaximumSumNonAdjacent {
 //        Solution solution = new Solution();
 //        Solution2 solution = new Solution2();
 //        Solution3 solution = new Solution3();
-        Solution4 solution =  new Solution4();
+//        Solution4 solution =  new Solution4();
+//        Solution1a solution = new Solution1a();
+//        Solution3a solution = new Solution3a();
+        Solution4a solution = new Solution4a();
+
         // Test Case 1: Example input nums = [1, 2, 4]
         int[] nums1 = {1, 2, 4};
         assertEquals(5, solution.nonAdjacent(nums1), "Maximum sum for nums [1, 2, 4] should be 5");
@@ -84,6 +88,33 @@ class Solution {
 }
 
 /*
+Step 1 - Top-down recursive solution
+
+T - O(2^n)
+S - O(n) -> stack
+
+ */
+class Solution1a {
+    public int nonAdjacent(int[] nums) {
+        return maximumSum(nums, 0);
+    }
+
+    public int maximumSum(int[] nums, int pos) {
+        if (pos >= nums.length) { // No options to try
+            return 0;
+        }
+
+        // Take pos
+        int withPos = nums[pos] + maximumSum(nums, pos + 2); // current num + maxSum by taking next to adjacent
+
+        // Skip pos
+        int withoutPos = maximumSum(nums, pos + 1);
+
+        return Math.max(withPos, withoutPos);
+    }
+}
+
+/*
 Step 2: Memoization
 
 T - O(n)
@@ -138,6 +169,9 @@ class Solution2 {
 /*
 Step 3: Bottom-up iterative solution
 
+T - O(n)
+S - O(n) -> dp
+
 1 2 3 4 5
 Known solution
 Max when 5 is considered -> 5
@@ -168,7 +202,42 @@ class Solution3 {
 }
 
 /*
+Step 3 - Bottom-up iterative solution
+
+T - O(n)
+S - O(n) -> dp
+
+Copy base case
+Copy iteration parameters
+Copy recursion
+ */
+class Solution3a {
+    public int nonAdjacent(int[] nums) {
+        int[] dp = new int[nums.length + 2];
+        // 2-based indexing to cover base case
+        /*
+        dp[i] stores the max sum till i-2
+        dp[nums.length-1] stores max sum till the end of array
+         */
+
+        // Known solutions
+        // dp[0] = 0; dp[1] = 0;
+
+        for (int i = 2; i < nums.length + 2; i++) {
+            int take = nums[i - 2] + dp[i - 2];
+            int skip = dp[i - 1];
+            dp[i] = Math.max(take, skip);
+        }
+
+        return dp[nums.length + 1];
+    }
+}
+
+/*
 Step 4: Space optimization
+
+T - O(n)
+S - O(1)
 
 We only need n+1 and n+2 pos to calc any
  */
@@ -187,6 +256,37 @@ class Solution4 {
             int max = Math.max(nums[i] + dp[0], dp[1]);
             dp[0] = dp[1];
             dp[1] = max;
+        }
+
+        return dp[1];
+    }
+}
+
+/*
+Step 4 - Space optimization
+
+T - O(n)
+S - O(1)
+
+A subproblem needs only last two results
+ */
+class Solution4a {
+    public int nonAdjacent(int[] nums) {
+        int[] dp = new int[2];
+        // 2-based indexing to cover base case
+        /*
+        dp[i] stores the max sum till i-2
+        dp[nums.length-1] stores max sum till the end of array
+         */
+
+        // Known solutions
+        // dp[0] = 0; dp[1] = 0;
+
+        for (int i = 2; i < nums.length + 2; i++) {
+            int take = nums[i - 2] + dp[0];
+            int skip = dp[1];
+            dp[0] = dp[1];
+            dp[1] = Math.max(take, skip);
         }
 
         return dp[1];

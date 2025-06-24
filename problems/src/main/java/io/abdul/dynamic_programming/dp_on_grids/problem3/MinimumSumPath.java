@@ -9,8 +9,8 @@ public class MinimumSumPath {
     public static void main(String[] args) {
 //        Solution solution = new Solution();
 //        Solution2 solution = new Solution2();
-//        Solution3 solution = new Solution3();
-        Solution4 solution = new Solution4();
+        Solution3 solution = new Solution3();
+//        Solution4 solution = new Solution4();
 
         // Test Case 1: Example input matrix = [[1, 2, 10, 4], [100, 3, 2, 1], [1, 1, 20, 2], [1, 2, 2, 1]]
         int[][] matrix1 = {
@@ -180,10 +180,6 @@ class Solution3 {
         System.arraycopy(matrix[0], 0, dp[0], 0, m);
 
         for (int i = 1; i < n; i++) {
-            Arrays.fill(dp[i], (int) 1e9);
-        }
-
-        for (int i = 1; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 int up = matrix[i][j] + dp[i - 1][j];
                 int topLeft = Integer.MAX_VALUE;
@@ -207,6 +203,7 @@ class Solution3 {
         return min;
     }
 }
+
 /*
 Step 4 - Space optimization
 
@@ -220,10 +217,6 @@ class Solution4 {
 
         // Known solution; row 0 has no additional cost
         System.arraycopy(matrix[0], 0, dp[0], 0, m);
-
-        for (int i = 1; i < n; i++) {
-            Arrays.fill(dp[1], (int) 1e9);
-        }
 
         for (int i = 1; i < n; i++) {
             for (int j = 0; j < m; j++) {

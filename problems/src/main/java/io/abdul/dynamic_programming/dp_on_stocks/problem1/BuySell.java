@@ -7,11 +7,14 @@ public class BuySell {
     public static void main(String[] args) {
 //        Solution solution = new Solution();
 //        Solution2 solution = new Solution2();
-        Solution3 solution = new Solution3();
+//        Solution3 solution = new Solution3();
 
-        // Test Case 1: Example input with profit
-        int[] arr1 = {10, 7, 5, 8, 11, 9};
-        assertEquals(6, solution.stockBuySell(arr1, arr1.length), "Maximum profit for arr [10, 7, 5, 8, 11, 9] should be 6");
+//        Solution1a solution = new Solution1a();
+        Solution1b solution = new Solution1b();
+
+//        // Test Case 1: Example input with profit
+//        int[] arr1 = {10, 7, 5, 8, 11, 9};
+//        assertEquals(6, solution.stockBuySell(arr1, arr1.length), "Maximum profit for arr [10, 7, 5, 8, 11, 9] should be 6");
 
         // Test Case 2: Example input with no profit
         int[] arr2 = {5, 4, 3, 2, 1};
@@ -72,6 +75,40 @@ class Solution {
         int bestSellingPrice = stockBuySell(arr, i + 1, max);
         max[0] = Math.max(max[0], bestSellingPrice - arr[i]);
         return Math.max(bestSellingPrice, arr[i]);
+    }
+}
+
+class Solution1a {
+    public int stockBuySell(int[] arr, int n) {
+        if (n == 1) {
+            return 0;
+        }
+        return Math.max(0, stockBuySell(arr, 1, arr[0]));
+    }
+
+    private int stockBuySell(int[] arr, int i, int bestBuyingPrice) {
+        if (i == arr.length - 1) {
+            return arr[i] - bestBuyingPrice; // no other option than sell on last day
+        }
+
+        return Math.max(arr[i] - bestBuyingPrice, stockBuySell(arr, i + 1, Math.min(bestBuyingPrice, arr[i])));
+    }
+}
+
+class Solution1b {
+    public int stockBuySell(int[] arr, int n) {
+        if (n == 1) {
+            return 0;
+        }
+        return Math.max(0, stockBuySell(arr, n - 2, arr[n - 1]));
+    }
+
+    private int stockBuySell(int[] arr, int i, int bestSellingPrice) {
+        if (i == 0) {
+            return bestSellingPrice - arr[i]; // no other option than buy on last day
+        }
+
+        return Math.max(bestSellingPrice - arr[i], stockBuySell(arr, i - 1, Math.max(bestSellingPrice, arr[i])));
     }
 }
 

@@ -12,7 +12,10 @@ public class BuySell3 {
 //        Solution3 solution = new Solution3();
 //        Solution3a solution = new Solution3a();
 //        Solution3b solution = new Solution3b();
-        Solution4 solution = new Solution4();
+//        Solution4 solution = new Solution4();
+
+//        Solution1a solution = new Solution1a();
+        Solution3c solution = new Solution3c();
 
         // Test Case 1: Example input with two transactions
         int[] arr1 = {4, 2, 7, 1, 11, 5};
@@ -26,7 +29,7 @@ public class BuySell3 {
         int[] arr3 = {5, 7, 2, 10, 6, 9};
         assertEquals(11, solution.stockBuySell(arr3, arr3.length), "Maximum profit for arr [5, 7, 2, 10, 6, 9] should be 12");
 
-        // Test Case 4: Single day (no transaction possible)
+//         Test Case 4: Single day (no transaction possible)
         int[] arr4 = {10};
         assertEquals(0, solution.stockBuySell(arr4, arr4.length), "Maximum profit for arr [10] should be 0");
 
@@ -80,6 +83,36 @@ class Solution {
             profit = Math.max(buy, skipBuy);
         } else {
             int sell = arr[i] + stockBuySell(arr, i + 1, 1, transactionsLeft - 1);
+            int skipSell = stockBuySell(arr, i + 1, 0, transactionsLeft);
+            profit = Math.max(sell, skipSell);
+        }
+
+        return profit;
+    }
+}
+
+class Solution1a {
+    public int stockBuySell(int[] arr, int n) {
+        return stockBuySell(arr, 0, 1, 2);
+    }
+
+    private int stockBuySell(int[] arr, int i, int canBuy, int transactionsLeft) {
+        if (transactionsLeft == 0) {
+            return 0;
+        }
+
+        // On the last day, I can only sell. Even if we buy it reduces profit. If we skip sell, we reduce profit too.
+        if (arr.length - 1 == i) {
+            return canBuy == 1 ? 0 : arr[i];
+        }
+
+        int profit;
+        if (canBuy == 1) {
+            int buy = -arr[i] + stockBuySell(arr, i + 1, 0, transactionsLeft);
+            int skipBuy = stockBuySell(arr, i + 1, 1, transactionsLeft);
+            profit = Math.max(buy, skipBuy);
+        } else {
+            int sell = arr[i] + stockBuySell(arr, i + 1, 1, transactionsLeft - 1); // reduce transactionsLeft on sell for guaranteed sell
             int skipSell = stockBuySell(arr, i + 1, 0, transactionsLeft);
             profit = Math.max(sell, skipSell);
         }
@@ -144,6 +177,15 @@ S - O(n^2) - dp
 
 Known solutions:
 At day 0, only option is to buy dp[0][1][0] = -arr[0]; dp[0][1][1] = -arr[0]; dp[0][1][2] = -arr[0] ; dp[0][0][0] = 0; dp[0][0][1] = 0; dp[0][0][2] = 0
+
+NOTE: TransactionsLeft increased on buy
+1) When we buy, we look for sell with reduced capacity
+buy = -arr[i] + dp[i-1][0][cap-1]
+skipBuy = dp[i-1][1][cap]
+2) When we sell, we look for buy at same capacity
+sell = arr[i] + dp[i-1][1][cap]
+skipSell = dp[i-1][0][cap]
+3) Best result will be on the last day when we choose to sell and utilizing full capacity 2. dp[n-1][0][2]
 
 At day 1
 dp[1][0][2] = Math.max(arr[i] + dp[0][1][1], dp[0][0][2])
@@ -259,8 +301,8 @@ class Solution3b {
         // Known solutions:
         // At last day alone, we can only sell
         // For buy, default value is zero
-        dp[n - 1][0][1] = arr[n-1];
-        dp[n - 1][0][2] = arr[n-1];
+        dp[n - 1][0][1] = arr[n - 1];
+        dp[n - 1][0][2] = arr[n - 1];
 
         for (int i = n - 2; i >= 0; i--) {
             for (int cap = 1; cap <= 2; cap++) {
@@ -289,6 +331,34 @@ class Solution3b {
         }
 
         return dp[0][1][2];
+    }
+}
+
+class Solution3c {
+    public int stockBuySell(int[] arr, int n) {
+        int[][][] dp = new int[n][2][3];
+
+        // start from day 0 to n-1
+        // start from capacity 2 to 0
+        // At day 0, we can only buy
+        dp[0][1][0] = -arr[0];
+        dp[0][1][1] = -arr[0];
+
+        for (int i = 1; i <= n - 1; i++) {
+            for (int cap = 0; cap <= 1; cap++) {
+                int buy = -arr[i] + dp[i - 1][0][cap + 1];
+                int skipBuy = dp[i - 1][1][cap];
+
+                int sell = arr[i] + dp[i - 1][1][cap];
+                int skipSell = dp[i - 1][0][cap];
+
+                dp[i][0][cap] = Math.max(sell, skipSell);
+                dp[i][1][cap] = Math.max(buy, skipBuy);
+            }
+        }
+
+        // Best is when cap is fully drained at last day after a sell
+        return dp[n - 1][0][0];
     }
 }
 

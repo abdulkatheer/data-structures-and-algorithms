@@ -10,7 +10,10 @@ public class UniquePathsII {
 //        Solution solution = new Solution();
 //        Solution2 solution = new Solution2();
 //        Solution3 solution = new Solution3();
-        Solution4 solution = new Solution4();
+//        Solution4 solution = new Solution4();
+//        Solution3a solution = new Solution3a();
+        Solution4a solution = new Solution4a();
+
         // Test Case 1: Example input matrix = [[0, 0, 0], [0, 1, 0], [0, 0, 0]]
         int[][] matrix1 = {
                 {0, 0, 0},
@@ -179,6 +182,59 @@ class Solution3 {
 }
 
 /*
+Step 3 - Bottom-up iterative solution
+
+Edge case - if start or end is blocked, no solution
+
+Copy base case - dp[m-1][n-1] = 1, dp[m-1][n-1 to 0] = 1 (until it's not blocked), dp[m-1 to 0][n-1] = 1 (until it's not blocked)
+Copy iteration parameters i=m-2, j=n-2
+Copy recursive case - dp[i][j + 1] + dp[i + 1][j]
+ */
+class Solution3a {
+    public int uniquePathsWithObstacles(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        if (matrix[0][0] == 1 || matrix[m - 1][n - 1] == 1) { // source or destination is blocked
+            return 0;
+        }
+
+        int[][] dp = new int[m][n];
+        /*
+        dp[i][j] stores the unique ways to traverse from dp[i][j] to dp[m-1][n-1]
+        dp[0][0] stores unique path from start to end
+         */
+
+        // Known solutions
+        dp[m - 1][n - 1] = 1;
+        // when we're at last row and all are 0s to end, 1, otherwise 0
+        for (int i = n - 1; i >= 0; i--) {
+            if (matrix[m - 1][i] == 1) {
+                break;
+            }
+            dp[m - 1][i] = 1;
+        }
+        // when we're at last column and all are 0s to end, 1, otherwise 0
+        for (int i = m - 1; i >= 0; i--) {
+            if (matrix[i][n - 1] == 1) {
+                break;
+            }
+            dp[i][n - 1] = 1;
+        }
+
+        for (int i = m - 2; i >= 0; i--) {
+            for (int j = n - 2; j >= 0; j--) {
+                if (matrix[i][j] == 0) {
+                    dp[i][j] = dp[i][j + 1] + dp[i + 1][j];
+                }
+            }
+        }
+
+        return dp[0][0];
+    }
+}
+
+/*
 Step 4 - Space optimization
 
 T - O(n^2)
@@ -217,5 +273,51 @@ class Solution4 {
         }
 
         return dp[0][0];
+    }
+}
+
+/*
+Step 4 - Space Optimization
+
+We only need prev row and right cell for any subproblem to be solved
+ */
+class Solution4a {
+    public int uniquePathsWithObstacles(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        if (matrix[0][0] == 1 || matrix[m - 1][n - 1] == 1) { // source or destination is blocked
+            return 0;
+        }
+
+        int[][] dp = new int[2][n];
+        /*
+        dp[i][j] stores the unique ways to traverse from dp[i][j] to dp[m-1][n-1]
+        dp[0][0] stores unique path from start to end
+         */
+
+        // Known solutions
+        // when we're at last row and all are 0s to end, 1, otherwise 0
+        for (int i = n - 1; i >= 0; i--) {
+            if (matrix[m - 1][i] == 1) {
+                break;
+            }
+            dp[1][i] = 1;
+        }
+
+        for (int i = m - 2; i >= 0; i--) {
+            // when we're at last column and all are 0s to end, 1, otherwise 0
+            // This depends on current cell is blocked or not and next/future cells are not blocked
+            dp[0][n - 1] = matrix[i][n - 1] == 0 && dp[1][n - 1] == 1 ? 1 : 0;
+            for (int j = n - 2; j >= 0; j--) {
+                if (matrix[i][j] == 0) {
+                    dp[0][j] = dp[0][j + 1] + dp[1][j];
+                }
+            }
+            System.arraycopy(dp[0], 0, dp[1], 0, n);
+            Arrays.fill(dp[0], 0);
+        }
+
+        return dp[1][0];
     }
 }

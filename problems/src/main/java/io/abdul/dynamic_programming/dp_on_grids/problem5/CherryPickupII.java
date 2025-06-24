@@ -26,7 +26,10 @@ public class CherryPickupII {
 //        Solution solution = new Solution();
 //        Solution2 solution = new Solution2();
 //        Solution3 solution = new Solution3();
-        Solution4 solution = new Solution4();
+//        Solution4 solution = new Solution4();
+
+//        Solution3a solution = new Solution3a();
+        Solution4a solution = new Solution4a();
 
         // Test Case 1: Example input matrix = [[2, 1, 3], [4, 2, 5], [1, 6, 2], [7, 2, 8]]
         int[][] matrix1 = {
@@ -207,19 +210,13 @@ class Solution3 {
         int m = matrix[0].length;
         int[][][] dp = new int[n][m][m];
 
-        for (int[][] ints : dp) {
-            for (int[] anInt : ints) {
-                Arrays.fill(anInt, Integer.MIN_VALUE);
-            }
-        }
-
         // Known solution; m is at least 2, so same num is not possible
         dp[0][0][m - 1] = dp[0][m - 1][0] = matrix[0][0] + matrix[0][m - 1];
 
         for (int i = 1; i < n; i++) {
             for (int robotA = 0; robotA < m && robotA <= i; robotA++) {
                 for (int robotB = m - 1; robotB >= 0 && robotB >= m - 1 - i; robotB--) {
-                    /* We could try 0 to m-1 for both robot loops. We've init with -Inf, so its fine. But to optimize, we've looked up only required fields
+                    /* We could try 0 to m-1 for both robot loops. We've need to init with -Inf, so its fine. But to optimize, we've looked up only required fields
                     What if we've array like matrix[2][10000]. We only have to explore 4 options. 1,0 1,9999; 1,0 1, 9998; 1,1 1,19999; 1,1 1,9998
                     If we do all, we'll visit 1 x 10000 x 10000 iterations
                      */
@@ -256,6 +253,67 @@ class Solution3 {
             }
         }
         return result;
+    }
+}
+
+/*
+Step 3 - Bottom-up iterative solution
+
+Known solutions
+When only one row, robots can be at 0 and m-1 position only
+if 0 == m-1, pick one dp[0][0][m-1] = matrix[0][0]
+else dp[0][0][m-1] = matrix[0[0] + matrix[0][m-1]
+
+Recursion:
+at i=1, robotA can come only from 0. robotB can only come from m-1
+at i=5, robotA can only come from 0,1,2,3,4. robotB can only come from m-1, m-2 ... m-5
+ */
+class Solution3a {
+    public int cherryPickup(int[][] matrix) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+        int[][][] dp = new int[n][m][m];
+
+        // Known solution
+        // m is at least 2, so m-1 and 0 can't be same
+        dp[0][0][m - 1] = dp[0][m - 1][0] = matrix[0][0] + matrix[0][m - 1];
+
+        // Recursion
+        for (int i = 1; i <= n - 1; i++) {
+            for (int robotA = 0; robotA <= i && robotA < m; robotA++) { // 0 to i-1
+                for (int robotB = m - 1; robotB >= m - 1 - i && robotB >= 0; robotB--) { // m-1 to m-1-i
+
+                    // 9 possible ways
+                    int max = Integer.MIN_VALUE;
+                    for (int x = -1; x <= 1; x++) {
+                        for (int y = -1; y <= 1; y++) {
+                            int robotAPos = robotA + x;
+                            int robotBPos = robotB + y;
+                            // Robot A can only come from 0 to i-1 and Robot B can only come from m-1-i to m-1
+                            boolean outOfBounds = robotAPos < 0 || robotAPos >= i || robotBPos > m - 1 || robotBPos <= m - 1 - i;
+                            if (!outOfBounds) {
+                                if (robotA == robotB) {
+                                    max = Math.max(max, matrix[i][robotA] + dp[i - 1][robotAPos][robotBPos]);
+                                } else {
+                                    max = Math.max(max, matrix[i][robotA] + matrix[i][robotB] + dp[i - 1][robotAPos][robotBPos]);
+                                }
+                            }
+                        }
+                    }
+
+                    dp[i][robotA][robotB] = max;
+                }
+            }
+        }
+
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i <= m - 1; i++) {
+            for (int j = 0; j <= m - 1; j++) {
+                max = Math.max(max, dp[n - 1][i][j]);
+            }
+        }
+
+        return max;
     }
 }
 
@@ -328,5 +386,57 @@ class Solution4 {
             }
         }
         return result;
+    }
+}
+
+class Solution4a {
+    public int cherryPickup(int[][] matrix) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+        int[][][] dp = new int[2][m][m];
+
+        // Known solution
+        // m is at least 2, so m-1 and 0 can't be same
+        dp[0][0][m - 1] = dp[0][m - 1][0] = matrix[0][0] + matrix[0][m - 1];
+
+        // Recursion
+        for (int i = 1; i <= n - 1; i++) {
+            for (int robotA = 0; robotA <= i && robotA < m; robotA++) { // 0 to i-1
+                for (int robotB = m - 1; robotB >= m - 1 - i && robotB >= 0; robotB--) { // m-1 to m-1-i
+
+                    // 9 possible ways
+                    int max = Integer.MIN_VALUE;
+                    for (int x = -1; x <= 1; x++) {
+                        for (int y = -1; y <= 1; y++) {
+                            int robotAPos = robotA + x;
+                            int robotBPos = robotB + y;
+                            // Robot A can only come from 0 to i-1 and Robot B can only come from m-1-i to m-1
+                            boolean outOfBounds = robotAPos < 0 || robotAPos >= i || robotBPos > m - 1 || robotBPos <= m - 1 - i;
+                            if (!outOfBounds) {
+                                if (robotA == robotB) {
+                                    max = Math.max(max, matrix[i][robotA] + dp[0][robotAPos][robotBPos]);
+                                } else {
+                                    max = Math.max(max, matrix[i][robotA] + matrix[i][robotB] + dp[0][robotAPos][robotBPos]);
+                                }
+                            }
+                        }
+                    }
+
+                    dp[1][robotA][robotB] = max;
+                }
+            }
+            for (int i1 = 0; i1 < dp[1].length; i1++) {
+                System.arraycopy(dp[1][i1], 0, dp[0][i1], 0, m);
+            }
+        }
+
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i <= m - 1; i++) {
+            for (int j = 0; j <= m - 1; j++) {
+                max = Math.max(max, dp[0][i][j]);
+            }
+        }
+
+        return max;
     }
 }

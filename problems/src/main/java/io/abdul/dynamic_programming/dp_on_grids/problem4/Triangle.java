@@ -145,8 +145,9 @@ class Solution3 {
         int[][] dp = new int[n][];
         for (int i = 1; i <= dp.length; i++) {
             dp[i - 1] = new int[i];
-            Arrays.fill(dp[i - 1], (int) 1e9);
         }
+
+        // Known solutions
         dp[0][0] = triangle[0][0];
 
         for (int i = 1; i < n; i++) {

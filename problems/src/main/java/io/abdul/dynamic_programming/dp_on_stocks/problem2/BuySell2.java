@@ -9,7 +9,8 @@ public class BuySell2 {
     public static void main(String[] args) {
 //        Solution solution = new Solution();
 //        Solution2 solution = new Solution2();
-        Solution3 solution = new Solution3();
+//        Solution3 solution = new Solution3();
+        Solution1a solution = new Solution1a();
 
         // Test Case 1: Example input with multiple transactions
         int[] arr1 = {9, 2, 6, 4, 7, 3};
@@ -101,6 +102,34 @@ class Solution {
     }
 }
 
+class Solution1a {
+    public int stockBuySell(int[] arr, int n) {
+        return stockBuySell(arr, 0, true);
+    }
+
+    private int stockBuySell(int[] arr, int i, boolean canBuy) {
+        if (i == arr.length - 1) {
+            // skip buy - increases profit
+            // skip sell - decreases profit
+            // you can only sell on last day
+            return canBuy ? 0 : arr[i];
+        }
+
+        int profit;
+        if (canBuy) {
+            int buy = -arr[i] + stockBuySell(arr, i + 1, false);
+            int skipBuy = stockBuySell(arr, i + 1, true);
+            profit = Math.max(buy, skipBuy);
+        } else {
+            int sell = arr[i] + stockBuySell(arr, i + 1, true);
+            int skipSell = stockBuySell(arr, i + 1, false);
+            profit = Math.max(sell, skipSell);
+        }
+
+        return profit;
+    }
+}
+
 /*
 Step 2 - Memoization
 
@@ -165,13 +194,13 @@ class Solution3 {
             int skipBuy = dp[i - 1][1]; // If we opt to skip buy i, buy of prev
 
             int sell = arr[i] + dp[i - 1][1]; // If we opt to sell i, i + buy of prev
-            int skipSell = dp[i - 1][0]; // If we opt to skipp sell i, sell of prev
+            int skipSell = dp[i - 1][0]; // If we opt to skip sell i, sell of prev
 
             dp[i][0] = Math.max(sell, skipSell); // Which is best, selling or skipSelling
             dp[i][1] = Math.max(buy, skipBuy); // buying or skipBuying
         }
 
-        return dp[n - 1][0]; // Last step should be sell as we can't hold any end of the day
+        return dp[n - 1][0]; // Last step should be sell as we can't hold any end of the day, buy will be less than sell for sure as we minus
     }
 }
 

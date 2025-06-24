@@ -1,4 +1,4 @@
-package io.abdul.dynamic_programming.dp_1d.problem7;
+package io.abdul.dynamic_programming.dp_1d.problem2;
 
 import java.util.Arrays;
 
@@ -7,9 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FrogJump {
     public static void main(String[] args) {
 //        Solution solution = new Solution();
+        Solution1a solution = new Solution1a();
 //        Solution2 solution = new Solution2();
 //        Solution3 solution = new Solution3();
-        Solution4 solution = new Solution4();
+//        Solution4 solution = new Solution4();
 
         // Test Case 1: Example input heights = [2, 1, 3, 5, 4]
         int[] heights1 = {2, 1, 3, 5, 4};
@@ -65,6 +66,26 @@ class Solution {
         int energyFor1Step = step + 1 < heights.length ? frogJump(heights, step + 1, energy + Math.abs(heights[step] - heights[step + 1])) : Integer.MAX_VALUE;
         int energyFor2Step = step + 2 < heights.length ? frogJump(heights, step + 2, energy + Math.abs(heights[step] - heights[step + 2])) : Integer.MAX_VALUE;
         return Math.min(energyFor1Step, energyFor2Step);
+    }
+}
+
+class Solution1a {
+    public int frogJump(int[] heights) {
+        return frogJump(heights, 0);
+    }
+
+    private int frogJump(int[] heights, int i) {
+        if (i == heights.length - 1) {
+            return 0; // valid path
+        }
+
+        int byStep1 = Math.abs(heights[i] - heights[i + 1]) + frogJump(heights, i + 1);
+        int byStep2 = Integer.MAX_VALUE;
+        if (i < heights.length - 2) { // base case, if step 2 can be taken
+            byStep2 = Math.abs(heights[i] - heights[i + 2]) + frogJump(heights, i + 2);
+        }
+
+        return Math.min(byStep1, byStep2);
     }
 }
 

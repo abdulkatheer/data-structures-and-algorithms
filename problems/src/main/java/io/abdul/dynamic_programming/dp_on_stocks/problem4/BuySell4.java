@@ -8,9 +8,11 @@ public class BuySell4 {
     public static void main(String[] args) {
 //        Solution solution = new Solution();
 //        Solution2 solution = new Solution2();
-        Solution3 solution = new Solution3();
+//        Solution3 solution = new Solution3();
 //        Solution4 solution = new Solution4();
 //        Solution3a solution = new Solution3a();
+
+        Solution3b solution = new Solution3b();
 
         // Test Case 1: Example input with k = 2
         int[] arr1 = {3, 2, 6, 5, 0, 3};
@@ -245,5 +247,35 @@ class Solution3a {
         }
 
         return dp[n - 1][0][k]; // best is sell at last day and k transactions consumed
+    }
+}
+
+// Same as BuySellIII, but instead 2 we use k
+class Solution3b {
+    public int stockBuySell(int[] arr, int n, int k) {
+        int[][][] dp = new int[n][2][k + 1];
+
+        // start from day 0 to n-1
+        // start from capacity 2 to 0
+        // At day 0, we can only buy
+        for (int i = 0; i < k; i++) {
+            dp[0][1][i] = -arr[0];
+        }
+
+        for (int i = 1; i <= n - 1; i++) {
+            for (int cap = 0; cap <= k - 1; cap++) {
+                int buy = -arr[i] + dp[i - 1][0][cap + 1];
+                int skipBuy = dp[i - 1][1][cap];
+
+                int sell = arr[i] + dp[i - 1][1][cap];
+                int skipSell = dp[i - 1][0][cap];
+
+                dp[i][0][cap] = Math.max(sell, skipSell);
+                dp[i][1][cap] = Math.max(buy, skipBuy);
+            }
+        }
+
+        // Best is when cap is fully drained at last day after a sell
+        return dp[n - 1][0][0];
     }
 }

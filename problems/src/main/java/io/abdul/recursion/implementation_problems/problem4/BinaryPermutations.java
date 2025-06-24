@@ -9,6 +9,7 @@ public class BinaryPermutations {
         System.out.println(solution.binaryPermutations(1));
         System.out.println(solution.binaryPermutations(2));
         System.out.println(solution.binaryPermutations(3));
+        System.out.println(solution.binaryPermutations(4));
     }
 }
 

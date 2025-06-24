@@ -1,4 +1,4 @@
-package io.abdul.dynamic_programming.dp_1d.problem8;
+package io.abdul.dynamic_programming.dp_1d.problem3;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package io.abdul.dynamic_programming.dp_1d.problem10;
+package io.abdul.dynamic_programming.dp_1d.problem5;
 
 import java.util.Arrays;
 
@@ -11,7 +11,10 @@ public class HouseRobber {
 //        Solution solution = new Solution();
 //        Solution2 solution = new Solution2();
 //        Solution3 solution = new Solution3();
-        Solution4 solution = new Solution4();
+//        Solution4 solution = new Solution4();
+
+//        Solution1a solution = new Solution1a();
+        Solution3a solution = new Solution3a();
 
         // Test Case 1: Example input money = [2, 1, 4, 9]
         int[] money1 = {2, 1, 4, 9};
@@ -70,6 +73,29 @@ class Solution {
 
         if (pos == lastPos) { // Only valid option is itself
             return money[lastPos];
+        }
+
+        // With pos
+        int withPos = money[pos] + houseRobber(money, pos + 2, lastPos);
+
+        int withoutPos = houseRobber(money, pos + 1, lastPos);
+
+        return Math.max(withPos, withoutPos);
+    }
+}
+
+class Solution1a {
+    public int houseRobber(int[] money) {
+        int n = money.length;
+        if (n == 1) {
+            return money[0];
+        }
+        return Math.max(houseRobber(money, 0, n - 2), houseRobber(money, 1, n - 1));
+    }
+
+    private int houseRobber(int[] money, int pos, int lastPos) {
+        if (pos > lastPos) { // No other options here
+            return 0;
         }
 
         // With pos
@@ -161,6 +187,37 @@ class Solution3 {
         }
 
         return dp[firstPos];
+    }
+}
+
+/*
+Step 3 - Bottom-up iterative solution
+2-based indexing to cover base-case
+
+Copy base case -> dp[0] = 0; dp[1] = 0; dp[2] = 0 or dp[n+1] = 0
+Copy iteration parameters -> 0 to n-2, 1 to n-1
+Copy recursive case
+ */
+class Solution3a {
+    public int houseRobber(int[] money) {
+        int n = money.length;
+        if (n == 1) {
+            return money[0];
+        }
+        int[] dp = new int[n + 2];
+        // 2-based indexing to hold base cases
+        int with1stHouse = houseRobber(money, 0, money.length - 2, dp);
+        Arrays.fill(dp, 0);
+        int without1stHouse = houseRobber(money, 1, money.length - 1, dp);
+        return Math.max(with1stHouse, without1stHouse);
+    }
+
+    private int houseRobber(int[] money, int start, int end, int[] dp) {
+        for (int i = start + 2; i <= end + 2; i++) {
+            dp[i] = Math.max(money[i - 2] + dp[i - 2], dp[i - 1]);
+        }
+
+        return dp[end + 2];
     }
 }
 
