@@ -167,7 +167,7 @@ class Solution3 {
         }
 
         for (int i = 1; i < n; i++) {
-            for (int j = 0; j <= W; j++) {
+            for (int j = 1; j <= W; j++) {
                 int skipped = dp[i - 1][j];
                 int taken = 0;
                 if (j >= wt[i]) {
@@ -199,7 +199,7 @@ class Solution4 {
         }
 
         for (int i = 1; i < n; i++) {
-            for (int j = 0; j <= W; j++) {
+            for (int j = 1; j <= W; j++) {
                 int skipped = dp[0][j];
                 int taken = 0;
                 if (j >= wt[i]) {

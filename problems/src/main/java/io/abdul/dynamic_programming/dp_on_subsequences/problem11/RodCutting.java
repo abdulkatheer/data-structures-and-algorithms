@@ -8,8 +8,8 @@ public class RodCutting {
     public static void main(String[] args) {
 //        Solution solution = new Solution();
 //        Solution2 solution = new Solution2();
-//        Solution3 solution = new Solution3();
-        Solution4 solution = new Solution4();
+        Solution3 solution = new Solution3();
+//        Solution4 solution = new Solution4();
 
         // Test Case 1: Example input with maximum value 25
         int[] price1 = {1, 6, 8, 9, 10, 19, 7, 20};
@@ -135,9 +135,14 @@ Let's say Max length is 8 and price[0] is 2
 class Solution3 {
     public int RodCutting(int price[], int n) {
         int[][] dp = new int[n + 1][n + 1]; // 0th row and column is unused
+        /*
+        dp[i][j] stores the max price possible with prices available upto i and for a rod of length j
+        dp[n][n] stores the max price possible with all prices available and for a full length rod
+         */
 
         // Know solutions
-        for (int i = 0; i <= n; i++) {
+        // if cut can be done in only 1 unit, and we've rod length from 1 to n
+        for (int i = 1; i <= n; i++) {
             dp[1][i] = i * price[0];
         }
 
@@ -166,7 +171,7 @@ class Solution4 {
         int[][] dp = new int[2][n + 1]; // 0th row and column is unused
 
         // Know solutions
-        for (int i = 0; i <= n; i++) {
+        for (int i = 1; i <= n; i++) {
             dp[0][i] = i * price[0];
         }
 

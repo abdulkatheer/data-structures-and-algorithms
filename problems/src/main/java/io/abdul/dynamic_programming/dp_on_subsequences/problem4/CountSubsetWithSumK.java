@@ -68,8 +68,8 @@ class Solution {
     }
 
     private int countSubsetSumEqualsK(int[] arr, int i, int target) {
-        if (i == arr.length) {
-            return target == 0 ? 1 : 0;
+        if (i == arr.length - 1) {
+            return target == 0 || target == arr[i] ? 1 : 0;
         }
 
         int withoutCurrent = countSubsetSumEqualsK(arr, i + 1, target);
@@ -101,8 +101,9 @@ class Solution2 {
     }
 
     private int countSubsetSumEqualsK(int[] arr, int i, int target, int[][] dp) {
-        if (i == arr.length) {
-            return target == 0 ? 1 : 0;
+
+        if (i == arr.length - 1) {
+            return target == 0 || target == arr[i] ? 1 : 0;
         }
 
         if (dp[i][target] != -1) {
@@ -145,7 +146,8 @@ class Solution3 {
 
         // Known solutions
         dp[0][0] = 1;
-        if (arr[0] <= K) {
+        // why not setting 1 for all i,0? Bcz count will differ for each row. Only first element can have count 1.
+        if (arr[0] <= K) { // first element, can be taken only if k matching the number
             dp[0][arr[0]] = 1;
         }
 
