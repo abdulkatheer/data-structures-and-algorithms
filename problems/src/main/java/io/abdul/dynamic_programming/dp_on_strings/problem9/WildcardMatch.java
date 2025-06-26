@@ -111,7 +111,7 @@ class Solution {
             But when second star tries to match e, i=4 and j=1
             Now both i and j has to move to next position to formally end
             But here we've only two options, take it or skip it
-            i+1,j or 1,j+1
+            i+1,j or i,j+1
             4,2 OR 5,1
             In both cases, we end up in false
             To handle this corner has, when it goes to 5,1, we check if all remaining characters are just * consider them as no-match
@@ -252,7 +252,7 @@ class Solution3 {
                 } else if (pat.charAt(j - 1) == '*') {
                     dp[i][j] = dp[i - 1][j] || dp[i][j - 1]; // match [i-1,j] or skip [i,j-1]
                 } else {
-                    dp[i][j] = str.charAt(i - 1) == pat.charAt(j - 1); // should be exact match and prev character should be matched
+                    dp[i][j] = (str.charAt(i - 1) == pat.charAt(j - 1)) && dp[i - 1][j - 1]; // should be exact match and prev character should be matched and also the prev result should be true
                 }
             }
         }
@@ -296,7 +296,7 @@ class Solution4 {
                 } else if (pat.charAt(j - 1) == '*') {
                     dp[1][j] = dp[0][j] || dp[1][j - 1]; // match [i-1,j] or skip [i,j-1]
                 } else {
-                    dp[1][j] = str.charAt(i - 1) == pat.charAt(j - 1); // should be exact match and prev character should be matched
+                    dp[1][j] = (str.charAt(i - 1) == pat.charAt(j - 1)) && dp[0][j - 1]; // should be exact match and prev character should be matched
                 }
             }
             System.arraycopy(dp[1], 0, dp[0], 0, m + 1);

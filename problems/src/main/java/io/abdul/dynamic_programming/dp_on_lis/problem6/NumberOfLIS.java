@@ -124,6 +124,10 @@ class Solution2 {
         int n = nums.length;
         int[] dp = new int[n];
         int[] count = new int[n];
+        /*
+        dp[i] stores the length of LIS ending at i
+        count[i] stores the number of possibilities of LIS ending at i
+         */
 
         // Known solution
         dp[0] = 1;

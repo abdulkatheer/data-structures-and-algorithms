@@ -49,7 +49,7 @@ public class LongestStringChain {
 //        String[] words8 = {"rrrbirbhm", "rjrbirbhm", "rrbpirbhm", "rrrbilrbhm", "rrbirbqhm", "rrcbirbhm", "rrsbirbhm", "rrbirdbhm", "rrbirtbhm", "rrbirbhm"};
 //        assertEquals(3, solution.longestStringChain(words8));
 
-        String[] words9 = {"w","work","wor","worl","world"};
+        String[] words9 = {"w", "work", "wor", "worl", "world"};
         assertEquals(3, solution.longestStringChain(words9));
 
     }
@@ -191,6 +191,9 @@ class Solution3 {
     public int longestStringChain(String[] words) {
         Arrays.sort(words, Comparator.comparing(String::length));
         int[] dp = new int[words.length]; // At every position, what's the longest string chain upto that array
+        /*
+        dp[i] stores the length of LSC ending at i
+         */
 
         // Known solutions
         dp[0] = 1;

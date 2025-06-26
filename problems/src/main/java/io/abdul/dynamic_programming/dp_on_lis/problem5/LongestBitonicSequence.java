@@ -172,6 +172,9 @@ class Solution3 {
     public int LongestBitonicSequence(int[] arr) {
         int n = arr.length;
         int[] lis = new int[n];
+        /*
+        lis[i] stores the length of LIS ending at i
+         */
         // Known solution
         lis[0] = 1;
         for (int i = 1; i < n; i++) {
@@ -186,6 +189,9 @@ class Solution3 {
         }
 
         int[] lds = new int[n];
+        /*
+        lds[i] stores the length of LDS starting at i
+         */
         // Known solution
         lds[n - 1] = 1;
 

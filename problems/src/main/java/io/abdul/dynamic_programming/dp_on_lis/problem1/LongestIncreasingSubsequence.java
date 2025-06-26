@@ -160,6 +160,11 @@ class Solution3 {
 
         // Known solutions:
         dp[0] = 1; // if pos 0 is included, 1 is the max
+        /*
+        dp[i] stores the length of LIS ending at i
+        dp[n-1] doesn't store the max length of LIS, just the max ending at n-1
+        So result is max at all i's
+         */
 
         int maxOfAll = 1;
         for (int i = 1; i < n; i++) {

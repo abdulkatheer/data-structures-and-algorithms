@@ -159,6 +159,10 @@ class Solution3 {
         int n = nums.length;
         int[] dp = new int[n];
         int[] prev = new int[n];
+        /*
+        dp[i] stores the length of LDS ending at i
+        prev[i] stores the previous position of LDS ending at i
+         */
 
         // Known solutions
         dp[0] = 1;

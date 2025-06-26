@@ -127,6 +127,10 @@ class Solution2 {
         int n = arr.length;
         int[] dp = new int[n];
         int[] lis = new int[n];
+        /*
+        dp[i] stores the length of LIS ending at i
+        lis[i] stores the previous index of LIS ending at i
+         */
 
         // Known solutions
         dp[0] = 1;
