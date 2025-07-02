@@ -6,38 +6,39 @@ import java.util.HashSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Solutions {
-    public static void main(String[] args) {
-//        Solution solution = new Solution();
-        Solution2 solution = new Solution2();
 
-        // Example 1: "abcddabac" -> 4 ("abcd")
-        assertEquals(4, solution.longestNonRepeatingSubstring("abcddabac"));
+  public static void main(String[] args) {
+    Solution solution = new Solution();
+//    Solution2 solution = new Solution2();
 
-        // Example 2: "aaabbbccc" -> 2 ("ab", "bc")
-        assertEquals(2, solution.longestNonRepeatingSubstring("aaabbbccc"));
+    // Example 1: "abcddabac" -> 4 ("abcd")
+    assertEquals(4, solution.longestNonRepeatingSubstring("abcddabac"));
 
-        // Example 3: "aaaa" -> 1 ("a")
-        assertEquals(1, solution.longestNonRepeatingSubstring("aaaa"));
+    // Example 2: "aaabbbccc" -> 2 ("ab", "bc")
+    assertEquals(2, solution.longestNonRepeatingSubstring("aaabbbccc"));
 
-        // Edge case: single character
-        assertEquals(1, solution.longestNonRepeatingSubstring("a"));
+    // Example 3: "aaaa" -> 1 ("a")
+    assertEquals(1, solution.longestNonRepeatingSubstring("aaaa"));
 
-        // Edge case: all unique
-        assertEquals(9, solution.longestNonRepeatingSubstring("abcdefghi"));
+    // Edge case: single character
+    assertEquals(1, solution.longestNonRepeatingSubstring("a"));
 
-        // Edge case: alternating characters
-        assertEquals(2, solution.longestNonRepeatingSubstring("abababab"));
+    // Edge case: all unique
+    assertEquals(9, solution.longestNonRepeatingSubstring("abcdefghi"));
 
-        // Edge case: empty string
-        assertEquals(0, solution.longestNonRepeatingSubstring(""));
+    // Edge case: alternating characters
+    assertEquals(2, solution.longestNonRepeatingSubstring("abababab"));
 
-        // Edge case: two different characters
-        assertEquals(2, solution.longestNonRepeatingSubstring("ab"));
+    // Edge case: empty string
+    assertEquals(0, solution.longestNonRepeatingSubstring(""));
 
-        // Edge case: palindrome
-        assertEquals(3, solution.longestNonRepeatingSubstring("abccba"));
+    // Edge case: two different characters
+    assertEquals(2, solution.longestNonRepeatingSubstring("ab"));
 
-    }
+    // Edge case: palindrome
+    assertEquals(3, solution.longestNonRepeatingSubstring("abccba"));
+
+  }
 }
 
 /*
@@ -49,24 +50,26 @@ S - O(n)
 
  */
 class Solution {
-    public int longestNonRepeatingSubstring(String s) {
-        int n = s.length();
-        HashSet<Character> substring = new HashSet<>();
 
-        int max = 0;
-        for (int i = 0; i < n; i++) {
-            substring.clear();
-            for (int j = i; j < n; j++) {
-                if (substring.contains(s.charAt(j))) {
-                    break;
-                }
-                substring.add(s.charAt(j));
-            }
-            max = Math.max(max, substring.size());
+  public int longestNonRepeatingSubstring(String s) {
+    int n = s.length();
+    int[] substring = new int[26];
+
+    int max = 0;
+    for (int i = 0; i < n; i++) {
+      Arrays.fill(substring, 0);
+      for (int j = i; j < n; j++) {
+        int pos = s.charAt(j) - 'a';
+        if (substring[pos] != 0) {
+          break;
         }
-
-        return max;
+        substring[pos]++;
+        max = Math.max(max, j - i + 1);
+      }
     }
+
+    return max;
+  }
 }
 
 /*
@@ -80,24 +83,26 @@ When current char doesn't repeat, expand and set max
 When it repeats, set left to last repeating position +1
  */
 class Solution2 {
-    public int longestNonRepeatingSubstring(String s) {
-        int left = 0, right = 0, maxLength = 0;
-        int n = s.length();
 
-        int[] charPosition = new int[n];
-        Arrays.fill(charPosition, -1);
+  public int longestNonRepeatingSubstring(String s) {
+    int left = 0, right = 0, maxLength = 0;
+    int n = s.length();
 
-        while (right < n) {
-            char currentChar = s.charAt(right);
-            int pos = ((int) currentChar) % 97;
-            if (charPosition[pos] != -1 && charPosition[pos] >= left) { // doesn't repeat in the current window
-                left = charPosition[pos] + 1; // shrink window excluding the repeating character
-            }
-            charPosition[pos] = right; // store last position
-            maxLength = Math.max(maxLength, right - left + 1);
-            right++;
-        }
+    int[] charPosition = new int[n];
+    Arrays.fill(charPosition, -1);
 
-        return maxLength;
+    while (right < n) {
+      char currentChar = s.charAt(right);
+      int pos = ((int) currentChar) % 97;
+      if (charPosition[pos] != -1
+          && charPosition[pos] >= left) { // doesn't repeat in the current window
+        left = charPosition[pos] + 1; // shrink window excluding the repeating character
+      }
+      charPosition[pos] = right; // store last position
+      maxLength = Math.max(maxLength, right - left + 1);
+      right++;
     }
+
+    return maxLength;
+  }
 }

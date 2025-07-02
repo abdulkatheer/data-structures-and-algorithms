@@ -32,6 +32,10 @@ public class Solutions {
     }
 }
 
+/*
+T - O(k)
+S - O(1)
+ */
 class Solution {
     public int maxScore(int[] cardScore, int k) {
         int leftSum = 0, rightSum = 0;
