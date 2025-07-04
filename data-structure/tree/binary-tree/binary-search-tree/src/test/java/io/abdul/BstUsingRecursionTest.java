@@ -13,7 +13,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BstUsingRecursionTest {
-    ClassLoader classLoader = getClass().getClassLoader();
     ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
@@ -166,7 +165,7 @@ class BstUsingRecursionTest {
         numbers.insert(15);
         numbers.insert(20);
 
-        removeAndTest(numbers, "remove/case1_input.json", "remove/case1_output.json", 9, 8);
+        removeAndTest(numbers, "/remove/case1_input.json", "/remove/case1_output.json", 9, 8);
     }
 
     private <E extends Comparable<E>> void removeAndTest(BstUsingRecursion<E> numbers, String inputFilePath,
@@ -176,7 +175,7 @@ class BstUsingRecursionTest {
         rootNode = getRootNode(numbers);
 
         String input = objectMapper.writeValueAsString(rootNode);
-        try (InputStream is = new FileInputStream(classLoader.getResource(inputFilePath).getFile())) {
+        try (InputStream is = getClass().getResourceAsStream(inputFilePath)) {
             byte[] expectedInputTree = is.readAllBytes();
             assertEquals(objectMapper.readTree(expectedInputTree), objectMapper.readTree(input));
         }
@@ -188,7 +187,7 @@ class BstUsingRecursionTest {
         if (outputFilePath == null) {
             assertEquals("null", output);
         } else {
-            try (InputStream is = new FileInputStream(classLoader.getResource(outputFilePath).getFile())) {
+            try (InputStream is = getClass().getResourceAsStream(outputFilePath)) {
                 byte[] expectedOutputTree = is.readAllBytes();
                 assertEquals(objectMapper.readTree(expectedOutputTree), objectMapper.readTree(output));
             }
@@ -212,7 +211,7 @@ class BstUsingRecursionTest {
 
         assertEquals(List.of(0, 1, 3, 4, 5, 6, 7, 8, 9, 11, 12), numbers.getElements());
 
-        removeAndTest(numbers, "remove/case3_input.json", "remove/case3_output.json", 6, 10);
+        removeAndTest(numbers, "/remove/case3_input.json", "/remove/case3_output.json", 6, 10);
     }
 
     private void testRemovingNonRootNodeWithTwoChildrenAndSuccessorIsImmediateRightAndSuccessorIsHavingOneChild() throws NoSuchFieldException, IllegalAccessException, IOException {
@@ -236,7 +235,7 @@ class BstUsingRecursionTest {
         assertEquals(14, numbers.size());
         assertEquals(List.of(1, 2, 3, 5, 7, 8, 9, 11, 12, 13, 14, 17, 18, 20), numbers.getElements());
 
-        removeAndTest(numbers, "remove/case2_input.json", "remove/case2_output.json", 14, 13);
+        removeAndTest(numbers, "/remove/case2_input.json", "/remove/case2_output.json", 14, 13);
     }
 
     private void testRemovingRightParentWithTwoChildren(BstUsingRecursion<String> stringTree) throws NoSuchFieldException, IOException, IllegalAccessException {
@@ -246,7 +245,7 @@ class BstUsingRecursionTest {
         stringTree.insert("G");
         stringTree.insert("F");
         stringTree.insert("H");
-        removeAndTest(stringTree, "remove/case12_input.json", "remove/case12_output.json", "G", 3);
+        removeAndTest(stringTree, "/remove/case12_input.json", "/remove/case12_output.json", "G", 3);
         assertTrue(stringTree.remove("F"));
         assertEquals(2, stringTree.size());
         assertTrue(stringTree.remove("E"));
@@ -262,7 +261,7 @@ class BstUsingRecursionTest {
         stringTree.insert("B");
         stringTree.insert("A");
         stringTree.insert("C");
-        removeAndTest(stringTree, "remove/case13_input.json", "remove/case13_output.json", "B", 3);
+        removeAndTest(stringTree, "/remove/case13_input.json", "/remove/case13_output.json", "B", 3);
         assertTrue(stringTree.remove("A"));
         assertEquals(2, stringTree.size());
         assertTrue(stringTree.remove("C"));
@@ -277,7 +276,7 @@ class BstUsingRecursionTest {
         stringTree.insert("B");
         stringTree.insert("A");
         stringTree.insert("C");
-        removeAndTest(stringTree, "remove/case11_input.json", "remove/case11_output.json", "B", 2);
+        removeAndTest(stringTree, "/remove/case11_input.json", "/remove/case11_output.json", "B", 2);
         assertTrue(stringTree.remove("A"));
         assertEquals(1, stringTree.size());
         assertTrue(stringTree.remove("C"));
@@ -290,7 +289,7 @@ class BstUsingRecursionTest {
         stringTree.insert("A");
         stringTree.insert("B");
         stringTree.insert("C");
-        removeAndTest(stringTree, "remove/case9_input.json", "remove/case9_output.json", "B", 2);
+        removeAndTest(stringTree, "/remove/case9_input.json", "/remove/case9_output.json", "B", 2);
         assertTrue(stringTree.remove("C"));
         assertEquals(1, stringTree.size());
         assertTrue(stringTree.remove("A"));
@@ -303,7 +302,7 @@ class BstUsingRecursionTest {
         stringTree.insert("C");
         stringTree.insert("B");
         stringTree.insert("A");
-        removeAndTest(stringTree, "remove/case10_input.json", "remove/case10_output.json", "B", 2);
+        removeAndTest(stringTree, "/remove/case10_input.json", "/remove/case10_output.json", "B", 2);
         assertTrue(stringTree.remove("C"));
         assertEquals(1, stringTree.size());
         assertTrue(stringTree.remove("A"));
@@ -317,7 +316,7 @@ class BstUsingRecursionTest {
         stringTree.insert("A");
         stringTree.insert("C");
 
-        removeAndTest(stringTree, "remove/case5_input.json", "remove/case5_output.json", "A", 2);
+        removeAndTest(stringTree, "/remove/case5_input.json", "/remove/case5_output.json", "A", 2);
 
         assertTrue(stringTree.remove("B"));
         assertEquals(1, stringTree.size());
@@ -331,7 +330,7 @@ class BstUsingRecursionTest {
         stringTree.insert("B");
         stringTree.insert("A");
         stringTree.insert("C");
-        removeAndTest(stringTree, "remove/case6_input.json", "remove/case6_output.json", "C", 2);
+        removeAndTest(stringTree, "/remove/case6_input.json", "/remove/case6_output.json", "C", 2);
         assertTrue(stringTree.remove("B"));
         assertEquals(1, stringTree.size());
         assertTrue(stringTree.remove("A"));
@@ -343,7 +342,7 @@ class BstUsingRecursionTest {
 
         stringTree.insert("A");
         stringTree.insert("B");
-        removeAndTest(stringTree, "remove/case7_input.json", "remove/case7_output.json", "A", 1);
+        removeAndTest(stringTree, "/remove/case7_input.json", "/remove/case7_output.json", "A", 1);
         assertTrue(stringTree.remove("B"));
         assertEquals(0, stringTree.size());
     }
@@ -358,7 +357,7 @@ class BstUsingRecursionTest {
 
         stringTree.insert("B");
         stringTree.insert("A");
-        removeAndTest(stringTree, "remove/case8_input.json", "remove/case8_output.json", "B", 1);
+        removeAndTest(stringTree, "/remove/case8_input.json", "/remove/case8_output.json", "B", 1);
         assertTrue(stringTree.remove("A"));
         assertEquals(0, stringTree.size());
     }
@@ -368,7 +367,7 @@ class BstUsingRecursionTest {
 
         stringTree.insert("A");
 
-        removeAndTest(stringTree, "remove/case4_input.json", null, "A", 0);
+        removeAndTest(stringTree, "/remove/case4_input.json", null, "A", 0);
     }
 
     private static void testEmptyTree(BstUsingRecursion<String> stringTree) {

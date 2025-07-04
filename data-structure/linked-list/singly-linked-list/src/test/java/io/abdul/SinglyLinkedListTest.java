@@ -1,5 +1,6 @@
 package io.abdul;
 
+import io.abdul.api.exception.IndexOutOfBounds;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
@@ -35,15 +36,15 @@ class SinglyLinkedListTest {
         12
         20
          */
-        assertEquals(0, list.lookup(1));
-        assertEquals(1, list.lookup(2));
-        assertEquals(2, list.lookup(3));
-        assertEquals(3, list.lookup(4));
-        assertEquals(4, list.lookup(9));
-        assertEquals(5, list.lookup(14));
-        assertEquals(6, list.lookup(10));
-        assertEquals(7, list.lookup(12));
-        assertEquals(8, list.lookup(20));
+        assertEquals(0, list.lookup(1).get());
+        assertEquals(1, list.lookup(2).get());
+        assertEquals(2, list.lookup(3).get());
+        assertEquals(3, list.lookup(4).get());
+        assertEquals(4, list.lookup(9).get());
+        assertEquals(5, list.lookup(14).get());
+        assertEquals(6, list.lookup(10).get());
+        assertEquals(7, list.lookup(12).get());
+        assertEquals(8, list.lookup(20).get());
     }
 
     @Test
@@ -302,7 +303,7 @@ class SinglyLinkedListTest {
         assertEquals(20, list.removeFirstElement());
         assertEquals(0, list.size());
 
-        assertThrows(IllegalArgumentException.class, list::removeFirstElement);
+        assertThrows(IndexOutOfBounds.class, list::removeFirstElement);
 
         list.printList();
     }
@@ -369,7 +370,7 @@ class SinglyLinkedListTest {
         assertEquals(1, list.removeLastElement());
         assertEquals(0, list.size());
 
-        assertThrows(IllegalArgumentException.class, list::removeLastElement);
+        assertThrows(IndexOutOfBounds.class, list::removeLastElement);
 
         list.printList();
     }

@@ -2,6 +2,7 @@ package io.abdul;
 
 import io.abdul.api.LinkedList;
 import io.abdul.api.Queue;
+import io.abdul.api.exception.QueueUnderflow;
 import io.abdul.api.exception.StackUnderflow;
 import org.junit.jupiter.api.Test;
 
@@ -65,14 +66,14 @@ class QueueWithLinkedListTest {
         numberQueue.enqueue(4);
         numberQueue.enqueue(3);
         assertEquals(3, stack.size());
-        assertEquals(3, numberQueue.dequeue());
+        assertEquals(5, numberQueue.dequeue());
         assertEquals(2, stack.size());
         assertEquals(4, numberQueue.dequeue());
         assertEquals(1, stack.size());
-        assertEquals(5, numberQueue.dequeue());
+        assertEquals(3, numberQueue.dequeue());
         assertEquals(0, stack.size());
 
-        assertThrows(StackUnderflow.class, numberQueue::dequeue);
+        assertThrows(QueueUnderflow.class, numberQueue::dequeue);
     }
 
     @Test

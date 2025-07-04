@@ -11,7 +11,6 @@ import java.lang.reflect.Field;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RedBlackTreeTest {
-    static ClassLoader classLoader = RedBlackTree.class.getClassLoader();
     static ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
@@ -41,14 +40,14 @@ class RedBlackTreeTest {
         rbt.insert(120);
         rbt.insert(115);
 
-        testInsert(rbt, "insert-case-8.json");
+        testInsert(rbt, "/insert-case-8.json");
 
         // insert-case-8.json
     }
 
     private static void testInsert(RedBlackTree<?> rbt, String filePath) throws NoSuchFieldException, IllegalAccessException, IOException {
         String output = objectMapper.writeValueAsString(getRootNode(rbt));
-        try (InputStream is = new FileInputStream(classLoader.getResource(filePath).getFile())) {
+        try (InputStream is = RedBlackTreeTest.class.getResourceAsStream(filePath)) {
             byte[] expectedOutputTree = is.readAllBytes();
             assertEquals(objectMapper.readTree(expectedOutputTree), objectMapper.readTree(output));
         }
@@ -62,7 +61,7 @@ class RedBlackTreeTest {
         rbt.insert(120);
         rbt.insert(115);
 
-        testInsert(rbt, "insert-case-7.json");
+        testInsert(rbt, "/insert-case-7.json");
 
         // insert-case-7.json
     }
@@ -73,7 +72,7 @@ class RedBlackTreeTest {
         rbt.insert(110);
         rbt.insert(120);
 
-        testInsert(rbt, "insert-case-6.json");
+        testInsert(rbt, "/insert-case-6.json");
 
         // insert-case-6.json
     }
@@ -85,7 +84,7 @@ class RedBlackTreeTest {
         rbt.insert(110);
         rbt.insert(120);
 
-        testInsert(rbt, "insert-case-5.json");
+        testInsert(rbt, "/insert-case-5.json");
 
         // insert-case-5.json
     }
@@ -105,7 +104,7 @@ class RedBlackTreeTest {
         rbt.insert(90);
         rbt.insert(95);
 
-        testInsert(rbt, "insert-case-3.json");
+        testInsert(rbt, "/insert-case-3.json");
 
         // insert-case-3.json
     }
@@ -116,7 +115,7 @@ class RedBlackTreeTest {
         rbt.insert(90);
         rbt.insert(80);
 
-        testInsert(rbt, "insert-case-2.json");
+        testInsert(rbt, "/insert-case-2.json");
 
         // insert-case-2.json
     }
@@ -128,7 +127,7 @@ class RedBlackTreeTest {
         rbt.insert(90);
         rbt.insert(80);
 
-        testInsert(rbt, "insert-case-1.json");
+        testInsert(rbt, "/insert-case-1.json");
 
         // insert-case-1.json
     }
@@ -138,7 +137,7 @@ class RedBlackTreeTest {
         rbt.insert(100);
         assertEquals("100", rbt.toString());
 
-        testInsert(rbt, "insert-case-0.json");
+        testInsert(rbt, "/insert-case-0.json");
         // insert-case-0-input.json
     }
 

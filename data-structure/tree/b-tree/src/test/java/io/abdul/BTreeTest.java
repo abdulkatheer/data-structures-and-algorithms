@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BTreeTest {
-    static ClassLoader classLoader = BTree.class.getClassLoader();
     static ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
