@@ -74,7 +74,7 @@ class Solution {
 }
 
 /*
-Optimal - Monotonic Stack (Increasing order)
+Optimal - Monotonic Stack (Decreasing order)
 
 T - O(n) - 2n; n to iterate the array; n to remove elements from the stack
 S - O(n)

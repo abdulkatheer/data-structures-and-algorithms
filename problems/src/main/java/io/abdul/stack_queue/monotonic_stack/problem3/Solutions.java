@@ -162,9 +162,11 @@ class Solution2 {
         }
       }
 
-      if (insert) {
+      if (insert) { // All negatives in the stack are beaten!
+        // No negatives can appear before a positive, it would have been beaten.
         stack.push(asteroids[i]);
       }
+      // else, some negative survives and the next positive should try beating it.
     }
 
     int[] result = new int[stack.size()];
@@ -174,6 +176,7 @@ class Solution2 {
       i++;
     }
 
+    // At the end, negative survivors are all in the left, and positive survivors are all in the right
     return result;
   }
 }

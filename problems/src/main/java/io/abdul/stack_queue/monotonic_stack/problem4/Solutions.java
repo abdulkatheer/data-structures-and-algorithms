@@ -83,7 +83,7 @@ class Solution {
 }
 
 /*
-Optimal - Monotonic stack
+Optimal - Monotonic stack (Increasing order)
 
 T - O(n) - 2n
 S - O(n)
