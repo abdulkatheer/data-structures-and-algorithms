@@ -79,6 +79,10 @@ class Solution {
 
 /*
 Optimal - Monotonic Stack
+
+T - O(n) - 2n for nse; 2n for psee
+S - O(1)
+
 0  1  2  3  4  5  6  7
 1  4  6  7  3  7  8  1
 -1 0  1  2  0  6  5 -1 = psee
@@ -168,6 +172,13 @@ class Solution2 {
   }
 }
 
+/*
+Optimal (similar as above)
+
+T - O(n) - 2n for nse; 2n for psee
+S - O(1)
+
+ */
 class Solution3 {
 
   private static final int MAX = (int) 1e9 + 7;

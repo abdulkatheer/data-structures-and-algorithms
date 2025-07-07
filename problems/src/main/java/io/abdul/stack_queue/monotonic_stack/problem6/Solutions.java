@@ -53,6 +53,8 @@ public class Solutions {
       pattern[i] = i % 5;
     }
     assertDoesNotThrow(() -> solution.subArrayRanges(pattern)); // performance/sanity check
+
+    assertEquals(59, solution.subArrayRanges(new int[]{4, -2, -3, 4, 1}));
   }
 }
 
@@ -89,6 +91,9 @@ class Solution {
 
 /*
 Optimal - Monotonic stack
+
+T - O(n) - 4n for subarrays max; 4n for subarrays min
+S - O(1)
 
 1 4 3 2
 

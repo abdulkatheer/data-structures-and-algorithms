@@ -120,6 +120,9 @@ class Solution {
 /*
 Optimal - Math & Monotonic stack
 
+T - O(n) - 2n; n to build the stack and n to rebuild string
+S - O(n) for the string builder
+
 Intuition - Remove the first k bigger elements, that'll definitely give the smallest num after removing k elements
  */
 class Solution2 {
