@@ -1,0 +1,2 @@
+- Storing indexes instead of the value itself to keep the stack within window size
+- Monotonically decreasing stack to find the max of window at head in constant time
