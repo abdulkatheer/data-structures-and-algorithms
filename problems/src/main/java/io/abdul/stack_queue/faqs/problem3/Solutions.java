@@ -39,6 +39,8 @@ public class Solutions {
       largeFlat[i] = 1;
     }
     assertEquals(0, solution.trap(largeFlat));
+
+    assertEquals(16, solution.trap(new int[]{1, 8, 4, 5, 8, 20, 7, 6, 11, 3, 2}));
   }
 }
 
