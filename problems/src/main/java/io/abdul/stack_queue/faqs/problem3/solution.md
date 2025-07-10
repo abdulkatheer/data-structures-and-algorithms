@@ -40,7 +40,8 @@ process left, leftMax=8, total=0
 
 left=2 right=8
 process left
-At this point 
+At this point
+
 - arr[left] is smaller than arr[right]
 - all elements left to arr[left] are smaller than arr[right]
 - So the leftMax 8 is also smaller than arr[right]
@@ -65,6 +66,7 @@ left=5 right=7
 process right
 
 At this point,
+
 - arr[right] and all elements right to it are smaller than arr[left]
 - arr[right] can best hold upto rightMax in the right side
 - We've a higher building in the left, so definitely store upto rightMax
