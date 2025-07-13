@@ -56,7 +56,7 @@ class Solution {
       if (theChar == '(' || theChar == '{' || theChar == '[') {
         stack.push(theChar);
       } else {
-        if (stack.isEmpty()) {
+        if (stack.isEmpty()) { // more closes
           inOrder = false;
           break;
         } else if ((stack.peek() == '(' && theChar == ')') || (stack.peek() == '{'
@@ -71,6 +71,7 @@ class Solution {
     }
 
     // In order and all open and close are balanced
+    // !stack.isEmpty -> more opens
     return inOrder && stack.isEmpty();
   }
 }

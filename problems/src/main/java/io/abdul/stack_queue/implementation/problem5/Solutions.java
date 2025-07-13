@@ -17,11 +17,17 @@ class LinkedListStack {
   public LinkedListStack() {
   }
 
+  /*
+  T - O(1)
+  */
   public void push(int x) {
     head = new Node(x, head);
     size++;
   }
 
+  /*
+  T - O(1)
+  */
   public int pop() {
     if (size == 0) {
       return -1;
@@ -32,6 +38,9 @@ class LinkedListStack {
     return e;
   }
 
+  /*
+  T - O(1)
+  */
   public int top() {
     if (size == 0) {
       return -1;

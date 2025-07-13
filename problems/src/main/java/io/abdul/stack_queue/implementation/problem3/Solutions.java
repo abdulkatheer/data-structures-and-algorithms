@@ -114,6 +114,9 @@ class ArrayQueue {
   public ArrayQueue() {
   }
 
+  /*
+  T - O(1)
+  */
   public void push(int x) {
     if (size == 100) {
       return;
@@ -129,6 +132,9 @@ class ArrayQueue {
     size++;
   }
 
+  /*
+  T - O(1)
+  */
   public int pop() {
     if (size == 0) {
       return -1;
@@ -145,6 +151,9 @@ class ArrayQueue {
     return e;
   }
 
+  /*
+  T - O(1)
+  */
   public int peek() {
     if (size == 0) {
       return -1;

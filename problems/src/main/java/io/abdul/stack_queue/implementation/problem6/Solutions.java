@@ -62,6 +62,9 @@ class LinkedListQueue {
   public LinkedListQueue() {
   }
 
+  /*
+  T - O(1)
+  */
   public void push(int x) {
     if (size == 0) { // Empty to 1
       head = tail = new Node(x);
@@ -72,6 +75,9 @@ class LinkedListQueue {
     size++;
   }
 
+  /*
+  T - O(1)
+  */
   public int pop() {
     if (size == 0) {
       return -1;
@@ -86,6 +92,9 @@ class LinkedListQueue {
     return e;
   }
 
+  /*
+  T - O(1)
+  */
   public int peek() {
     if (size == 0) {
       return -1;

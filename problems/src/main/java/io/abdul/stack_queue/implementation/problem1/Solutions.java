@@ -59,6 +59,9 @@ class ArrayStack {
   public ArrayStack() {
   }
 
+  /*
+  T - O(1)
+   */
   public void push(int x) {
     if (top == stack.length - 1) {
       return;
@@ -66,6 +69,9 @@ class ArrayStack {
     stack[++top] = x;
   }
 
+  /*
+  T - O(1)
+  */
   public int pop() {
     if (top == -1) {
       return -1;
@@ -73,6 +79,9 @@ class ArrayStack {
     return stack[top--];
   }
 
+  /*
+  T - O(1)
+  */
   public int top() {
     if (top == -1) {
       return -1;
