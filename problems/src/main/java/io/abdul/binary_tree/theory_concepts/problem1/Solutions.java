@@ -1,28 +1,12 @@
 package io.abdul.binary_tree.theory_concepts.problem1;
 
+import io.abdul.binary_tree.TreeNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
 public class Solutions {
 
-}
-
-/**
- * Definition for a binary tree node.
- **/
-class TreeNode {
-
-  int data;
-  TreeNode left;
-  TreeNode right;
-
-
-  TreeNode(int val) {
-    data = val;
-    left = null;
-    right = null;
-  }
 }
 
 class Solution {
