@@ -92,7 +92,7 @@ class Solution {
   // Returns the max sum from node downward (only one branch)
   private int maxDownward(TreeNode node) {
     if (node == null) {
-      return 0; // 0 bcz we don't negative paths
+      return 0; // 0 bcz we don't need negative paths
     }
 
     int left = maxDownward(node.left);
