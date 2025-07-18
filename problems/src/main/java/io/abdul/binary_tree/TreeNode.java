@@ -27,6 +27,7 @@ public class TreeNode {
   }
 
   // Helper to build a tree from level-order array with nulls
+  // Level-order with Dynamic Gaps (Skipped Nulls)
   public static TreeNode buildTree(Integer[] values) {
     if (values == null || values.length == 0 || values[0] == null) {
       return null;
@@ -78,4 +79,62 @@ public class TreeNode {
     }
     return root;
   }
+
+  // Strict 2i+1, 2i+2 Rule (Complete Binary Tree Indexing)
+
+//  public static TreeNode buildTree(Integer[] values) {
+//    if (values == null || values.length == 0 || values[0] == null) {
+//      return null;
+//    }
+//
+//    TreeNode[] nodes = new TreeNode[values.length];
+//    for (int i = 0; i < values.length; i++) {
+//      if (values[i] != null) {
+//        nodes[i] = new TreeNode(values[i]);
+//      }
+//    }
+//
+//    for (int i = 0; i < values.length; i++) {
+//      if (nodes[i] != null) {
+//        int leftIdx = 2 * i + 1;
+//        int rightIdx = 2 * i + 2;
+//        if (leftIdx < values.length) {
+//          nodes[i].left = nodes[leftIdx];
+//        }
+//        if (rightIdx < values.length) {
+//          nodes[i].right = nodes[rightIdx];
+//        }
+//      }
+//    }
+//
+//    return nodes[0];
+//  }
+//
+//  public static TreeNode buildTree(List<Integer> values) {
+//    if (values == null || values.isEmpty() || values.get(0) == null) {
+//      return null;
+//    }
+//
+//    TreeNode[] nodes = new TreeNode[values.size()];
+//    for (int i = 0; i < values.size(); i++) {
+//      if (values.get(i) != null) {
+//        nodes[i] = new TreeNode(values.get(i));
+//      }
+//    }
+//
+//    for (int i = 0; i < values.size(); i++) {
+//      if (nodes[i] != null) {
+//        int leftIdx = 2 * i + 1;
+//        int rightIdx = 2 * i + 2;
+//        if (leftIdx < values.size()) {
+//          nodes[i].left = nodes[leftIdx];
+//        }
+//        if (rightIdx < values.size()) {
+//          nodes[i].right = nodes[rightIdx];
+//        }
+//      }
+//    }
+//
+//    return nodes[0];
+//  }
 }

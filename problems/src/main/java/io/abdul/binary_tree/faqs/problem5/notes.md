@@ -1,0 +1,1 @@
+Similar to Top View, but we take the last element in each level
