@@ -1,7 +1,9 @@
 package io.abdul.binary_tree;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 /**
@@ -137,4 +139,34 @@ public class TreeNode {
 //
 //    return nodes[0];
 //  }
+
+  public static Map<Integer, TreeNode> mapTreeByValue(TreeNode root) {
+    Map<Integer, TreeNode> map = new HashMap<>();
+    mapByValueHelper(root, map);
+    return map;
+  }
+
+  private static void mapByValueHelper(TreeNode node, Map<Integer, TreeNode> map) {
+    if (node != null) {
+      map.put(node.data, node);
+      mapByValueHelper(node.left, map);
+      mapByValueHelper(node.right, map);
+    }
+  }
+
+  public static TreeNode find(TreeNode root, int targetVal) {
+    if (root == null) return null;
+
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.offer(root);
+
+    while (!queue.isEmpty()) {
+      TreeNode current = queue.poll();
+      if (current.data == targetVal) return current;
+      if (current.left != null) queue.offer(current.left);
+      if (current.right != null) queue.offer(current.right);
+    }
+
+    return null; // not found
+  }
 }
