@@ -28,6 +28,16 @@ public class TreeNode {
     this.right = right;
   }
 
+  public static boolean areEqual(TreeNode a, TreeNode b) {
+    if (a == null && b == null) {
+      return true;
+    }
+    if (a == null || b == null || a.data != b.data) {
+      return false;
+    }
+    return areEqual(a.left, b.left) && areEqual(a.right, b.right);
+  }
+
   // Helper to build a tree from level-order array with nulls
   // Level-order with Dynamic Gaps (Skipped Nulls)
   public static TreeNode buildTree(Integer[] values) {
@@ -155,16 +165,24 @@ public class TreeNode {
   }
 
   public static TreeNode find(TreeNode root, int targetVal) {
-    if (root == null) return null;
+    if (root == null) {
+      return null;
+    }
 
     Queue<TreeNode> queue = new LinkedList<>();
     queue.offer(root);
 
     while (!queue.isEmpty()) {
       TreeNode current = queue.poll();
-      if (current.data == targetVal) return current;
-      if (current.left != null) queue.offer(current.left);
-      if (current.right != null) queue.offer(current.right);
+      if (current.data == targetVal) {
+        return current;
+      }
+      if (current.left != null) {
+        queue.offer(current.left);
+      }
+      if (current.right != null) {
+        queue.offer(current.right);
+      }
     }
 
     return null; // not found
