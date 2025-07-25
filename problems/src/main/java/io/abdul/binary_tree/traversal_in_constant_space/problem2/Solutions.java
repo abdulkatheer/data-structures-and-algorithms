@@ -86,7 +86,7 @@ class Solution {
          */
         if (rightMost.right == null) {
           rightMost.right = current;
-          preorder.add(current.data);
+          preorder.add(current.data); // just this line has changes between inorder and preorder, that is when we process the root!
           current = current.left;
         } else {
           rightMost.right = null;
