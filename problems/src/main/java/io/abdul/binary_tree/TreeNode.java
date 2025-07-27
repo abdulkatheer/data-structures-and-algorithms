@@ -1,5 +1,7 @@
 package io.abdul.binary_tree;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -186,5 +188,31 @@ public class TreeNode {
     }
 
     return null; // not found
+  }
+
+  public static boolean isValidBST(TreeNode root) {
+    return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
+  }
+
+  private static boolean isValidBST(TreeNode node, long min, long max) {
+    if (node == null) return true;
+    if (node.data <= min || node.data >= max) return false;
+    return isValidBST(node.left, min, node.data) && isValidBST(node.right, node.data, max);
+  }
+
+  public static boolean containsAllValues(TreeNode root, List<Integer> expected) {
+    List<Integer> actual = new ArrayList<>();
+    inOrderCollect(root, actual);
+    Collections.sort(actual);
+    List<Integer> sortedExpected = new ArrayList<>(expected);
+    Collections.sort(sortedExpected);
+    return actual.equals(sortedExpected);
+  }
+
+  private static void inOrderCollect(TreeNode node, List<Integer> list) {
+    if (node == null) return;
+    inOrderCollect(node.left, list);
+    list.add(node.data);
+    inOrderCollect(node.right, list);
   }
 }
