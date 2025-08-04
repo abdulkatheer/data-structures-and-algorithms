@@ -108,8 +108,9 @@ class Solution2 {
     Result rightResult = isValidBST(root.right, max);
     if (!leftResult.validBst()
         || !rightResult.validBst()
-        || root.data < leftResult.max()
-        || root.data > rightResult.min()) {
+        || !(root.data > leftResult.max())
+        || !(root.data < rightResult.min())
+    ) {
       return new Result(false, 0, 0, 0);
     }
 

@@ -80,8 +80,8 @@ public class Solutions {
 }
 
 /*
-Brute-force
-T - O(n^2)
+Optimal - Iterative
+T - O(n) - 2n; n to insert all to stack; n to pop all from stack
 S - O(n)
 
  */

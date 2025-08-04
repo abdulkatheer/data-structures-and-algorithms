@@ -9,7 +9,9 @@ import io.abdul.binary_tree.TreeNode;
 public class Solutions {
 
   public static void main(String[] args) {
-    Solution solution = new Solution();
+//    Solution solution = new Solution();
+//    Solution2 solution = new Solution2();
+    Solution3 solution = new Solution3();
 
     assertAll("LCA in BST by value",
 
@@ -123,5 +125,28 @@ class Solution2 {
        */
       return root;
     }
+  }
+}
+
+/*
+Optimal - Iterative
+T - O(h
+ */
+class Solution3 {
+
+  public TreeNode lca(TreeNode root, int p, int q) {
+    TreeNode current = root;
+
+    while (current != null) {
+      if (p < current.data && q < current.data) {
+        current = current.left;
+      } else if (p > current.data && q > current.data) {
+        current = current.right;
+      } else {
+        return current;
+      }
+    }
+
+    return null; // impossible case given that p and q exist for sure
   }
 }
