@@ -5,7 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class Solutions {
 
   public static void main(String[] args) {
-    Solution solution = new Solution();
+//    Solution solution = new Solution();
+    Solution2 solution = new Solution2();
 
     // Test Case 1: Simple unsorted array
     int[] nums1 = {6, 5, 2, 7, 1, 7};
@@ -51,13 +52,20 @@ public class Solutions {
   private static boolean isMinHeap(int[] arr) {
     int n = arr.length;
     for (int i = 0; i <= (n - 2) / 2; i++) {
-      if (2 * i + 1 < n && arr[i] > arr[2 * i + 1]) return false;
-      if (2 * i + 2 < n && arr[i] > arr[2 * i + 2]) return false;
+      if (2 * i + 1 < n && arr[i] > arr[2 * i + 1]) {
+        return false;
+      }
+      if (2 * i + 2 < n && arr[i] > arr[2 * i + 2]) {
+        return false;
+      }
     }
     return true;
   }
 }
 
+/*
+Heapify-down approach
+ */
 class Solution {
 
   public void buildMinHeap(int[] nums) {
@@ -99,4 +107,28 @@ class Solution {
       }
     }
   }
+}
+
+class Solution2 {
+
+  public void buildMinHeap(int[] nums) {
+    for (int i = 1; i < nums.length; i++) {
+      heapifyUp(nums, i);
+    }
+  }
+
+  private void heapifyUp(int[] nums, int i) {
+    while (i > 0) {
+      int parent = (i + 1) / 2 - 1;
+      if (nums[parent] > nums[i]) {
+        int temp = nums[parent];
+        nums[parent] = nums[i];
+        nums[i] = temp;
+        i = parent;
+      } else {
+        break;
+      }
+    }
+  }
+
 }

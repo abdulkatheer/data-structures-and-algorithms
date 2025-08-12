@@ -50,7 +50,7 @@ class Solution {
 
   public int[] minToMaxHeap(int[] nums) {
     int[] maxHeap = new int[nums.length];
-    for (int i = 0; i < nums.length; i++) {
+    for (int i = 1; i < nums.length; i++) {
       maxHeap[i] = nums[i];
       heapifyUp(maxHeap, i);
     }
