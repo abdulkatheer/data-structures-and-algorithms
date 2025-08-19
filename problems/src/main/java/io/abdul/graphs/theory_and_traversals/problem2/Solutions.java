@@ -1,4 +1,4 @@
-package io.abdul.graphs.theory_and_traversals;
+package io.abdul.graphs.theory_and_traversals.problem2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
