@@ -13,7 +13,8 @@ import java.util.Stack;
 public class Solutions {
 
   public static void main(String[] args) {
-    Solution solution = new Solution();
+//    Solution solution = new Solution();
+    Solution2 solution = new Solution2();
 
     // Example 1
     int V1 = 5;
@@ -131,4 +132,58 @@ class Solution {
   }
 }
 
+class Solution2 {
+
+  public List<Integer> dfsOfGraph(int V, List<List<Integer>> adj) {
+    boolean[] visited = new boolean[V];
+    List<Integer> visitedNodes = new ArrayList<>(V);
+
+    Stack<Integer> nodes = new Stack<>();
+    nodes.push(0); // visit
+    visited[0] = true;
+
+    while (!nodes.isEmpty()) {
+      Integer n = nodes.pop(); // process
+      visitedNodes.add(n);
+
+      List<Integer> adjNodes = adj.get(n);
+      for (int i = adjNodes.size() - 1; i >= 0; i--) {
+        if (!visited[adjNodes.get(i)]) {
+          visited[adjNodes.get(i)] = true;
+          nodes.push(adjNodes.get(i)); // visit
+        }
+      }
+    }
+
+    return visitedNodes;
+  }
+
+  public List<Integer> bfsOfGraph(int V, List<List<Integer>> adj) {
+    boolean[] visited = new boolean[V];
+    List<Integer> visitedNodes = new ArrayList<>(V);
+
+    Queue<Integer> queue = new LinkedList<>();
+    queue.add(0); // visit
+    visited[0] = true;
+
+    while (!queue.isEmpty()) {
+      int size = queue.size();
+
+      // process all nodes in queue and add their adjacent nodes to queue
+      for (int i = 0; i < size; i++) {
+        Integer n = queue.poll(); // process
+        visitedNodes.add(n);
+
+        for (Integer adjNode : adj.get(n)) {
+          if (!visited[adjNode]) {
+            visited[adjNode] = true;
+            queue.add(adjNode); // visit
+          }
+        }
+      }
+    }
+
+    return visitedNodes;
+  }
+}
 

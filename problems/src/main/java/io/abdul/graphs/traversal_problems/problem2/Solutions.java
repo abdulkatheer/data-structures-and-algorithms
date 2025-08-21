@@ -2,13 +2,16 @@ package io.abdul.graphs.traversal_problems.problem2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class Solutions {
 
   public static void main(String[] args) {
 //    Solution sol = new Solution();
-    Solution2 sol = new Solution2();
+//    Solution2 sol = new Solution2();
+    Solution3 sol = new Solution3();
 
     // Example 1
     char[][] grid1 = {
@@ -82,7 +85,7 @@ class Solution {
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < m; j++) {
         if (grid[i][j] == '1' && !visited[i][j]) {
-          traverseIsland(i, j, n, m, grid, visited);
+          dfs(i, j, n, m, grid, visited);
           count++;
         }
       }
@@ -91,7 +94,7 @@ class Solution {
     return count;
   }
 
-  private void traverseIsland(int i, int j, int n, int m, char[][] grid, boolean[][] visited) {
+  private void dfs(int i, int j, int n, int m, char[][] grid, boolean[][] visited) {
     if (i < 0 || i >= n || j < 0 || j >= m) { // Invalid route
       return;
     }
@@ -107,28 +110,28 @@ class Solution {
     visited[i][j] = true;
 
     // Left top
-    traverseIsland(i - 1, j - 1, n, m, grid, visited);
+    dfs(i - 1, j - 1, n, m, grid, visited);
 
     // Top
-    traverseIsland(i - 1, j, n, m, grid, visited);
+    dfs(i - 1, j, n, m, grid, visited);
 
     // Right top
-    traverseIsland(i - 1, j + 1, n, m, grid, visited);
+    dfs(i - 1, j + 1, n, m, grid, visited);
 
     // Right
-    traverseIsland(i, j + 1, n, m, grid, visited);
+    dfs(i, j + 1, n, m, grid, visited);
 
     // Right bottom
-    traverseIsland(i + 1, j + 1, n, m, grid, visited);
+    dfs(i + 1, j + 1, n, m, grid, visited);
 
     // Bottom
-    traverseIsland(i + 1, j, n, m, grid, visited);
+    dfs(i + 1, j, n, m, grid, visited);
 
     // Left Bottom
-    traverseIsland(i + 1, j - 1, n, m, grid, visited);
+    dfs(i + 1, j - 1, n, m, grid, visited);
 
     // Left
-    traverseIsland(i, j - 1, n, m, grid, visited);
+    dfs(i, j - 1, n, m, grid, visited);
   }
 }
 
@@ -148,7 +151,7 @@ class Solution2 {
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < m; j++) {
         if (grid[i][j] == '1' && !visited[i][j]) {
-          traverseIsland(i, j, n, m, grid, visited);
+          dfs(i, j, n, m, grid, visited);
           count++;
         }
       }
@@ -157,7 +160,7 @@ class Solution2 {
     return count;
   }
 
-  private void traverseIsland(int startI, int startJ, int n, int m, char[][] grid,
+  private void dfs(int startI, int startJ, int n, int m, char[][] grid,
       boolean[][] visited) {
     Stack<Pair> stack = new Stack<>();
     stack.push(new Pair(startI, startJ));
@@ -193,6 +196,76 @@ class Solution2 {
         // Left
         stack.push(new Pair(i, j - 1));
       }
+    }
+  }
+
+  private boolean isValidIndex(int i, int j, int n, int m) {
+    return i >= 0 && i < n && j >= 0 && j < m;
+  }
+
+  private record Pair(int i, int j) {
+
+  }
+}
+
+class Solution3 {
+
+  public int numIslands(char[][] grid) {
+    int n = grid.length;
+    int m = grid[0].length;
+    boolean[][] visited = new boolean[n][m];
+
+    int count = 0;
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < m; j++) {
+        if (!visited[i][j] && grid[i][j] == '1') {
+          bfs(i, j, n, m, grid, visited);
+          count++;
+        }
+      }
+    }
+
+    return count;
+  }
+
+  private void bfs(int startI, int startJ, int n, int m, char[][] grid,
+      boolean[][] visited) {
+    Queue<Pair> queue = new LinkedList<>();
+    queue.add(new Pair(startI, startJ)); // visit
+    visited[startI][startJ] = true;
+
+    while (!queue.isEmpty()) {
+      int size = queue.size();
+
+      for (int k = 0; k < size; k++) {
+        Pair p = queue.poll(); // process
+        int i = p.i;
+        int j = p.j;
+
+        visit(n, m, grid, visited, i - 1, j - 1, queue); // Top left
+
+        visit(n, m, grid, visited, i - 1, j + 1, queue); // Top right
+
+        visit(n, m, grid, visited, i - 1, j, queue); // Top
+
+        visit(n, m, grid, visited, i + 1, j + 1, queue); // Bottom right
+
+        visit(n, m, grid, visited, i + 1, j - 1, queue); // Bottom left
+
+        visit(n, m, grid, visited, i + 1, j, queue); // Bottom
+
+        visit(n, m, grid, visited, i, j + 1, queue); // Right
+
+        visit(n, m, grid, visited, i, j - 1, queue); // Left
+      }
+    }
+  }
+
+  private void visit(int n, int m, char[][] grid, boolean[][] visited, int i, int j,
+      Queue<Pair> queue) {
+    if (isValidIndex(i, j, n, m) && !visited[i][j] && grid[i][j] == '1') {
+      queue.add(new Pair(i, j)); // visit
+      visited[i][j] = true;
     }
   }
 

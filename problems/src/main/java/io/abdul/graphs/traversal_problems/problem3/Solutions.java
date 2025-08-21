@@ -2,13 +2,16 @@ package io.abdul.graphs.traversal_problems.problem3;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class Solutions {
 
   public static void main(String[] args) {
 //    Solution sol = new Solution();
-    Solution2 sol = new Solution2();
+//    Solution2 sol = new Solution2();
+    Solution3 sol = new Solution3();
 
     // Example 1
     int[][] image1 = {
@@ -155,12 +158,12 @@ class Solution2 {
 
     int existingColour = image[sr][sc];
 
-    colour(sr, sc, n, m, image, existingColour, newColor);
+    dfs(sr, sc, n, m, image, existingColour, newColor);
 
     return image;
   }
 
-  private void colour(int startI, int startJ, int n, int m, int[][] image, int existingColour,
+  private void dfs(int startI, int startJ, int n, int m, int[][] image, int existingColour,
       int newColour) {
     Stack<Pair> stack = new Stack<>();
     stack.push(new Pair(startI, startJ));
@@ -182,6 +185,76 @@ class Solution2 {
         // left
         stack.push(new Pair(i, j - 1));
       }
+    }
+  }
+
+  private boolean isValidIndex(int i, int j, int n, int m) {
+    return i >= 0 && i < n && j >= 0 && j < m;
+  }
+
+  private record Pair(int i, int j) {
+
+  }
+}
+
+class Solution3 {
+
+  public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+    // Problem isn't explicitly stating to modify the input image, so making a copy of it
+    int n = image.length;
+    int m = image[0].length;
+    image = copy(image);
+    boolean[][] visited = new boolean[image.length][image[0].length];
+
+    int existingColour = image[sr][sc];
+
+    dfs(sr, sc, n, m, image, visited, existingColour, newColor);
+
+    return image;
+  }
+
+  private int[][] copy(int[][] src) {
+    int[][] dest = new int[src.length][];
+    for (int i = 0; i < src.length; i++) {
+      dest[i] = new int[src[i].length];
+      System.arraycopy(src[i], 0, dest[i], 0, src[i].length);
+    }
+
+    return dest;
+  }
+
+  private void dfs(int startI, int startJ, int n, int m, int[][] image, boolean[][] visited,
+      int existingColour, int newColour) {
+    Queue<Pair> queue = new LinkedList<>();
+    queue.add(new Pair(startI, startJ)); // visit
+    visited[startI][startJ] = true;
+
+    while (!queue.isEmpty()) {
+      int size = queue.size();
+
+      for (int k = 0; k < size; k++) {
+        Pair p = queue.poll(); // process
+        int i = p.i;
+        int j = p.j;
+        image[i][j] = newColour;
+
+        visit(i - 1, j, n, m, image, visited, queue, existingColour, newColour); // top
+
+        visit(i, j - 1, n, m, image, visited, queue, existingColour, newColour); // left
+
+        visit(i + 1, j, n, m, image, visited, queue, existingColour, newColour); // bottom
+
+        visit(i, j + 1, n, m, image, visited, queue, existingColour, newColour); // right
+      }
+    }
+  }
+
+  private void visit(int i, int j, int n, int m, int[][] image, boolean[][] visited,
+      Queue<Pair> queue, int existingColour, int newColour) {
+    if (isValidIndex(i, j, n, m) && !visited[i][j] && image[i][j] == existingColour
+        && image[i][j] != newColour) {
+      visited[i][j] = true;
+      queue.add(new Pair(i, j));
     }
   }
 

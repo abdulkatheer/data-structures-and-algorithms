@@ -2,13 +2,16 @@ package io.abdul.graphs.traversal_problems.problem4;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class Solutions {
 
   public static void main(String[] args) {
 //    Solution sol = new Solution();
-    Solution2 sol = new Solution2();
+//    Solution2 sol = new Solution2();
+    Solution3 sol = new Solution3();
 
     // Example 1
     int[][] grid1 = {
@@ -231,5 +234,73 @@ class Solution2 {
 
   private record Pair(int i, int j) {
 
+  }
+}
+
+class Solution3 {
+
+  public int numberOfEnclaves(int[][] grid) {
+    int n = grid.length;
+    int m = grid[0].length;
+    boolean[][] visited = new boolean[grid.length][grid[0].length];
+
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < m; j++) {
+        if (isBoundary(i, n, j, m) && !visited[i][j] && grid[i][j] == 1) {
+          bfs(i, j, n, m, grid, visited);
+        }
+      }
+    }
+
+    int count = 0;
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < m; j++) {
+        if (grid[i][j] == 1 && !visited[i][j]) {
+          count++;
+        }
+      }
+    }
+
+    return count;
+  }
+
+  private void bfs(int startI, int startJ, int n, int m, int[][] grid, boolean[][] visited) {
+    Queue<int[]> queue = new LinkedList<>();
+    queue.add(new int[]{startI, startJ});
+    visited[startI][startJ] = true;
+
+    while (!queue.isEmpty()) {
+      int size = queue.size();
+
+      for (int k = 0; k < size; k++) {
+        int[] pair = queue.poll();
+        int i = pair[0];
+        int j = pair[1];
+
+        visit(i - 1, j, n, m, grid, visited, queue);
+
+        visit(i, j + 1, n, m, grid, visited, queue);
+
+        visit(i + 1, j, n, m, grid, visited, queue);
+
+        visit(i, j - 1, n, m, grid, visited, queue);
+      }
+    }
+  }
+
+  private void visit(int i, int j, int n, int m, int[][] grid, boolean[][] visited,
+      Queue<int[]> queue) {
+    if (isValidIndex(i, j, n, m) && !visited[i][j] && grid[i][j] == 1) {
+      visited[i][j] = true;
+      queue.add(new int[]{i, j});
+    }
+  }
+
+  private boolean isValidIndex(int i, int j, int n, int m) {
+    return i >= 0 && i < n && j >= 0 && j < m;
+  }
+
+  private static boolean isBoundary(int i, int n, int j, int m) {
+    return i == 0 || i == n - 1 || j == 0 || j == m - 1;
   }
 }

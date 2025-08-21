@@ -10,7 +10,8 @@ public class Solutions {
 
   public static void main(String[] args) {
 //    Solution sol = new Solution();
-    Solution2 sol = new Solution2();
+//    Solution2 sol = new Solution2();
+    Solution3 sol = new Solution3();
 
     // Example 1
     int[][] adj1 = {
@@ -163,6 +164,45 @@ class Solution2 {
         if (adj[currentNode][i] == 1 && !visited[i]) {
           visited[i] = true;
           nodes.add(i);
+        }
+      }
+    }
+  }
+}
+
+class Solution3 {
+
+  public int numProvinces(int[][] adj) {
+    int n = adj.length;
+    boolean[] visited = new boolean[n];
+
+    int count = 0;
+    for (int i = 0; i < n; i++) {
+      if (visited[i]) {
+        continue;
+      }
+      bfs(i, adj, visited);
+      count++;
+    }
+
+    return count;
+  }
+
+  private void bfs(int startNode, int[][] adj, boolean[] visited) {
+    Queue<Integer> queue = new LinkedList<>();
+    queue.add(startNode); // visit
+    visited[startNode] = true;
+
+    while (!queue.isEmpty()) {
+      int size = queue.size();
+
+      for (int k = 0; k < size; k++) {
+        Integer currentNode = queue.poll(); // process
+        for (int i = 0; i < adj[currentNode].length; i++) {
+          if (!visited[i] && adj[currentNode][i] == 1) {
+            queue.add(i); // visit
+            visited[i] = true;
+          }
         }
       }
     }

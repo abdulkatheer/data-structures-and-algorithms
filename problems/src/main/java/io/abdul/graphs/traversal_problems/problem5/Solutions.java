@@ -8,7 +8,8 @@ import java.util.Queue;
 public class Solutions {
 
   public static void main(String[] args) {
-    Solution sol = new Solution();
+//    Solution sol = new Solution();
+    Solution2 sol = new Solution2();
 
     // Example 1
     int[][] grid1 = {
@@ -94,6 +95,20 @@ class Solution {
       }
     }
 
+    int count = bfs(grid, queue, n, m);
+
+    for (int[] ints : grid) {
+      for (int j = 0; j < m; j++) {
+        if (ints[j] == 1) {
+          return -1;
+        }
+      }
+    }
+
+    return count;
+  }
+
+  private int bfs(int[][] grid, Queue<Pair> queue, int n, int m) {
     int count = 0;
     while (!queue.isEmpty()) {
       int size = queue.size();
@@ -130,15 +145,6 @@ class Solution {
         count++;
       }
     }
-
-    for (int[] ints : grid) {
-      for (int j = 0; j < m; j++) {
-        if (ints[j] == 1) {
-          return -1;
-        }
-      }
-    }
-
     return count;
   }
 
@@ -154,6 +160,82 @@ class Solution {
     }
 
     return dest;
+  }
+
+  private record Pair(int i, int j) {
+
+  }
+}
+
+class Solution2 {
+
+  public int orangesRotting(int[][] grid) {
+    boolean[][] visited = new boolean[grid.length][grid[0].length];
+
+    Queue<Pair> queue = new LinkedList<>();
+    int n = grid.length;
+    int m = grid[0].length;
+
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < m; j++) {
+        if (grid[i][j] == 2) {
+          queue.add(new Pair(i, j));
+          visited[i][j] = true;
+        }
+      }
+    }
+
+    int count = bfs(grid, queue, n, m, visited);
+
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < m; j++) {
+        if (grid[i][j] == 1 && !visited[i][j]) {
+          return -1;
+        }
+      }
+    }
+
+    return count;
+  }
+
+  private int bfs(int[][] grid, Queue<Pair> queue, int n, int m, boolean[][] visited) {
+    int count = 0;
+    while (!queue.isEmpty()) {
+      int size = queue.size();
+
+      // Process all nodes at current level and add their valid adjacent nodes as next level
+      for (int k = 0; k < size; k++) {
+        Pair p = queue.poll();
+        int i = p.i;
+        int j = p.j;
+
+        visit(i - 1, j, n, m, grid, visited, queue); // top
+
+        visit(i, j + 1, n, m, grid, visited, queue); // right
+
+        visit(i + 1, j, n, m, grid, visited, queue); // bottom
+
+        visit(i, j - 1, n, m, grid, visited, queue); // left
+      }
+
+      // If at least 1 valid adjacent node exists, that means it took one min to rotten the eggs at this level
+      if (!queue.isEmpty()) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  private void visit(int i, int j, int n, int m, int[][] grid, boolean[][] visited,
+      Queue<Pair> queue) {
+    if (isValid(i, j, n, m) && grid[i][j] == 1 && !visited[i][j]) {
+      visited[i][j] = true;
+      queue.add(new Pair(i, j));
+    }
+  }
+
+  private boolean isValid(int i, int j, int n, int m) {
+    return i >= 0 && i < n && j >= 0 && j < m;
   }
 
   private record Pair(int i, int j) {
