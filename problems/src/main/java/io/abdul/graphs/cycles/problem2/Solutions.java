@@ -19,7 +19,8 @@ public class Solutions {
 
   public static void main(String[] args) {
 //    Solution sol = new Solution();
-    Solution2 sol = new Solution2();
+//    Solution2 sol = new Solution2();
+    Solution3 sol = new Solution3();
 
     // Example 1: Bipartite graph (square cycle)
     int V1 = 4;
@@ -127,6 +128,7 @@ class Solution {
   public boolean isBipartite(int V, List<List<Integer>> adj) {
     boolean[] visited = new boolean[V];
     int[] colour = new int[V];
+    Arrays.fill(colour, -1);
 
     for (int i = 0; i < V; i++) { // to check all components of the graph
       if (!visited[i]) {
@@ -159,8 +161,13 @@ class Solution {
           if (!visited[adjNode]) {
             visited[adjNode] = true;
             q.add(adjNode);
-          } else if (colour[adjNode] == levelColour) { //and having same colour as 'node'
-            // adjNode may be its parent (no cycle) or non-parent (cycle)
+          } else if (colour[adjNode] == levelColour) {
+            // verify that a processed adjacent node is having same colour as 'node'
+            /*
+            1) In queue, not processed
+            2) Off queue, processed
+            So if Off queue (processed) and colour is same as previous level, then false
+             */
             return false;
           }
         }
@@ -178,6 +185,7 @@ class Solution2 {
   public boolean isBipartite(int V, List<List<Integer>> adj) {
     boolean[] visited = new boolean[V];
     int[] colour = new int[V];
+    Arrays.fill(colour, -1);
 
     for (int i = 0; i < V; i++) {
       if (!visited[i]) {
@@ -203,11 +211,63 @@ class Solution2 {
       for (Integer adjNode : adjNodes) {
         if (!visited[adjNode]) {
           visited[adjNode] = true;
-          colour[adjNode] = 1 - colour[node]; // process while visiting itself, to know state of parent colour
+          // process while visiting itself, to know state of parent colour
+          colour[adjNode] = 1 - colour[node];
           stack.push(adjNode);
         } else if (colour[adjNode] == colour[node]) {
-          return
-              false;
+          // verify that a visited adjacent node is having same colour as 'node'
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+}
+
+class Solution3 {
+
+  public boolean isBipartite(int V, List<List<Integer>> adj) {
+    boolean[] visited = new boolean[V];
+    int[] colour = new int[V];
+    Arrays.fill(colour, -1);
+
+    for (int i = 0; i < V; i++) {
+      if (!visited[i]) {
+        boolean result = dfs(i, adj, visited, colour);
+        if (!result) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  private boolean dfs(int i, List<List<Integer>> adj, boolean[] visited, int[] colour) {
+    Stack<int[]> stack = new Stack<>();
+    stack.push(new int[]{i, 0}); // visit
+    // start with 0 as parent node's colour, so first level will have colour as 1 always
+    visited[i] = true;
+
+    while (!stack.isEmpty()) {
+      int[] nodeData = stack.pop();
+      int node = nodeData[0];
+      int nodeParentColour = nodeData[1];
+      colour[node] = 1 - nodeParentColour; // process
+
+      List<Integer> adjNodes = adj.get(node);
+      for (Integer adjNode : adjNodes) {
+        if (!visited[adjNode]) {
+          visited[adjNode] = true;
+          stack.push(new int[]{adjNode, colour[node]});
+        } else if (colour[adjNode] == colour[node]) {
+          // verify that a processed adjacent node is having same colour as 'node'
+          /*
+          Two possibilities
+          1) In stack and not processed
+          2) Off stack and processed
+          So if Off stack (processed) and colour is same as parent, then stop
+           */
+          return false;
         }
       }
     }
