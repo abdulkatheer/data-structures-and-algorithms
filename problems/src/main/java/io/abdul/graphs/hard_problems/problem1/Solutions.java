@@ -3,7 +3,6 @@ package io.abdul.graphs.hard_problems.problem1;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -154,7 +153,7 @@ class Solution {
       } else {
         stack.pop();
         pathVisited[node] = false;
-        safe[node] = true;
+        safe[node] = true; // instead of adding to toposort, we mark as safe
       }
     }
   }
