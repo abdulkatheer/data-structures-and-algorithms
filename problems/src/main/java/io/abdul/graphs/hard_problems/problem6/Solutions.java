@@ -64,7 +64,7 @@ BFS
  */
 class Solution {
 
-  public static final int MAX_TOTAL_DISTANCE = (int) 1e5;
+//  public static final int MAX_TOTAL_DISTANCE = (int) 1e5;
   // as per problem there can be up to 10^4 nodes only. So adding all will not exceed 10^4.
 
   public int[] shortestPath(int[][] edges, int N, int M) {
@@ -72,16 +72,17 @@ class Solution {
 
     boolean[] visited = new boolean[N];
     int[] shortestPath = new int[N];
-    Arrays.fill(shortestPath, MAX_TOTAL_DISTANCE);
+//    Arrays.fill(shortestPath, MAX_TOTAL_DISTANCE);
+    Arrays.fill(shortestPath, -1);
 
     // only visit nodes which are connected to 0, so we don't need for loop to visit every node
     bfs(0, adjList, visited, shortestPath);
 
-    for (int i = 0; i < shortestPath.length; i++) {
-      if (shortestPath[i] >= MAX_TOTAL_DISTANCE) {
-        shortestPath[i] = -1;
-      }
-    }
+//    for (int i = 0; i < shortestPath.length; i++) {
+//      if (shortestPath[i] >= MAX_TOTAL_DISTANCE) {
+//        shortestPath[i] = -1;
+//      }
+//    }
 
     return shortestPath;
   }
