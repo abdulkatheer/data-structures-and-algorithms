@@ -15,6 +15,8 @@
     <module>algorithms</module>
     <module>data-structure/graph/representation</module>
     <module>algorithms/dynamic-programming</module>
+    <module>recap</module>
+    <module>recap/chapter-02</module>
   </modules>
 
   <properties>
