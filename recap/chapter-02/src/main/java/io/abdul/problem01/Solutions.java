@@ -2,6 +2,7 @@ package io.abdul.problem01;
 
 import java.util.ArrayList;
 
+// tag:math tag:algorithm
 public class Solutions {
 
 }
