@@ -33,13 +33,13 @@ class Solution {
     }
 
     int sqrt = (int) Math.sqrt(num); // A number will be divisible by a prime number <= sqrt(n)
-    for (int i = 6; i <= sqrt; i += 6) {
+    for (int i = 5; i <= sqrt; i += 6) {
       // Prime numbers from 5 onwards are in format 6*k +- 1
       // To check divisibility we only need prime numbers
       // We don't know the prime numbers, but we eliminate the ones which are not definitely prime numbers
-      if (num % (i - 1) == 0) {
+      if (num % (i) == 0) {
         return false;
-      } else if (num % (i + 1) == 0) {
+      } else if (num % (i + 2) == 0) {
         return false;
       }
     }
