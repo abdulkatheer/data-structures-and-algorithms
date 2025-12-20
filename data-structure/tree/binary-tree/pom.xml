@@ -15,6 +15,7 @@
         <module>binary-search-tree</module>
         <module>avl-tree</module>
         <module>red-black-tree</module>
+      <module>segment-tree</module>
     </modules>
 
     <properties>
