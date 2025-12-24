@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.HashMap;
 import java.util.Map;
 
+// https://leetcode.com/problems/most-frequent-prime/
+// tag:math tag:prime tag:matrix
 public class Solutions {
 
   public static void main(String[] args) {

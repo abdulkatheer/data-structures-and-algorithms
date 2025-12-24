@@ -3,6 +3,8 @@ package io.abdul.problem07;
 import java.util.ArrayList;
 import java.util.List;
 
+// https://leetcode.com/problems/prime-subtraction-operation/
+// tag:math tag:prime tag:greedy
 public class Solutions {
 
 }

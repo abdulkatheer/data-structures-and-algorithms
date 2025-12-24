@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 
+// https://leetcode.com/problems/maximum-prime-difference/
+// tag:math tag:prime tag:sieve_of_eratosthenes
 public class Solutions {
 
   public static void main(String[] args) {

@@ -3,6 +3,8 @@ package io.abdul.problem04;
 import java.util.ArrayList;
 import java.util.List;
 
+// https://leetcode.com/problems/smallest-value-after-replacing-with-sum-of-prime-factors/
+// tag:math tag:prime
 public class Solutions {
 
   public static void main(String[] args) {

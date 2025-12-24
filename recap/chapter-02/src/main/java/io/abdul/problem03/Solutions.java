@@ -1,7 +1,7 @@
 package io.abdul.problem03;
 
 // https://leetcode.com/problems/prison-cells-after-n-days/
-// tag:math tag:math_trick
+// tag:math tag:bit_manipulation
 public class Solutions {
 
 }

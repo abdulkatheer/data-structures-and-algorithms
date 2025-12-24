@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Assertions;
 
 // https://leetcode.com/problems/maximum-number-that-sum-of-the-prices-is-less-than-or-equal-to-k
-// tag:math tag:binary_search tag:binary_search_on_answer
+// tag:math tag:bit_manipulation tag:binary_search tag:binary_search_on_answer
 public class Solutions {
 
   public static void main(String[] args) {

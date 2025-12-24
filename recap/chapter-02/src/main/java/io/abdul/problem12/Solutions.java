@@ -2,6 +2,8 @@ package io.abdul.problem12;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// https://leetcode.com/problems/sum-of-largest-prime-substrings/
+// tag:math tag:prime tag:string
 public class Solutions {
 
   public static void main(String[] args) {

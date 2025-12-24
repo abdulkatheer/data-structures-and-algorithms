@@ -1,7 +1,7 @@
 package io.abdul.problem02;
 
 // https://leetcode.com/problems/prime-palindrome/
-// tag:math tag:math_trick
+// tag:math tag:prime
 public class Solutions {
 
 }

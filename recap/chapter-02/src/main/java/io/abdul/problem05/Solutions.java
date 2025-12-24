@@ -2,6 +2,8 @@ package io.abdul.problem05;
 
 import java.util.HashSet;
 
+// https://leetcode.com/problems/distinct-prime-factors-of-product-of-array/
+// tag:math tag:prime
 public class Solutions {
 
 }

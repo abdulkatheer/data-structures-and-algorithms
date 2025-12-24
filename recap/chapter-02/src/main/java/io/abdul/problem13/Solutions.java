@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.TreeSet;
 
+// https://leetcode.com/problems/maximize-count-of-distinct-primes-after-split/
+// tag:math tag:prime tag:sieve_of_eratosthenes tag:segment_tree tag:segment_tree_lazy_propagation
 public class Solutions {
 
 }

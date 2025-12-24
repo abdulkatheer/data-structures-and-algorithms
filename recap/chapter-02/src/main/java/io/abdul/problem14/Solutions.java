@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.TreeMap;
 
 // https://leetcode.com/problems/count-prime-gap-balanced-subarrays/
-// tag:math tag:sieve_of_eratosthenes tag:sliding_window
+// tag:math tag:sieve_of_eratosthenes tag:sliding_window tag:sorted_map
 public class Solutions {
 
   public static void main(String[] args) {

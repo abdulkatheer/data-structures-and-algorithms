@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// https://leetcode.com/problems/closest-prime-numbers-in-range/
+// tag:math tag:prime
 public class Solutions {
 
   public static void main(String[] args) {

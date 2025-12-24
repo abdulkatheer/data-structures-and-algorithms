@@ -3,6 +3,8 @@ package io.abdul.problem08;
 import java.util.ArrayList;
 import java.util.List;
 
+// https://leetcode.com/problems/prime-pairs-with-target-sum/
+// tag:math tag:prime tag:sieve_of_eratosthenes
 public class Solutions {
 
 }
