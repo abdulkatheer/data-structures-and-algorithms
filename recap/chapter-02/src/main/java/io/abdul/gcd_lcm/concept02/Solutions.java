@@ -38,9 +38,22 @@ class Solution {
     int x1 = result[1];
     int y1 = result[2];
 
-    // reversal of b, a%b
-    // b as a -> y as x
-    // a as a%b -> x as a/b * y
+    /*
+    b * x1 + (a % b) * y1 = gcd -- (1)
+
+    Since, a = ( b * floor(a/b) ) + a % b
+    a % b = a - ( b * floor(a/b) ) -- (2)
+
+    Sub (2) in (1)
+    b * x1 + ( a - ( b * floor(a/b) ) ) * y1 = gcd -- (3)
+    b * x1 + a * y1 - ( b * floor(a/b) ) * y1 = gcd -- (4)
+
+    Group a and b terms
+    a * y1 + b * (x1 - floor(a/b) * y1) = gcd -- (5)
+
+    Compare with required form: a * x + b * y = gcd
+    Hence, x = y1 and y = x1 - floor(a/b) * y1
+     */
     int x = y1;
     int y = x1 - (a / b) * y1;
 
@@ -57,15 +70,22 @@ Solve ax = 1 mod m
 
 Using Extended Euclidean Algorithm
 
-a*x = 1 mod m
-
 Inverse exists only if gcd(a,m) = 1
 
-a*x = k*m + 1
-a*x - k*m = 1
-ax + by = 1
+gcd(a,m) = 1
+ax + my = 1 -- (1)
 
-x is a^-1
+Apply mod m
+ax mod m + my mod m = 1 mod m -- (2)
+my mod m = 0 -- (3)
+
+Sub (3) in (2)
+ax mod m = 1 mod m -- (4)
+
+a * a^-1 = 1 mod m -- (5)
+
+Compare (4) and (5)
+x = a^-1 -- (6)
  */
 class ModularInverse {
 
