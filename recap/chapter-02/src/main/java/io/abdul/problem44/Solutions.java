@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 
+// https://leetcode.com/problems/perfect-squares/
+// tag:math tag:recursion tag:dynamic_programming
 public class Solutions {
 
   public static void main(String[] args) {
@@ -133,11 +135,11 @@ class Solution4 {
     }
 
     // Case 3 & 4:
-    // The result is 4 if and only if n can be written in the form of 4^k*(8*m + 7).
+    // The result is 4 if and only if n can be written in the form of 4^a*(8*b + 7).
     // Please refer to Legendre's three-square theorem.
-    while ((n & 3) == 0) // n%4 == 0
+    while ((n & 3) == 0) // n%4 == 0 ; dropping 4^a
     {
-      n >>= 2;
+      n >>= 2; // n / 2^2 = n/4
     }
     if ((n & 7) == 7) // n%8 == 7
     {
