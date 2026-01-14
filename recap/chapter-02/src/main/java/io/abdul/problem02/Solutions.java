@@ -1,9 +1,17 @@
 package io.abdul.problem02;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Assertions;
+
 // https://leetcode.com/problems/prime-palindrome/
 // tag:math tag:prime
 public class Solutions {
 
+  public static void main(String[] args) {
+    Solution4 solution = new Solution4();
+    assertEquals(10301, solution.primePalindrome(10300));
+  }
 }
 
 // ERROR: TLE
@@ -185,6 +193,78 @@ class Solution3 {
     int sqrt = (int) Math.sqrt(n);
     for (int i = 2; i <= sqrt; i++) {
       if (n % i == 0) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+}
+
+/*
+All even digit primes except 11 are not palindrome, so skip
+
+12 to 100
+1000 to 100000
+100000 to 1000000
+10000000 to 100000000
+
+*/
+class Solution4 {
+
+  public int primePalindrome(int n) {
+    int max = 2 * (int) 1e8;
+
+    while (n <= max) {
+      if (n >= 12 && n < 100) {
+        n = 100;
+      } else if (n >= 1000 && n < 10000) {
+        n = 10000;
+      } else if (n >= 100000 && n < 1000000) {
+        n = 1000000;
+      } else if (n >= 10000000 && n < 100000000) {
+        n = 100000000;
+      } else {
+        if (isPrime(n) && n == reverse(n)) {
+          return n;
+        }
+        n++;
+      }
+    }
+
+    return -1;
+  }
+
+  private int reverse(int num) {
+    int rev = 0;
+    while (num != 0) {
+      int digit = num % 10;
+      rev = digit + rev * 10;
+      num /= 10;
+    }
+
+    return rev;
+  }
+
+  private boolean isPrime(int num) {
+    if (num <= 1) {
+      return false;
+    }
+
+    if (num <= 3) {
+      return true;
+    }
+
+    if (num % 2 == 0 || num % 3 == 0) {
+      return false;
+    }
+
+    int sqrt = (int) Math.sqrt(num);
+    for (int i = 5; i <= sqrt; i += 6) {
+      if (num % i == 0) {
+        return false;
+      }
+      if (num % (i + 2) == 0) {
         return false;
       }
     }
