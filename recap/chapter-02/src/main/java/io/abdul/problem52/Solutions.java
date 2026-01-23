@@ -22,7 +22,10 @@ class Solution {
   So let's take order by order
   we've 2n slots in total.
 
-  Let's say n = 2
+  Let's say n = 2, total permutations 2n * 2n-1
+  Meaning, we've 2n total items, and they can be placed in any of 2n slots and
+  the other pair can be placed in any of the remaining slots (2n-1)
+
   Slots _ _ _ _
 
   2nd order

@@ -108,7 +108,7 @@ n=5, r=4 => 5x4x3x2x1 / (1x2x3x4) x (1) => 2x1 in cancelled => 5x4x3x2 / (1x2x3x
 n=5, r=5 => 5x4x3x2x1 / (1x2x3x4x5) x (1) -> x 1 and / 5
 
 So we keep multiplying the numerator from 5 to 1
-and the denomicator from 1 to 5 so that the division happens without overflow
+and the denominator from 1 to 5 so that the division happens without overflow
 for ex: 5C1
 combination = 1 --
 1 * 5 = 5
