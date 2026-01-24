@@ -3,7 +3,7 @@ package io.abdul.problem54;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // https://leetcode.com/problems/minimum-number-of-operations-to-make-string-sorted/
-// tag:math tag:string
+// tag:math tag:string tag:top_1p
 public class Solutions {
 
   public static void main(String[] args) {

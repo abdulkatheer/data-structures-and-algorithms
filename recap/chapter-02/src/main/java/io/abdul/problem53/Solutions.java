@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 // https://leetcode.com/problems/count-ways-to-make-array-with-product/
-// tag:math tag:dynamic_programming
+// tag:math tag:dynamic_programming tag:top_1p
 public class Solutions {
 
   public static void main(String[] args) {
