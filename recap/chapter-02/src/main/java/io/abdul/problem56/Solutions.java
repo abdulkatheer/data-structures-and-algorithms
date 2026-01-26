@@ -1,5 +1,7 @@
 package io.abdul.problem56;
 
+// https://leetcode.com/problems/unique-binary-search-trees/
+// tag:math tag:recursion tag:dynamic_programming tag:catalan_numbers
 public class Solutions {
 
 }
@@ -259,5 +261,38 @@ class Solution6 {
     }
 
     return dp[n];
+  }
+}
+
+/*
+Catalan Numbers
+This is in form C_k * C_n-k for k=1 to n
+
+Binomial Coefficient formulat
+C_n = 2n C n / (n+1)
+2n Choosen n divided by n+1
+
+2n C n = 2n!/n! * (2n-n)! = 2n!/n!n!
+2n! = 2n * 2n-1 * 2n-2 * 2n-3 ... * 2n-n+1 (=n+1) * 2n-n (=n) * n-1 * n-2 * n-3 * ... 1
+2n-n (=n) * n-1 * n-2 * n-3 * ... 1 = n!
+So 2n! = 2n * 2n-1 * 2n-2 * 2n-3 ... * n+1 * n!
+
+2n!/n!n! = 2n * 2n-1 * 2n-2 * 2n-3 ... * 2n-n-1 * n! / n!n!
+n! cancels
+=2n * 2n-1 * 2n-2 * 2n-3 ... * n+1 / n!
+
+2n C n= 2n/1 * 2n-1/2 * 2n-2/3 * ... n+1/n
+
+*/
+class Solution7 {
+  public int numTrees(int n) {
+    // Find C(2n, n)
+    long result = 1;
+    for (int i = 0; i < n; i++) {
+      result = result * (2 * n - i) / (i+1);
+    }
+
+    // C(2n, n) /
+    return (int) (result / (n+1));
   }
 }
