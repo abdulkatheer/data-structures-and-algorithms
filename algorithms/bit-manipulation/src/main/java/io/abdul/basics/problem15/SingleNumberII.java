@@ -5,18 +5,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SingleNumberII {
-    public static void main(String[] args) {
+
+  public static void main(String[] args) {
 //        Solution solution = new Solution();
 //        Solution2 solution = new Solution2();
 //        Solution3 solution = new Solution3();
-        Solution4 solution = new Solution4();
-        System.out.println(solution.singleNumber(new int[]{2, 2, 2, 3}));
-        System.out.println(solution.singleNumber(new int[]{1, 0, 3, 0, 1, 1, 3, 3, 10, 0}));
-        System.out.println(solution.singleNumber(new int[]{5, 0, 1, 10, 1, 1, 5, 5, 10, 10}));
-        System.out.println(solution.singleNumber(new int[]{-2, -2, -2, -3}));
-        System.out.println(solution.singleNumber(new int[]{-1, 0, -3, 0, -1, -1, -3, -3, -10, 0}));
-        System.out.println(solution.singleNumber(new int[]{-5, 0, -1, -10, -1, -1, -5, -5, -10, -10}));
-    }
+    Solution4 solution = new Solution4();
+    System.out.println(solution.singleNumber(new int[]{2, 2, 2, 3}));
+    System.out.println(solution.singleNumber(new int[]{1, 0, 3, 0, 1, 1, 3, 3, 10, 0}));
+    System.out.println(solution.singleNumber(new int[]{5, 0, 1, 10, 1, 1, 5, 5, 10, 10}));
+    System.out.println(solution.singleNumber(new int[]{-2, -2, -2, -3}));
+    System.out.println(solution.singleNumber(new int[]{-1, 0, -3, 0, -1, -1, -3, -3, -10, 0}));
+    System.out.println(solution.singleNumber(new int[]{-5, 0, -1, -10, -1, -1, -5, -5, -10, -10}));
+  }
 }
 
 /*
@@ -25,22 +26,23 @@ T - O(n)
 S - O(n)
  */
 class Solution {
-    public int singleNumber(int[] nums) {
-        HashMap<Integer, Integer> countByNum = new HashMap<>();
 
-        for (int num : nums) {
-            Integer count = countByNum.getOrDefault(num, 0);
-            countByNum.put(num, count + 1);
-        }
+  public int singleNumber(int[] nums) {
+    HashMap<Integer, Integer> countByNum = new HashMap<>();
 
-        for (Map.Entry<Integer, Integer> countEntry : countByNum.entrySet()) {
-            if (countEntry.getValue() == 1) {
-                return countEntry.getKey();
-            }
-        }
-
-        return -1;
+    for (int num : nums) {
+      Integer count = countByNum.getOrDefault(num, 0);
+      countByNum.put(num, count + 1);
     }
+
+    for (Map.Entry<Integer, Integer> countEntry : countByNum.entrySet()) {
+      if (countEntry.getValue() == 1) {
+        return countEntry.getKey();
+      }
+    }
+
+    return -1;
+  }
 }
 
 /*
@@ -49,25 +51,26 @@ T - O(n logn)
 S - O(1)
  */
 class Solution2 {
-    public int singleNumber(int[] nums) {
-        Arrays.sort(nums);
 
-        boolean found = false;
-        int num = -1;
-        for (int i = 2; i < nums.length; i += 3) {
-            if (nums[i - 1] != nums[i - 2]) {
-                num = nums[i - 2];
-                found = true;
-                break;
-            }
-        }
+  public int singleNumber(int[] nums) {
+    Arrays.sort(nums);
 
-        if (!found) {
-            num = nums[nums.length - 1];
-        }
-
-        return num;
+    boolean found = false;
+    int num = -1;
+    for (int i = 2; i < nums.length; i += 3) {
+      if (nums[i - 1] != nums[i - 2]) {
+        num = nums[i - 2];
+        found = true;
+        break;
+      }
     }
+
+    if (!found) {
+      num = nums[nums.length - 1];
+    }
+
+    return num;
+  }
 }
 
 /*
@@ -90,22 +93,23 @@ The extra number will add one to its bits count, so those bit counts will not be
 0 0 1 1 -> unique number
  */
 class Solution3 {
-    public int singleNumber(int[] nums) {
-        int result = 0;
-        for (int i = 0; i < 32; i++) {
-            int bitCount = 0;
-            for (int num : nums) {
-                if ((num >> i & 1) == 1) { // i-th bit set
-                    bitCount++;
-                }
-            }
 
-            if (bitCount % 3 != 0) { // bit is part of the result
-                result |= 1 << i; // set i-th bit in result
-            }
+  public int singleNumber(int[] nums) {
+    int result = 0;
+    for (int i = 0; i < 32; i++) {
+      int bitCount = 0;
+      for (int num : nums) {
+        if ((num >> i & 1) == 1) { // i-th bit set
+          bitCount++;
         }
-        return result;
+      }
+
+      if (bitCount % 3 != 0) { // bit is part of the result
+        result |= 1 << i; // set i-th bit in result
+      }
     }
+    return result;
+  }
 }
 
 /*
@@ -139,14 +143,15 @@ once = (0 ^ 0001) & (~1) = (0001) & (0000) = 0
 twice = (1 ^ 0001) & (~0) = 0000 & 0000 = 0
  */
 class Solution4 {
-    public int singleNumber(int[] nums) {
-        int once = 0;
-        int twice = 0;
-        for (int num : nums) {
-            once = (once ^ num) & (~twice); // Add to once if not exists in twice
-            twice = (twice ^ num) & (~once); // Add to twice if not exists in once.
-        }
 
-        return once; // bits appeared once
+  public int singleNumber(int[] nums) {
+    int once = 0;
+    int twice = 0;
+    for (int num : nums) {
+      once = (once ^ num) & (~twice); // Add to once if not exists in twice
+      twice = (twice ^ num) & (~once); // Add to twice if not exists in once.
     }
+
+    return once; // bits appeared once
+  }
 }
